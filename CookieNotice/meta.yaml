@@ -1,0 +1,6 @@
+name: 'Cookie Notice'
+version: '1.0'
+description: 'Displays a cookie notice'
+developer: 'Duncan McClean'
+developer_url: 'http://duncan.mcclean.co.uk'
+commercial: true
