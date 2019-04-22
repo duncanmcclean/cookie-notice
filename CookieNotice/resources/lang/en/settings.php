@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'styles' => 'Override Styles?'
+    'styles' => 'Override Styles?',
+    'text' => 'Notice text'
 ];

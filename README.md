@@ -16,11 +16,11 @@ In the footer of your layout, insert the Cookie Notice tag.
 {{ cookie_notice }}
 ```
 
-## Override styles
+## Settings
 
-If you wish to use your own styles:
+If you wish to customise the text of the notice or turn off our default styles, you can do that in the Addon settings.
 
 * Go to the Control Panel
 * Go to the Addons page
 * Click on the 'Cookie Notice' addon.
-* Toggle the 'Override Styles' option and save.
+* Make changes

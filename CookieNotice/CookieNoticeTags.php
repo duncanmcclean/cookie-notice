@@ -9,6 +9,7 @@ class CookieNoticeTags extends Tags
     public function __construct()
     {
         $this->styles = $this->getConfig('styles', false);
+        $this->text = $this->getConfig('text', 'In order to use this website, you must accept cookies.');
     }
 
     public function index()
@@ -16,7 +17,7 @@ class CookieNoticeTags extends Tags
         $html = "<!-- Start of Cookie Notice addon -->
                 <div id=\"notice\" class=\"cookie-notice\">
                     <div class=\"cookie-notice-container\">
-                        <p class=\"cookie-notice-text\">In order to use this website, you must accept cookies.</p>
+                        <p class=\"cookie-notice-text\">" . $this->text . "</p>
                         <div class=\"cookie-notice-buttons\">
                             <button class=\"cookie-notice-button\" id=\"accept\">Accept</button>
                         </div>

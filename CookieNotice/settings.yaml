@@ -1,3 +1,5 @@
 fields:
   styles:
     type: toggle
+  text:
+    type: text
