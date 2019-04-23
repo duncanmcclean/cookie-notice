@@ -18,9 +18,10 @@ In the footer of your layout, insert the Cookie Notice tag.
 
 ## Settings
 
-If you wish to customise the text of the notice or turn off our default styles, you can do that in the Addon settings.
+You can update your Settings in the Addons section of the Control Panel.
 
-* Go to the Control Panel
-* Go to the Addons page
-* Click on the 'Cookie Notice' addon.
-* Make changes
+### Override Styles
+We provide a toggle so you can enable or disable our default styles. They are enabled by default.
+
+### Notice text
+You can change the notice text to whatever you want. We provide one out of the box.
