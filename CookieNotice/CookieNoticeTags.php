@@ -57,12 +57,16 @@ class CookieNoticeTags extends Tags
         
         $js = "<script>
                 function acceptCookie() {
-                    document.cookie = \"cookienotice=accepted;\";
-                    checkCookie()
+                    var date = new Date();
+                    date.setTime(date.getTime() + (90*24*60*60*1000));
+                    var expires = \"expires=\"+date.toUTCString();
+
+                    document.cookie = \"cookieNotice\" + \"=\" + \"accepted\" + \"; \" + expires;
+                    checkCookie();
                 }
 
                 function checkCookie() {
-                    if (document.cookie.indexOf('cookienotice') != -1) {
+                    if (document.cookie.indexOf('cookieNotice') != -1) {
                         document.getElementById('notice').innerHTML = '';
                     }
                 }
