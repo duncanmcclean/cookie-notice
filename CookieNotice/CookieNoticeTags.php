@@ -75,10 +75,10 @@ class CookieNoticeTags extends Tags
             </script>
             <!-- End of Cookie Notice addon -->";
 
-            if($this->styles === true) {
-                return $html . $js;
-            } else {
-                return $html . $css . $js;
-            }
+        if($this->styles === true) {
+            return $html . $js;
+        } else {
+            return $html . $css . $js;
+        }
     }
 }
