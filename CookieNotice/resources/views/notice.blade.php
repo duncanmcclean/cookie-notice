@@ -1,7 +1,7 @@
 <!-- Start of Cookie Notice addon -->
 <div id="notice" class="cookie-notice">
     <div class="cookie-notice-container">
-        <p class="cookie-notice-text">{{ $text }}</p>
+        <p class="cookie-notice-text">{!! $text !!}</p>
         <div class="cookie-notice-buttons">
             <button class="cookie-notice-button" id="accept">Accept</button>
         </div>
