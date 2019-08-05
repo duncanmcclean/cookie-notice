@@ -68,7 +68,7 @@
             return !window.external.msTrackingProtectionEnabled()
         }
 
-        return true
+        return true;
     };
 
     // Accept cookies button
