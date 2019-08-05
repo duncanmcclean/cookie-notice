@@ -44,7 +44,6 @@
 @endif
 
 <script>
-    // On page load, show if the user has not accepted the cookie notice
     document.addEventListener("DOMContentLoaded", function(event) {
         var cookie = document.cookie.indexOf('cookie-notice');
 
@@ -53,7 +52,6 @@
         }
     });
 
-    // Don't run external scripts until user accepts cookies
     const allowsTracking = () => {
         const dnt =
             window.doNotTrack ||
@@ -71,7 +69,6 @@
         return true;
     };
 
-    // Accept cookies button
     function cookieNoticeAccept() {
         var date = new Date();
         date.setTime(date.getTime() + (90*24*60*60*1000));
