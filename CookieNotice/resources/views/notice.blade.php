@@ -78,6 +78,8 @@
         var expires = "expires=" + date.toUTCString();
         document.cookie = "cookie-notice" + "=" + "accepted" + "; " + expires;
 
+        window.doNotTrack = true;
+
         document.getElementById('notice').setAttribute('style', 'display: none;');
     }
 </script>
