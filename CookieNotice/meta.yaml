@@ -1,6 +1,6 @@
 name: 'Cookie Notice'
-version: '1.3'
-description: 'Displays a cookie notice'
+version: '1.4'
+description: 'Display a Cookie Notice on your Statamic site'
 developer: 'Duncan McClean'
 developer_url: 'http://duncan.mcclean.co.uk'
 commercial: true
