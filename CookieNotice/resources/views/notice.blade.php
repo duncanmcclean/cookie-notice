@@ -1,4 +1,3 @@
-<!-- Start of Cookie Notice addon -->
 <div id="notice" class="cookie-notice">
     <div class="cookie-notice-container">
         <p class="cookie-notice-text">{!! $text !!}</p>
@@ -66,4 +65,3 @@
 
     document.getElementById('accept').onclick = acceptCookie;
 </script>
-<!-- End of Cookie Notice addon -->
