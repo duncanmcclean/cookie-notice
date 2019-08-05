@@ -3,3 +3,9 @@ fields:
     type: toggle
   text:
     type: textarea
+  location:
+    options:
+      bottom: 'Bottom of Screen'
+      top: 'Top of Screen'
+    type: select
+    default: bottom

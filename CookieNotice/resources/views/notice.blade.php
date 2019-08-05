@@ -11,7 +11,11 @@
 <style>
     .cookie-notice {
         background-color: #ffffff;
+        @if($location === "bottom")
         bottom: 0px;
+        @else
+        top: 0px;
+        @endif
         left: 0px;
         right: 0px;
         position: fixed;
