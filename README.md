@@ -1,27 +1,10 @@
 # Cookie Notice
+> Display a Cookie Notice on your Statamic site
 
-Displays a cookie notice at the bottom of your site.
+* Customisable message
+* Use your own CSS (if you want)
+* Do Not Track support
+* Choose from location on screen (Top or Bottom)
 
-## Installation
-
-1. Download this addon
-2. Copy the `CookieNotice` directory to your site's addons directory
-3. Follow usage instructions
-
-## Usage
-
-In the footer of your layout, insert the Cookie Notice tag.
-
-```
-{{ cookie_notice }}
-```
-
-## Settings
-
-You can update your Settings in the Addons section of the Control Panel.
-
-### Override Styles
-We provide a toggle so you can enable or disable our default styles. They are enabled by default.
-
-### Notice text
-You can change the notice text to whatever you want. We provide one out of the box.
+## 📄 Documentation
+Read the docs on the [Statamic Marketplace](https://statamic.com/marketplace/addons/cookie-notice/docs) or [make changes](https://github.com/damcclean/statamic-cookie-notice/blob/master/DOCUMENTATION.md) to it on Github.

@@ -9,14 +9,16 @@ class CookieNoticeTags extends Tags
     public function __construct()
     {
         $this->styles = $this->getConfig('styles', false);
-        $this->text = $this->getConfig('text', 'In order to use this website, you must accept cookies.');
+        $this->text = $this->getConfig('text', 'This website uses cookies to give you the best user experience.');
+        $this->location = $this->getConfig('location', 'bottom');
     }
 
     public function index()
     {
         return $this->view('notice', [
             'text' => $this->text,
-            'styles' => $this->styles
+            'styles' => $this->styles,
+            'location' => $this->location
         ]);
     }
 }

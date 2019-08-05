@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'styles' => 'Override Styles?',
-    'text' => 'Notice text'
+    'styles' => 'Use your own styles',
+    'text' => 'Custom Notice Text',
+    'location' => 'Location'
 ];

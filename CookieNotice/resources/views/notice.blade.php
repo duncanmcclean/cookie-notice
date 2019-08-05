@@ -1,9 +1,8 @@
-<!-- Start of Cookie Notice addon -->
-<div id="notice" class="cookie-notice">
+<div id="notice" class="cookie-notice" style="display: none;">
     <div class="cookie-notice-container">
         <p class="cookie-notice-text">{!! $text !!}</p>
         <div class="cookie-notice-buttons">
-            <button class="cookie-notice-button" id="accept">Accept</button>
+            <button class="cookie-notice-accept" onclick="cookieNoticeAccept()">Accept</button>
         </div>
     </div>
 </div>
@@ -12,7 +11,11 @@
 <style>
     .cookie-notice {
         background-color: #ffffff;
+        @if($location === "bottom")
         bottom: 0px;
+        @else
+        top: 0px;
+        @endif
         left: 0px;
         right: 0px;
         position: fixed;
@@ -29,7 +32,7 @@
         align-items: center;
     }
 
-    .cookie-notice-button {
+    .cookie-notice-accept {
         background-color: #3490DC;
         text-align: center;
         color: white;
@@ -38,32 +41,46 @@
         border-radius: 5px;
     }
 
-    .cookie-notice-button:hover {
+    .cookie-notice-accept:hover {
         background-color: #6CB2EB;
     }
 </style>
 @endif
 
 <script>
-    function acceptCookie() {
-        var date = new Date();
-        date.setTime(date.getTime() + (90*24*60*60*1000));
-        var expires = "expires="+date.toUTCString();
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var cookie = document.cookie.indexOf('cookie-notice');
 
-        document.cookie = "cookieNotice" + "=" + "accepted" + "; " + expires;
-        checkCookie();
-    }
-
-    function checkCookie() {
-        if (document.cookie.indexOf('cookieNotice') != -1) {
-            document.getElementById('notice').innerHTML = '';
+        if (cookie != 0) {
+            document.getElementById('notice').removeAttribute('style');
         }
-    }
-
-    document.addEventListener("DOMContentLoaded", function(event) { 
-        checkCookie()
     });
 
-    document.getElementById('accept').onclick = acceptCookie;
+    const allowsTracking = () => {
+        const dnt =
+            window.doNotTrack ||
+            navigator.doNotTrack ||
+            navigator.msDoNotTrack;
+
+        if (dnt === 1 || dnt === '1' || dnt === 'yes') {
+            return false
+        }
+
+        if ('msTrackingProtectionEnabled' in window.external) {
+            return !window.external.msTrackingProtectionEnabled()
+        }
+
+        return true;
+    };
+
+    function cookieNoticeAccept() {
+        var date = new Date();
+        date.setTime(date.getTime() + (90*24*60*60*1000));
+        var expires = "expires=" + date.toUTCString();
+        document.cookie = "cookie-notice" + "=" + "accepted" + "; " + expires;
+
+        window.doNotTrack = true;
+
+        document.getElementById('notice').setAttribute('style', 'display: none;');
+    }
 </script>
-<!-- End of Cookie Notice addon -->
