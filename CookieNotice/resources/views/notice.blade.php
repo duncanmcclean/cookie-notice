@@ -48,8 +48,10 @@
 @endif
 
 <script>
+    var cookieNoticeName = 'cookie-notice-{{ COOKIE_NOTICE_VERSION }}';
+
     document.addEventListener("DOMContentLoaded", function(event) {
-        var cookie = document.cookie.indexOf('cookie-notice');
+        var cookie = document.cookie.indexOf(cookieNoticeName);
 
         if (cookie != 0) {
             document.getElementById('notice').removeAttribute('style');
@@ -77,7 +79,7 @@
         var date = new Date();
         date.setTime(date.getTime() + (90*24*60*60*1000));
         var expires = "expires=" + date.toUTCString();
-        document.cookie = "cookie-notice" + "=" + "accepted" + "; " + expires;
+        document.cookie = cookieNoticeName + "=" + "accepted" + "; " + expires;
 
         window.doNotTrack = true;
 
