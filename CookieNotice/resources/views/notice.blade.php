@@ -3,6 +3,10 @@
         <p class="cookie-notice-text">{!! $text !!}</p>
         <div class="cookie-notice-buttons">
             <button class="cookie-notice-accept" onclick="cookieNoticeAccept()">Accept</button>
+
+            @if($dontAccept === true)
+                <a class="cookie-notice-do-not-accept" href="https://google.com">Don't accept</a>
+            @endif
         </div>
     </div>
 </div>
@@ -43,6 +47,10 @@
 
     .cookie-notice-accept:hover {
         background-color: #6CB2EB;
+    }
+
+    .cookie-notice-do-not-accept {
+
     }
 </style>
 @endif

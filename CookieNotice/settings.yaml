@@ -9,3 +9,5 @@ fields:
       top: 'Top of Screen'
     type: select
     default: bottom
+  dont-accept:
+    type: toggle

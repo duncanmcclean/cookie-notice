@@ -11,6 +11,7 @@ class CookieNoticeTags extends Tags
         $this->styles = $this->getConfig('styles', false);
         $this->text = $this->getConfig('text', 'This website uses cookies to give you the best user experience.');
         $this->location = $this->getConfig('location', 'bottom');
+        $this->dontAccept = $this->getConfig('dont-accept', true);
 
         define('COOKIE_NOTICE_VERSION', 1.5);
     }
@@ -20,7 +21,8 @@ class CookieNoticeTags extends Tags
         return $this->view('notice', [
             'text' => $this->text,
             'styles' => $this->styles,
-            'location' => $this->location
+            'location' => $this->location,
+            'dontAccept' => $this->dontAccept
         ]);
     }
 }
