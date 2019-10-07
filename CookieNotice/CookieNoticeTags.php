@@ -24,7 +24,7 @@ class CookieNoticeTags extends Tags
             'styles' => $this->styles,
             'location' => $this->location,
             'dontAccept' => $this->dontAccept,
-            'cookieName' => $this->cookieName
+            'cookieName' => $this->cookieName,
         ]);
     }
 }
