@@ -56,7 +56,7 @@
 @endif
 
 <script>
-    var cookieNoticeName = 'cookie-notice-{{ COOKIE_NOTICE_VERSION }}';
+    var cookieNoticeName = '{{ $cookieName }}';
 
     document.addEventListener("DOMContentLoaded", function(event) {
         var cookie = document.cookie.indexOf(cookieNoticeName);

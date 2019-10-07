@@ -11,3 +11,5 @@ fields:
     default: bottom
   dont-accept:
     type: toggle
+  cookie-name:
+    type: text
