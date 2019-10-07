@@ -1,11 +1,15 @@
 ---
 name: Feature Request
 about: If you have a feature request, please add it here!
-title: ''
+title: "✨"
 labels: enhancement
 assignees: damcclean
-
 ---
+
+<!--
+    Please make sure to fill in all the fields, if appropriate.
+    This helps us understand the feature you are requesting.
+-->
 
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]

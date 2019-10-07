@@ -1,14 +1,14 @@
 ---
 name: Bug Report
 about: If you've found a bug, please report it here!
-title: "[BUG]"
+title: "🐛"
 labels: bug
 assignees: damcclean
-
 ---
 
 <!--
-Please fill in all the fields so we can try and fix the bug!
+    Please make sure to fill in all the fields, if appropriate.
+    This helps us understand the bug you're reporting.
 -->
 
 **Describe the bug**
