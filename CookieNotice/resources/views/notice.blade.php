@@ -1,96 +1,101 @@
-<div id="notice" class="cookie-notice" style="display: none;">
+<div class="cookie-notice">
     <div class="cookie-notice-container">
-        <p class="cookie-notice-text">{!! $text !!}</p>
-        <div class="cookie-notice-buttons">
-            <button class="cookie-notice-accept" onclick="cookieNoticeAccept()">Accept</button>
+      <span class="cookie-notice-message">
+        {!! $noticeText !!}
+    </span>
 
-            @if($dontAccept === true)
-                <a class="cookie-notice-do-not-accept" href="https://google.com">Don't accept</a>
-            @endif
-        </div>
-    </div>
+    <button class="cookie-notice-button">
+        Allow cookies
+    </button>
+  </div>
 </div>
 
-@if($styles != true)
-<style>
-    .cookie-notice {
-        background-color: #ffffff;
-        @if($location === "bottom")
-        bottom: 0px;
-        @else
-        top: 0px;
-        @endif
-        left: 0px;
-        right: 0px;
-        position: fixed;
-        padding: 4px;
-        font-family: sans-serif;
-    }
+@if($noticeStyles === false)
+    <style>
+        .cookie-notice {
+            position: fixed;
+            @if($noticeLocation === 'bottom')
+                bottom: 0px;
+            @else
+                top: 0px;
+            @endif
+            width: 100%;
+            background-color: #4A5568;
+            padding: 1rem;
+        }
 
-    .cookie-notice-container {
-        width: 60%;
-        margin: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .cookie-notice .cookie-notice-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .cookie-notice-accept {
-        background-color: #3490DC;
-        text-align: center;
-        color: white;
-        padding: 5px;
-        margin: 2px;
-        border-radius: 5px;
-    }
+        .cookie-notice .cookie-notice-message {
+            color: #ffffff;
+            font-weight: 600;
+        }
 
-    .cookie-notice-accept:hover {
-        background-color: #6CB2EB;
-    }
+        .cookie-notice .cookie-notice-button {
+            border: none;
+            background-color: #A0AEC0;
+            padding: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-weight: 800;
+        }
 
-    .cookie-notice-do-not-accept {
-
-    }
-</style>
+        .cookie-notice .cookie-notice-button:hover {
+            background-color: #718096;
+        }
+    </style>
 @endif
 
 <script>
-    var cookieNoticeName = '{{ $cookieName }}';
+    window.cookieNotice = (function () {
+        const COOKIE_VALUE = 1;
+        const COOKIE_DOMAIN = '{{ $domainName }}';
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var cookie = document.cookie.indexOf(cookieNoticeName);
-
-        if (cookie != 0) {
-            document.getElementById('notice').removeAttribute('style');
-        }
-    });
-
-    const allowsTracking = () => {
-        const dnt =
-            window.doNotTrack ||
-            navigator.doNotTrack ||
-            navigator.msDoNotTrack;
-
-        if (dnt === 1 || dnt === '1' || dnt === 'yes') {
-            return false
+        function consentWithCookies() {
+            setCookie('{{ $cookieName }}', COOKIE_VALUE, '365 * 20');
+            hideCookieDialog();
         }
 
-        if ('msTrackingProtectionEnabled' in window.external) {
-            return !window.external.msTrackingProtectionEnabled()
+        function cookieExists(name) {
+            return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
         }
 
-        return true;
-    };
+        function hideCookieDialog() {
+            const dialogs = document.getElementsByClassName('cookie-notice');
 
-    function cookieNoticeAccept() {
-        var date = new Date();
-        date.setTime(date.getTime() + (90*24*60*60*1000));
-        var expires = "expires=" + date.toUTCString();
-        document.cookie = cookieNoticeName + "=" + "accepted" + "; " + expires;
+            for (let i = 0; i < dialogs.length; ++i) {
+                dialogs[i].style.display = 'none';
+            }
+        }
 
-        window.doNotTrack = true;
+        function setCookie(name, value, expirationInDays) {
+            const date = new Date();
+            date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
 
-        document.getElementById('notice').setAttribute('style', 'display: none;');
-    }
+            document.cookie = name + '=' + value
+                + ';expires=' + date.toUTCString()
+                + ';domain=' + COOKIE_DOMAIN
+                + ';path=/';
+        }
+
+        if (cookieExists('{{ $cookieName }}')) {
+            hideCookieDialog();
+        }
+
+        const buttons = document.getElementsByClassName('cookie-notice-button');
+
+        for (let i = 0; i < buttons.length; ++i) {
+            buttons[i].addEventListener('click', consentWithCookies);
+        }
+
+        return {
+            consentWithCookies: consentWithCookies,
+            hideCookieDialog: hideCookieDialog
+        };
+    })();
 </script>

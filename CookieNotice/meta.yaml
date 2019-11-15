@@ -1,6 +1,6 @@
 name: 'Cookie Notice'
-version: '1.5'
-description: 'Display a Cookie Notice on your Statamic site'
+version: '2.0.0'
+description: 'This addon displays a cookie consent notice on your site.'
 developer: 'Duncan McClean'
-developer_url: 'http://duncan.mcclean.co.uk'
+developer_url: 'https://duncanm.dev'
 commercial: true
