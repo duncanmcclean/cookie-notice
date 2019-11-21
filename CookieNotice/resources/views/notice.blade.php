@@ -25,6 +25,9 @@
         }
 
         .cookie-notice .cookie-notice-container {
+            width: 90%;
+            margin: auto;
+            
             display: flex;
             flex-direction: row;
             align-items: center;
