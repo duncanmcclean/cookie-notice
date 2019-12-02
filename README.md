@@ -5,6 +5,8 @@
 * Customise location on screen
 * Ability to disable provided styles
 
+**Statamic v3:** This addon is already compatible with v3, it's available from the [`statamic-three`](https://github.com/damcclean/statamic-cookie-notice/tree/statamic-three) branch.
+
 ## 📄 Documentation
 Read the docs on the [Statamic Marketplace](https://statamic.com/marketplace/addons/cookie-notice/docs) or [make changes](https://github.com/damcclean/statamic-cookie-notice/blob/master/DOCUMENTATION.md) to it on Github.
 
