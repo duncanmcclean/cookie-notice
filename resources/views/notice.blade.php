@@ -4,10 +4,10 @@
         {!! $noticeText !!}
     </span>
 
-    <button class="cookie-notice-button">
-        Allow cookies
-    </button>
-  </div>
+        <button class="cookie-notice-button">
+            Allow cookies
+        </button>
+    </div>
 </div>
 
 @if($noticeStyles === false)
@@ -27,7 +27,7 @@
         .cookie-notice .cookie-notice-container {
             width: 90%;
             margin: auto;
-            
+
             display: flex;
             flex-direction: row;
             align-items: center;

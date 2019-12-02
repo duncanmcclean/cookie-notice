@@ -1,0 +1,29 @@
+{
+  "name": "damcclean/statamic-cookie-notice",
+  "description": "Cookie Notice addon for Statamic",
+  "type": "statamic-addon",
+  "autoload": {
+    "psr-4": {
+      "Damcclean\\CookieNotice\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Duncan McClean"
+    }
+  ],
+  "support": {
+    "email": "hello@littlepenguin.dev"
+  },
+  "extra": {
+    "statamic": {
+      "name": "Cookie Notice",
+      "description": "Display a cookie consent notice on your Statamic site"
+    },
+    "laravel": {
+      "providers": [
+        "Damcclean\\CookieNotice\\ServiceProvider"
+      ]
+    }
+  }
+}
