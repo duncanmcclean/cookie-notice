@@ -1,19 +1,24 @@
 {
   "name": "damcclean/statamic-cookie-notice",
-  "description": "Cookie Notice addon for Statamic",
   "type": "statamic-addon",
+  "description": "Cookie Notice addon for Statamic",
+  "authors": [
+    {
+      "name": "Duncan McClean",
+      "email": "duncan@littlepenguin.dev",
+      "homepage": "http://duncanm.dev",
+      "role": "Developer at Little Penguin"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Damcclean\\CookieNotice\\": "src"
     }
   },
-  "authors": [
-    {
-      "name": "Duncan McClean"
+  "autoload-dev": {
+    "psr-4": {
+      "Damcclean\\CookieNotice\\Tests\\": "tests"
     }
-  ],
-  "support": {
-    "email": "hello@littlepenguin.dev"
   },
   "extra": {
     "statamic": {
@@ -25,5 +30,12 @@
         "Damcclean\\CookieNotice\\ServiceProvider"
       ]
     }
-  }
+  },
+  "require": {
+    "statamic/cms": "dev-master"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.0"
+  },
+  "minimum-stability": "dev"
 }
