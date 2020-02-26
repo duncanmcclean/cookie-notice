@@ -34,5 +34,6 @@ return [
      * This is where you toggle on or off the default cookie notice styles.
      */
 
-    'disable_styles' => false
+    'disable_styles' => false,
+
 ];

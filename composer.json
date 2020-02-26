@@ -1,23 +1,23 @@
 {
-  "name": "damcclean/statamic-cookie-notice",
+  "name": "doublethreedigital/cookie-notice",
   "type": "statamic-addon",
-  "description": "Cookie Notice addon for Statamic",
+  "description": "Display a cookie consent notice on your Statamic site",
   "authors": [
     {
       "name": "Duncan McClean",
-      "email": "duncan@littlepenguin.dev",
+      "email": "duncan@doublethree.digital",
       "homepage": "http://duncanm.dev",
-      "role": "Developer at Little Penguin"
+      "role": "Founder of Double Three Digital"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Damcclean\\CookieNotice\\": "src"
+      "DoubleThreeDigital\\CookieNotice\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Damcclean\\CookieNotice\\Tests\\": "tests"
+      "DoubleThreeDigital\\CookieNotice\\Tests\\": "tests"
     }
   },
   "extra": {
@@ -27,15 +27,29 @@
     },
     "laravel": {
       "providers": [
-        "Damcclean\\CookieNotice\\ServiceProvider"
+        "DoubleThreeDigital\\CookieNotice\\ServiceProvider"
       ]
     }
   },
   "require": {
-    "statamic/cms": "dev-master"
+    "statamic/cms": "^3.0@beta"
   },
   "require-dev": {
-    "orchestra/testbench": "^4.0"
+    "orchestra/testbench": "^4.0",
+    "phpunit/phpunit": "^8.1"
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "scripts": {
+    "lint": [
+      "php-cs-fixer fix ./src"
+    ],
+    "test": [
+      "./vendor/bin/phpunit ."
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
 }

@@ -58,9 +58,10 @@
     window.cookieNotice = (function () {
         const COOKIE_VALUE = 1;
         const COOKIE_DOMAIN = '{{ $domainName }}';
+        const COOKIE_NAME = '{{ $cookieName }}';
 
         function consentWithCookies() {
-            setCookie('{{ $cookieName }}', COOKIE_VALUE, '365 * 20');
+            setCookie(COOKIE_NAME, COOKIE_VALUE, '365 * 20');
             hideCookieDialog();
         }
 
@@ -86,7 +87,7 @@
                 + ';path=/';
         }
 
-        if (cookieExists('{{ $cookieName }}')) {
+        if (cookieExists(COOKIE_NAME)) {
             hideCookieDialog();
         }
 

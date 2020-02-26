@@ -3,7 +3,7 @@
 First, install the package using composer.
 
 ```shell script
-composer require damcclean/statamic-cookie-notice
+composer require doublethreedigital/statamic-cookie-notice
 ```
 
 Then publish the addon's configuration file:
@@ -75,7 +75,7 @@ If you'd like to change the cookie name away from `cookie_notice` to whatever yo
     * This is where you toggle on or off the default cookie notice styles.
 */
 
-'disable_styles' => false
+'disable_styles' => false,
 ```
 
 If you would prefer to use your own styles instead of ours, you can change `false` to `true`.

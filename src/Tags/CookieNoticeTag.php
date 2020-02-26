@@ -1,6 +1,6 @@
 <?php
 
-namespace Damcclean\CookieNotice\Tags;
+namespace DoubleThreeDigital\CookieNotice\Tags;
 
 use Statamic\Tags\Tags;
 

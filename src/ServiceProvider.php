@@ -1,8 +1,8 @@
 <?php
 
-namespace Damcclean\CookieNotice;
+namespace DoubleThreeDigital\CookieNotice;
 
-use Damcclean\CookieNotice\Tags\CookieNoticeTag;
+use DoubleThreeDigital\CookieNotice\Tags\CookieNoticeTag;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
