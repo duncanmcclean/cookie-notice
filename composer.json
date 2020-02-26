@@ -44,7 +44,7 @@
       "php-cs-fixer fix ./src"
     ],
     "test": [
-      "./vendor/bin/phpunit ."
+      "./vendor/bin/phpunit"
     ]
   },
   "config": {
