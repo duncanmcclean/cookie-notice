@@ -8,6 +8,9 @@ Then add the `{{ cookie_notice }}` tag at the bottom of your layouts.
 ### Notice Text
 If you want to use some custom text for your notice, you can do so by entering it into the addon settings page.
 
+## Button Label
+If you want to customise the label of the consent button, this is also possible.
+
 ### Location
 If you want to change the position of the cookie notice, you can choose from either the bottom or the top of the screen.
 
