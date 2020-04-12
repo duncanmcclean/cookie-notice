@@ -5,7 +5,7 @@
     </span>
 
     <button class="cookie-notice-button">
-        Allow cookies
+        {{ $buttonLabel }}
     </button>
   </div>
 </div>

@@ -1,6 +1,8 @@
 fields:
   text:
     type: textarea
+  button_label:
+    type: text
   location:
     options:
       bottom: 'Bottom'
