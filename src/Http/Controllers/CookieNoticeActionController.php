@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Session;
 
 class CookieNoticeActionController extends Controller
 {
-    public function store(Request $request)
+    public function update(Request $request)
     {
         $request->validate($this->getValidationRules());
 
@@ -30,14 +29,7 @@ class CookieNoticeActionController extends Controller
             43200 // 30 days
         );
 
-        // Session::put(Config::get('cookie-notice.cookie_name'), json_encode($accepted));
-
         return back();
-    }
-
-    public function update()
-    {
-        //
     }
 
     protected function getValidationRules()

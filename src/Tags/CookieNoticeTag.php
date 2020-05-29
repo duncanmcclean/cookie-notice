@@ -13,16 +13,30 @@ class CookieNoticeTag extends Tags
     public function index()
     {
         return view('cookie-notice::notice', [
-            'config' => Config::get('cookie-notice'),
+            'hasConsented' => $this->hasConsented(),
+            'groups' => collect(Config::get('cookie-notice.groups'))
+                ->map(function ($value, $key) {
+                    return array_merge($value, [
+                        'name' => $key,
+                        'slug' => 'group_'.str_slug($key),
+                        'consented' => $this->hasConsented(str_slug($key)),
+                    ]);
+                })
+                ->values()
+                ->toArray(),
         ]);
     }
 
-    public function hasConsented()
+    public function hasConsented(string $group = null)
     {
-        $group = str_slug($this->getParam('group'));
+        $group = str_slug($this->getParam('group')) ?? $group;
 
         $givenConsent = json_decode(Cookie::get(Config::get('cookie-notice.cookie_name')));
-        
+
+        if (! $group) {
+            return is_array($givenConsent) ? true : false;
+        }
+
         return is_array($givenConsent) ? in_array($group, $givenConsent) : false;
     }
 }
