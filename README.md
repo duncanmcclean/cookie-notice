@@ -12,7 +12,7 @@ TODO: screenshot of addon in use
 ## Installation
 
 1. Install via Composer - `composer require doublethreedigital/cookie-notice`
-2. Publish the Cookie Notice config - `php artisan vendor:publish --tag=public`
+2. Publish the Cookie Notice config - `php artisan vendor:publish --tag=cookie-notice-config`
 3. Add the notice to your site's layout `{{ cookie_notice }}`
 
 ## Configuration
@@ -61,7 +61,11 @@ It's simple! Just add this to your site's layout (or wherever you want to put it
 
 ### Overriding the cookie notice
 
-TODO
+If you want some more customisation over the contents of the consent view, you can publish it to `resources/views/vendor` and edit it from there.
+
+```
+php artisan vendor:publush --tag=cookie-notice-views
+```
 
 ### If user has given any consent...
 
