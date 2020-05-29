@@ -24,8 +24,6 @@ class CookieNoticeActionController extends Controller
             ->toArray();
 
         Cookie::queue(Cookie::forget(Config::get('cookie-notice.cookie_name')));
-
-        // dd(Cookie::get(Config::get('cookie-notice.cookie_name')));
             
         Cookie::queue(
             Config::get('cookie-notice.cookie_name'),
