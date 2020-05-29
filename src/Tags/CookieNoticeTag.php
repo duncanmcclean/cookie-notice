@@ -27,16 +27,18 @@ class CookieNoticeTag extends Tags
         ]);
     }
 
-    public function hasConsented(string $group = null)
+    public function hasConsented(string $groupName = null)
     {
-        $group = str_slug($this->getParam('group')) ?? $group;
+        $group = ! is_null($groupName) ? $groupName : str_slug($this->getParam('group'));
 
-        $givenConsent = json_decode(Cookie::get(Config::get('cookie-notice.cookie_name')));
+        $consent = json_decode(
+            Cookie::get(Config::get('cookie-notice.cookie_name'))
+        );
 
         if (! $group) {
-            return is_array($givenConsent) ? true : false;
+            return is_array($consent);
         }
 
-        return is_array($givenConsent) ? in_array($group, $givenConsent) : false;
+        return is_array($consent) ? in_array($group, $consent) : false;
     }
 }

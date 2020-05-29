@@ -23,6 +23,10 @@ class CookieNoticeActionController extends Controller
             ->keys()
             ->toArray();
 
+        Cookie::queue(Cookie::forget(Config::get('cookie-notice.cookie_name')));
+
+        // dd(Cookie::get(Config::get('cookie-notice.cookie_name')));
+            
         Cookie::queue(
             Config::get('cookie-notice.cookie_name'),
             json_encode($accepted),
