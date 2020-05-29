@@ -27,13 +27,7 @@ class CookieNoticeActionController extends Controller
         Cookie::queue(
             Config::get('cookie-notice.cookie_name'),
             json_encode($accepted),
-            43200, // 30 days
-            null,
-            null,
-            null,
-            true,
-            false,
-            null
+            43200 // 30 days
         );
 
         // Session::put(Config::get('cookie-notice.cookie_name'), json_encode($accepted));

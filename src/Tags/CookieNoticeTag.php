@@ -22,7 +22,7 @@ class CookieNoticeTag extends Tags
         $group = str_slug($this->getParam('group'));
 
         $givenConsent = json_decode(Cookie::get(Config::get('cookie-notice.cookie_name')));
-
-        return in_array($group, $givenConsent);
+        
+        return is_array($givenConsent) ? in_array($group, $givenConsent) : false;
     }
 }
