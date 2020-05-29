@@ -63,6 +63,16 @@ It's simple! Just add this to your site's layout (or wherever you want to put it
 
 TODO
 
+### If user has given any consent...
+
+If you want to check if the user has given consent to any of your consent groups, you can do this:
+
+```antlers
+{{ if {cookie_notice:hasConsented} }}
+    <!-- has consented to something -->
+{{ /if }}
+```
+
 ### If user has consented for...
 
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:

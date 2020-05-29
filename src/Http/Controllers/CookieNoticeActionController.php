@@ -38,21 +38,19 @@ class CookieNoticeActionController extends Controller
 
     protected function getValidationRules()
     {
-        // $rules = [];
-        // $groups = Config::get('cookie-notice.groups');
+        $rules = [];
+        $groups = Config::get('cookie-notice.groups');
 
-        // foreach ($groups as $groupName => $group) {
-        //     $name = 'group_'.str_slug($groupName);
+        foreach ($groups as $groupName => $group) {
+            $name = 'group_'.str_slug($groupName);
 
-        //     if ($group['required'] === true) {
-        //         $rules[$name] = ['required', 'checked'];
-        //     } else {
-        //         $rules[$name] = ['nullable'];
-        //     }
-        // }
+            if ($group['required'] === true) {
+                $rules[$name] = ['required', 'accepted'];
+            } else {
+                $rules[$name] = ['nullable'];
+            }
+        }
 
-        // return $rules;
-
-        return [];
+        return $rules;
     }
 }
