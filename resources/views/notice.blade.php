@@ -1,5 +1,5 @@
-<div class="cookies-fixed cookies-bottom-0 cookies-right-0">
-    <form id="cookiesForm" class="cookies-bg-white cookies-rounded-lg cookies-mr-6 cookies-mb-6 cookies-p-6 md:cookies-w-1/3 cookies-float-right" action="{{ route('statamic.cookie-notice.update') }}" method="POST" style="display: none">
+<div class="cookies-fixed cookies-bottom-0 md:cookies-right-0">
+    <form id="cookiesForm" class="cookies-bg-white cookies-rounded-lg cookies-mx-6 cookies-my-6 cookies-p-6 md:cookies-w-1/3 cookies-float-right" action="{{ route('statamic.cookie-notice.update') }}" method="POST" style="display: none">
         <h2 class="cookies-font-semibold cookies-text-2xl cookies-mb-1">This site uses cookies</h2>
         <p class="cookies-text-sm">We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.</p>
 
@@ -18,7 +18,7 @@
                     >
                     {{ $group['name'] }} 
                     @if($group['required']) 
-                        <span class="cookiestext-red-600 cookies-text-xs">required</span> 
+                        <span class="cookies-text-red-600 cookies-text-xs">required</span> 
                     @endif
                 </label>
             @endforeach
