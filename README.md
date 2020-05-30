@@ -12,7 +12,7 @@ TODO: screenshot of addon in use
 ## Installation
 
 1. Install via Composer - `composer require doublethreedigital/cookie-notice`
-2. Publish the Cookie Notice config - `php artisan vendor:publish --tag=cookie-notice-config`
+2. Publish the Cookie Notice config and it's assets - `php artisan vendor:publish --tag=cookie-notice-config && php artisan vendor:publish --tag=cookie-notice-assets`
 3. Add the notice to your site's layout `{{ cookie_notice }}`
 
 ## Configuration

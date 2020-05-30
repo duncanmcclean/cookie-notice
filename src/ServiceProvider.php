@@ -28,6 +28,10 @@ class ServiceProvider extends AddonServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/doublethreedigital/cookie-notice'),
         ], 'cookie-notice-views');
+
+        $this->publishes([
+            __DIR__.'/../resources/dist' => public_path('vendor/cookie-notice'),
+        ], 'cookie-notice-assets');
     }
 
     public function register()

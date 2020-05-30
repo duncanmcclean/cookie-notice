@@ -1,15 +1,13 @@
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-
-<div class="fixed bottom-0 right-0">
-    <form id="cookiesForm" class="bg-white rounded-lg mr-6 mb-6 p-6 md:w-1/3 float-right" action="{{ route('statamic.cookie-notice.update') }}" method="POST" style="display: none">
-        <h2 class="font-semibold text-2xl mb-1">This site uses cookies</h2>
-        <p class="text-sm">We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.</p>
+<div class="cookies-fixed cookies-bottom-0 cookies-right-0">
+    <form id="cookiesForm" class="cookies-bg-white cookies-rounded-lg cookies-mr-6 cookies-mb-6 cookies-p-6 md:cookies-w-1/3 cookies-float-right" action="{{ route('statamic.cookie-notice.update') }}" method="POST" style="display: none">
+        <h2 class="cookies-font-semibold cookies-text-2xl cookies-mb-1">This site uses cookies</h2>
+        <p class="cookies-text-sm">We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.</p>
 
         @csrf
 
-        <div class="flex flex-col my-2">
+        <div class="cookies-flex cookies-flex-col cookies-my-2">
             @foreach($groups as $group)
-                <label class="mb-1" for="{{ $group['slug'] }}">
+                <label class="cookis-mb-1" for="{{ $group['slug'] }}">
                     <input 
                         id="{{ $group['slug'] }}" 
                         type="checkbox" 
@@ -20,21 +18,21 @@
                     >
                     {{ $group['name'] }} 
                     @if($group['required']) 
-                        <span class="text-red-600 text-xs">required</span> 
+                        <span class="cookiestext-red-600 cookies-text-xs">required</span> 
                     @endif
                 </label>
             @endforeach
         </div>
 
-        <div class="flex flex-row items-center">
-            <button class="bg-blue-500 hover:bg-blue-600 rounded text-center text-white px-6 py-2 focus:outline-none" type="submit">Accept</button>
+        <div class="cookies-flex cookies-flex-row cookies-items-center">
+            <button class="cookies-bg-blue-500 hover:cookies-bg-blue-600 cookies-rounded cookies-text-center cookies-text-white cookies-px-6 cookies-py-2 focus:cookies-outline-none" type="submit">Accept</button>
             @if ($hasConsented)
-                <button id="hideConsentFormButton" class="ml-4 text-gray-800 text-sm focus:outline-none" type="button">Hide</button>
+                <button id="hideConsentFormButton" class="cookies-ml-4 cookies-text-gray-800 cookies-text-sm focus:cookies-outline-none" type="button">Hide</button>
             @endif
         </div>
     </form>
 
-    <button id="manageCookiesButton" class="bg-white rounded-lg mr-2 mb-2 p-2 float-right focus:outline-none">Manage Cookies</button>
+    <button id="manageCookiesButton" class="cookies-bg-white cookies-rounded-lg cookies-mr-2 cookies-mb-2 cookies-p-2 cookies-float-right focus:cookies-outline-none">Manage Cookies</button>
 </div>
 
 <script>
@@ -58,3 +56,5 @@
     hideConsentFormButton.addEventListener('click', hideConsentNotice);
     manageCookiesButton.addEventListener('click', showConsentNotice);
 </script>
+
+<link rel="stylesheet" href="/vendor/cookie-notice/cookie-notice.css">
