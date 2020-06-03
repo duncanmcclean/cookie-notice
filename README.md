@@ -7,7 +7,7 @@ Please note that while we aim for this addon to be compliant with European regul
 
 While this code is open-source, it's important to keep in mind that you'll need to purchase a license to use it in production. You can buy a license from the [Statamic Marketplace](https://statamic.com/marketplace/addons/cookie-notice).
 
-TODO: screenshot of addon in use
+![Screenshot](./screenshot.md)
 
 ## Installation
 
