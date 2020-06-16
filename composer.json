@@ -1,6 +1,5 @@
 {
   "name": "doublethreedigital/cookie-notice",
-  "type": "statamic-addon",
   "description": "Display a cookie consent notice on your Statamic site",
   "authors": [
     {
