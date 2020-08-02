@@ -29,7 +29,7 @@ class CookieNoticeTag extends Tags
 
     public function hasConsented(string $groupName = null)
     {
-        $group = ! is_null($groupName) ? $groupName : str_slug($this->getParam('group'));
+        $group = ! is_null($groupName) ? $groupName : str_slug($this->params->get('group'));
 
         $consent = json_decode(
             Cookie::get(Config::get('cookie-notice.cookie_name'))
