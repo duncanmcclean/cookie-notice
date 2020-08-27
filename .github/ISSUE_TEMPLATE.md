@@ -1,14 +1,25 @@
-### Description
+---
+name: 'Bug Report'
+about: Fill out a bug report to help improve Cookie Notice.
+---
 
+<!--
+    Please use the provided issue template.
+    It's all really helpful information to help fix your issue!
+-->
 
+A quick description of the issue you're facing.
 
-### Steps to reproduce
+If you can, please provide a screenshot of the issue or a link to the Flare exception, maybe even both.
 
-1.
-2.
+## How to reproduce
 
-### Additional information
+...
 
-* Statamic version:
-* PHP version:
-* Other addons:
+## What I expected
+
+...
+
+## Environment
+
+Copy the output of `php please support:details` into here.
