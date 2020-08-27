@@ -8,17 +8,17 @@
         <div class="cookies-flex cookies-flex-col cookies-my-2">
             @foreach($groups as $group)
                 <label class="cookis-mb-1" for="{{ $group['slug'] }}">
-                    <input 
-                        id="{{ $group['slug'] }}" 
-                        type="checkbox" 
-                        name="{{ $group['slug'] }}" 
-                        @if($group['toggle_by_default'] || $group['required']) checked value="on" @endif 
+                    <input
+                        id="{{ $group['slug'] }}"
+                        type="checkbox"
+                        name="{{ $group['slug'] }}"
+                        @if($group['toggle_by_default'] || $group['required']) checked value="on" @endif
                         @if($group['required']) required value="on" onclick="this.checked = true" @endif
                         @if($group['consented']) value="on" checked @endif
                     >
-                    {{ $group['name'] }} 
-                    @if($group['required']) 
-                        <span class="cookies-text-red-600 cookies-text-xs">required</span> 
+                    {{ $group['name'] }}
+                    @if($group['required'])
+                        <span class="cookies-text-red-600 cookies-text-xs">required</span>
                     @endif
                 </label>
             @endforeach
@@ -36,25 +36,25 @@
 </div>
 
 <script>
-    const cookiesForm = document.getElementById('cookiesForm');
-    const hideConsentFormButton = document.getElementById('hideConsentFormButton');
-    const manageCookiesButton = document.getElementById('manageCookiesButton');
+    const cookiesForm = document.getElementById('cookiesForm')
+    const hideConsentFormButton = document.getElementById('hideConsentFormButton')
+    const manageCookiesButton = document.getElementById('manageCookiesButton')
 
     function showConsentNotice() {
-        manageCookiesButton.setAttribute('style', 'display: none;');
-        cookiesForm.removeAttribute('style');
+        manageCookiesButton.setAttribute('style', 'display: none;')
+        cookiesForm.removeAttribute('style')
     }
 
     function hideConsentNotice() {
-        manageCookiesButton.removeAttribute('style');
-        cookiesForm.setAttribute('style', 'display: none;');
+        manageCookiesButton.removeAttribute('style')
+        cookiesForm.setAttribute('style', 'display: none;')
     }
 
     @if (! $hasConsented)
-        window.addEventListener('load', showConsentNotice);
+        window.addEventListener('load', showConsentNotice)
     @endif
-    hideConsentFormButton.addEventListener('click', hideConsentNotice);
-    manageCookiesButton.addEventListener('click', showConsentNotice);
+    if (hideConsentFormButton) ideConsentFormButton.addEventListener('click', hideConsentNotice)
+    manageCookiesButton.addEventListener('click', showConsentNotice)
 </script>
 
-<link rel="stylesheet" href="/vendor/cookie-notice/cookie-notice.css">
+<link rel="stylesheet" href="/vendor/cookie-notice/css/cookie-notice.css">
