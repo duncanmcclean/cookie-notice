@@ -53,7 +53,7 @@
     @if (! $hasConsented)
         window.addEventListener('load', showConsentNotice)
     @endif
-    if (hideConsentFormButton) ideConsentFormButton.addEventListener('click', hideConsentNotice)
+    if (hideConsentFormButton) hideConsentFormButton.addEventListener('click', hideConsentNotice)
     manageCookiesButton.addEventListener('click', showConsentNotice)
 </script>
 
