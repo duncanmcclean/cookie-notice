@@ -56,4 +56,20 @@ abstract class TestCase extends OrchestraTestCase
 
         $app['config']->set('statamic.users.repository', 'file');
     }
+
+    public function tearDown() : void {
+       
+        // destroy $app
+        if ($this->app) {
+            $this->callBeforeApplicationDestroyedCallbacks();
+
+            // this is the issue.
+            // $this->app->flush();
+
+            $this->app = null;
+        }
+
+       // call the parent teardown
+       parent::tearDown();
+    }
 }
