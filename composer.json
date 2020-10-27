@@ -1,12 +1,12 @@
 {
   "name": "doublethreedigital/cookie-notice",
-  "description": "Display a cookie consent notice on your Statamic site",
+  "description": "Cookie Consent addon for Statamic.",
   "authors": [
     {
       "name": "Duncan McClean",
       "email": "duncan@doublethree.digital",
-      "homepage": "http://duncanm.dev",
-      "role": "Founder of Double Three Digital"
+      "homepage": "https://doublethree.digital",
+      "role": "Developer"
     }
   ],
   "autoload": {
@@ -22,7 +22,7 @@
   "extra": {
     "statamic": {
       "name": "Cookie Notice",
-      "description": "Display a cookie consent notice on your Statamic site"
+      "description": "Cookie Consent addon for Statamic."
     },
     "laravel": {
       "providers": [
