@@ -12,7 +12,7 @@
                         id="{{ $group['slug'] }}"
                         type="checkbox"
                         name="{{ $group['slug'] }}"
-                        @if($group['toggle_by_default'] || $group['required']) checked value="on" @endif
+                        @if(($group['toggle_by_default'] && !request()->cookie(config('cookie-notice.cookie_name'))) || $group['required']) checked value="on" @endif
                         @if($group['required']) required value="on" onclick="this.checked = true" @endif
                         @if($group['consented']) value="on" checked @endif
                     >
