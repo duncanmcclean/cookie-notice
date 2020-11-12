@@ -64,7 +64,7 @@ It's simple! Just add this to your site's layout (or wherever you want to put it
 If you want some more customisation over the contents of the consent view, you can publish it to `resources/views/vendor` and edit it from there.
 
 ```
-php artisan vendor:publush --tag=cookie-notice-views
+php artisan vendor:publish --tag=cookie-notice-views
 ```
 
 ### If user has given any consent...
