@@ -80,4 +80,15 @@ class CookieNoticeTagTest extends TestCase
         // TODO: need to find a way to set/fake a cookie
         $this->markTestIncomplete();
     }
+
+    /** @test */
+    public function cookie_notice_settings_should_not_select_checkboxes_that_are_selected_by_default()
+    {
+        // TODO
+        $this->markTestIncomplete();
+
+        // When a user views their cookie notice settings, they may not have selected 'Analytics'. However, 
+        // when they view settings and 'Analytics' is checked_by_default, it will look like the user has already
+        // selected 'Analytics'.
+    }
 }
