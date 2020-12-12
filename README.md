@@ -1,15 +1,34 @@
 # Cookie Notice
-> Display a cookie consent notice on your Statamic site
 
-* Customiseable text
-* Customise location on screen
-* Ability to disable provided styles
+This addon provides a simple and easily customizable cookie notice that you can add to your site with a tag or two.
 
-**Statamic v3:** This addon is already compatible with v3, it's available from the [`statamic-three`](https://github.com/damcclean/statamic-cookie-notice/tree/statamic-three) branch.
+> This addon is out-of-date. We recommend using our [new Cookie Notice addon](https://statamic.com/cookie-notice) for Statamic v3 which has support for consent groups.
 
-## 📄 Documentation
-Read the docs on the [Statamic Marketplace](https://statamic.com/marketplace/addons/cookie-notice/docs) or [make changes](https://github.com/doublethreedigital/cookie-notice/blob/master/DOCUMENTATION.md) to it on Github.
+[**Buy on the Statamic Marketplace**](https://steadfastcollective.com/engineering/introduction-to-fabric)
 
-## Credits
+## Documentation
 
-A **huge** credit to Spatie for their [laravel-cookie-consent](https://github.com/spatie/laravel-cookie-consent) package, on which this addon is built.
+### Installation
+
+Unzip the download and place the `CookieNotice` directory in your `site/addons` directory.
+Then add the `{{ cookie_notice }}` tag at the bottom of your layouts.
+
+### Settings
+
+#### Notice Text
+If you want to use some custom text for your notice, you can do so by entering it into the addon settings page.
+
+### Button Label
+If you want to customise the label of the consent button, this is also possible.
+
+#### Location
+If you want to change the position of the cookie notice, you can choose from either the bottom or the top of the screen.
+
+#### Cookie Name
+You can change the name of the cookie that is used by Cookie Notice. By default, it's `cookie_notice` but you can change that to whatever you want.
+
+#### Disable Styles
+If you would prefer to use your own styles instead of ours, toggle the `Disable Styles` setting.
+
+## Support
+We're happy to answer any questions you have have. Just [ping us an email](mailto:hello@doublethree.digital).
