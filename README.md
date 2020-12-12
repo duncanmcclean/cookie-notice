@@ -1,13 +1,12 @@
+![Screenshot](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/master/screenshot.png)
+
 # Cookie Notice
-> Cookie Consent notice for Statamic sites
 
-This addon provides a nice cookie consent notice for Statamic sites. All you need to do is add a tag to your site's layout.
+This addon provides a cookie consent notice to visitors of your Statamic site. It includes the ability to toggle consent groups and by default has a clean [TailwindCSS](https://tailwindcss.com) design.
 
-Please note that while we aim for this addon to be compliant with European regulations, we're not responsible if it doesn't fully comply.
+Disclaimer: we're not responsible if this addon is not compliant with Europen (or other) regulations. 
 
-While this code is open-source, it's important to keep in mind that you'll need to purchase a license to use it in production. You can buy a license from the [Statamic Marketplace](https://statamic.com/marketplace/addons/cookie-notice).
-
-![Screenshot](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/v3.0.0/screenshot.png)
+Although the code for this addon is open-source, you need to purchase a license from the Statamic Marketplace to use it on [a public domain](https://statamic.dev/licensing#public-domains).
 
 ## Installation
 
@@ -87,12 +86,6 @@ You'll want to make sure that you're only running marketing scripts when the use
 {{ /if }}
 ```
 
-## Resources
+## Support
 
-* [Official Support](https://doublethree.digital)
-* [Unofficial Support (#3rd-party)](https://statamic.com/discord)
-
-<p>
-<a href="https://statamic.com"><img src="https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge" alt="Compatible with Statamic v3"></a>
-<a href="https://packagist.org/packages/doublethreedigital/cookie-notice/stats"><img src="https://img.shields.io/packagist/v/doublethreedigital/cookie-notice?style=for-the-badge" alt="Cookie Notice on Packagist"></a>
-</p>
+If you need addon support or have any questions about this addon, please [drop us an email](mailto:hello@doublethree.digital).
