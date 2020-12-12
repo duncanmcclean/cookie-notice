@@ -2,7 +2,7 @@
 
 This addon provides a simple and easily customizable cookie notice that you can add to your site with a tag or two.
 
-> This addon is out-of-date. We recommend using our [new Cookie Notice addon](https://statamic.com/cookie-notice) for Statamic v3 which has support for consent groups.
+> **This addon is out-of-date.** We recommend using our [new Cookie Notice addon](https://statamic.com/cookie-notice) for Statamic v3 which has support for consent groups.
 
 [**Buy on the Statamic Marketplace**](https://steadfastcollective.com/engineering/introduction-to-fabric)
 
