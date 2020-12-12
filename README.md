@@ -87,5 +87,4 @@ You'll want to make sure that you're only running marketing scripts when the use
 ```
 
 ## Support
-
-If you need addon support or have any questions about this addon, please [drop us an email](mailto:hello@doublethree.digital).
+For developer support or any other questions related to this addon, please [get in touch](mailto:hello@doublethree.digital).
