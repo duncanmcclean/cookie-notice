@@ -1,14 +1,6 @@
 {
   "name": "doublethreedigital/cookie-notice",
-  "description": "Cookie Consent addon for Statamic.",
-  "authors": [
-    {
-      "name": "Duncan McClean",
-      "email": "duncan@doublethree.digital",
-      "homepage": "https://doublethree.digital",
-      "role": "Developer"
-    }
-  ],
+  "description": "Cookie Consent for Statamic - with support for consent groups!",
   "autoload": {
     "psr-4": {
       "DoubleThreeDigital\\CookieNotice\\": "src"
@@ -22,7 +14,7 @@
   "extra": {
     "statamic": {
       "name": "Cookie Notice",
-      "description": "Cookie Consent addon for Statamic."
+      "description": "Cookie Consent for Statamic - with support for consent groups!"
     },
     "laravel": {
       "providers": [
@@ -31,13 +23,13 @@
     }
   },
   "require": {
-    "statamic/cms": "3.0.*"
+    "php": "^7.2 || ^8.0",
+    "statamic/cms": "3.0.* || 3.1.*"
   },
   "require-dev": {
-    "orchestra/testbench": "^4.0",
+    "orchestra/testbench": "^4.0|^5.0|^6.0",
     "phpunit/phpunit": "^8.1"
   },
-  "minimum-stability": "dev",
   "scripts": {
     "lint": [
       "php-cs-fixer fix ./src"
