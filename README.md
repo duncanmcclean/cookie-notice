@@ -54,7 +54,7 @@ return [
 
 It's simple! Just add this to your site's layout (or wherever you want to put it)
 
-```antlers
+```handlebars
 {{ cookie_notice }}
 ```
 
@@ -70,7 +70,7 @@ php artisan vendor:publish --tag=cookie-notice-views
 
 If you want to check if the user has given consent to any of your consent groups, you can do this:
 
-```antlers
+```handlebars
 {{ if {cookie_notice:hasConsented} }}
     <!-- has consented to something -->
 {{ /if }}
@@ -80,7 +80,7 @@ If you want to check if the user has given consent to any of your consent groups
 
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
 
-```antlers
+```handlebars
 {{ if {cookie_notice:hasConsented group='Marketing'} }}
     <!-- marketing scripts -->
 {{ /if }}
