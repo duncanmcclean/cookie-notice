@@ -15,6 +15,9 @@ class CookieNoticeTag extends Tags
     public function index()
     {
         $viewData = array_merge($this->gatherData(), [
+            'endpoint' => route('statamic.cookie-notice.update'),
+            'cookie'   => request()->cookie(config('cookie-notice.cookie_name')),
+
             'hasConsented' => $this->hasConsented(),
             'groups' => collect(Config::get('cookie-notice.groups'))
                 ->map(function ($value, $key) {
