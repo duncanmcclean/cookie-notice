@@ -15,20 +15,13 @@ class CookieNoticeTag extends Tags
     public function index()
     {
         $viewData = array_merge($this->gatherData(), [
-            'endpoint' => route('statamic.cookie-notice.update'),
-            'cookie'   => request()->cookie(config('cookie-notice.cookie_name')),
+            'endpoint'      => route('statamic.cookie-notice.update'),
+            'cookie'        => request()->cookie(config('cookie-notice.cookie_name')),
 
-            'hasConsented' => $this->hasConsented(),
-            'groups' => collect(Config::get('cookie-notice.groups'))
-                ->map(function ($value, $key) {
-                    return array_merge($value, [
-                        'name' => $key,
-                        'slug' => 'group_'.str_slug($key),
-                        'consented' => $this->hasConsented(str_slug($key)),
-                    ]);
-                })
-                ->values()
-                ->toArray(),
+            'hasConsented'  => $hasConsented = $this->hasConsented(),
+            'has_consented' => $hasConsented,
+
+            'groups'        => $this->groups(),
         ]);
 
         return view(
@@ -52,9 +45,23 @@ class CookieNoticeTag extends Tags
         return is_array($consent) ? in_array($group, $consent) : false;
     }
 
+    protected function groups(): array
+    {
+        return collect(Config::get('cookie-notice.groups'))
+            ->map(function ($value, $key) {
+                return array_merge($value, [
+                    'name' => $key,
+                    'slug' => 'group_'.str_slug($key),
+                    'consented' => $this->hasConsented(str_slug($key)),
+                ]);
+            })
+            ->values()
+            ->toArray();
+    }
+
     protected function gatherData(): array
     {
-        $data = [
+        $array = [
             'csrf_field' => csrf_field(),
             'csrf_token' => csrf_token(),
 
@@ -73,9 +80,9 @@ class CookieNoticeTag extends Tags
 
             $global = $global->in(Site::current()->handle());
 
-            $data[$global->handle()] = $global->toAugmentedArray();
+            $array[$global->handle()] = $global->toAugmentedArray();
         }
 
-        return $data;
+        return $array;
     }
 }
