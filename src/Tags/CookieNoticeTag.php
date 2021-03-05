@@ -4,6 +4,8 @@ namespace DoubleThreeDigital\CookieNotice\Tags;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
+use Statamic\Facades\GlobalSet;
+use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
@@ -12,7 +14,7 @@ class CookieNoticeTag extends Tags
 
     public function index()
     {
-        return view('cookie-notice::notice', [
+        $viewData = array_merge($this->gatherData(), [
             'hasConsented' => $this->hasConsented(),
             'groups' => collect(Config::get('cookie-notice.groups'))
                 ->map(function ($value, $key) {
@@ -25,6 +27,11 @@ class CookieNoticeTag extends Tags
                 ->values()
                 ->toArray(),
         ]);
+
+        return view(
+            'cookie-notice::notice',
+            $viewData
+        );
     }
 
     public function hasConsented(string $groupName = null)
@@ -40,5 +47,32 @@ class CookieNoticeTag extends Tags
         }
 
         return is_array($consent) ? in_array($group, $consent) : false;
+    }
+
+    protected function gatherData(): array
+    {
+        $data = [
+            'csrf_field' => csrf_field(),
+            'csrf_token' => csrf_token(),
+
+            'current_date' => $now = now(),
+            'now' => $now,
+            'today' => $now,
+
+            'site' => Site::current(),
+            'sites' => Site::all()->values(),
+        ];
+
+        foreach (GlobalSet::all() as $global) {
+            if (! $global->existsIn(Site::current()->handle())) {
+                continue;
+            }
+
+            $global = $global->in(Site::current()->handle());
+
+            $data[$global->handle()] = $global->toAugmentedArray();
+        }
+
+        return $data;
     }
 }
