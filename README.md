@@ -4,7 +4,7 @@
 
 This addon provides a cookie consent notice to visitors of your Statamic site. It includes the ability to toggle consent groups and by default has a clean [TailwindCSS](https://tailwindcss.com) design.
 
-Disclaimer: we're not responsible if this addon is not compliant with Europen (or other) regulations. 
+Disclaimer: we're not responsible if this addon is not compliant with Europen (or other) regulations.
 
 Although the code for this addon is open-source, you need to purchase a license from the Statamic Marketplace to use it on [a public domain](https://statamic.dev/licensing#public-domains).
 
@@ -23,10 +23,29 @@ During installation, you'll publish a configuration file for Cookie Notice to `c
 
 return [
 
-    // Name of the cookie used to store the users' prefrences
+    /*
+    |--------------------------------------------------------------------------
+    | Cookie
+    |--------------------------------------------------------------------------
+    |
+    | It's ironic, but this addon uses cookies to store if a user has consented
+    | to cookies or not, and which ones they've consented to. Don't worry
+    | though, no cookie is stored if the user doesn't consent.
+    |
+    */
+
     'cookie_name' => 'COOKIE_NOTICE',
 
-    // Consent groups
+    /*
+    |--------------------------------------------------------------------------
+    | Consent Groups
+    |--------------------------------------------------------------------------
+    |
+    | Consent groups allow you to give your users the option to which cookies they'd
+    | like to enable and which cookies they'd prefer to keep disabled.
+    |
+    */
+
     'groups' => [
         'Necessary' => [
             'required' => true,
@@ -60,11 +79,24 @@ It's simple! Just add this to your site's layout (or wherever you want to put it
 
 ### Overriding the cookie notice
 
-If you want some more customisation over the contents of the consent view, you can publish it to `resources/views/vendor` and edit it from there.
+If you wish to have some customization over the cookie notice view, maybe for styling purposes, you can publish the view using the below command:
 
 ```
 php artisan vendor:publish --tag=cookie-notice-views
 ```
+
+The view will then be published into your `resources/views/vendor` directory. Inside the view, there's a couple of variables that are available to you:
+
+* `endpoint`
+* `cookie`
+* `has_consented` (alias of `hasConsented`)
+* `groups`
+* `csrf_field`
+* `csrf_token`
+* `current_date`, `now` and `today`
+* `site` for the current site
+* `sites` for an array of all sites
+* And also any globals you have setup...
 
 ### If user has given any consent...
 
