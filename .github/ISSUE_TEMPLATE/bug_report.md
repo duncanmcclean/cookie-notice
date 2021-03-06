@@ -1,6 +1,7 @@
 ---
-name: 'Bug Report'
-about: Fill out a bug report to help improve Cookie Notice.
+name: Bug Report
+about: Report something that's not working correctly.
+labels: bug
 ---
 
 <!--
@@ -22,4 +23,4 @@ If you can, please provide a screenshot of the issue or a link to the Flare exce
 
 ## Environment
 
-Copy the output of `php please support:details` into here.
+Copy the output of `php please support:details` into here. Also, please provide the URL to the feed you're importing from.
