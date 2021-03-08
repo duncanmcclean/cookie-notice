@@ -4,7 +4,7 @@
 
 This addon provides a cookie consent notice to visitors of your Statamic site. It includes the ability to toggle consent groups and by default has a clean [TailwindCSS](https://tailwindcss.com) design.
 
-Disclaimer: we're not responsible if this addon is not compliant with Europen (or other) regulations.
+**Disclaimer:** I'm (Duncan) not responsible if this cookie notice addon isn't compliant with local/international regulations.
 
 Although the code for this addon is open-source, you need to purchase a license from the Statamic Marketplace to use it on [a public domain](https://statamic.dev/licensing#public-domains).
 
