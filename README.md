@@ -4,7 +4,7 @@ This addon provides a simple and easily customisable cookie notice that you can 
 
 Although the code for this addon is open-source, you need to purchase a license from the Statamic Marketplace to use it on [a public domain](https://statamic.dev/licensing#public-domains).
 
-> This addon is no longer receiving updates. Please use Cookie Notice for Statamic v3 if you wish to receive updates.
+> **This addon is no longer receiving updates.** Please use Cookie Notice for Statamic v3 if you wish to receive updates.
 
 ## Installation
 
