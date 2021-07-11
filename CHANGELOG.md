@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.4 (2021-07-11)
+
+### What's fixed
+
+* Fixed bug in new update script I added to display warnings when updating to v5.
+
 ## v5.0.3 (2021-07-11)
 
 ### What's new

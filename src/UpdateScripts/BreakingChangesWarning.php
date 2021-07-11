@@ -17,9 +17,7 @@ class BreakingChangesWarning extends UpdateScript
     {
         // Have assets been published? If so, re-publish.
         if (File::exists(public_path('vendor/cookie-notice'))) {
-            dump("[Cookie Notice] Re-publishing assets");
-
-            Artisan::call('php artisan vendor:publish --tag=cookie-notice-assets');
+            dump("[Cookie Notice] BREAKING CHANGE: Please re-publish the Cookie Notice assets. See v5.0.0 changelog. https://github.com/doublethreedigital/cookie-notice/releases/tag/v5.0.0");
         }
 
         // Has antlers view been published? If so, show a warning..
