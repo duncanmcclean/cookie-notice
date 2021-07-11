@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## v5.0.0
+## v5.0.0 (2021-07-11)
 
 **⚠️ This update contains breaking changes.**
 
