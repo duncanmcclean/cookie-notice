@@ -1,6 +1,7 @@
 {
   "name": "doublethreedigital/cookie-notice",
   "description": "Cookie Consent for Statamic - with support for consent groups!",
+  "license": "proprietary",
   "autoload": {
     "psr-4": {
       "DoubleThreeDigital\\CookieNotice\\": "src"
@@ -12,6 +13,10 @@
     }
   },
   "extra": {
+    "download-dist": {
+        "url": "https://github.com/doublethreedigital/cookie-notice/releases/download/{$version}/dist.tar.gz",
+        "path": "resources/dist"
+    },
     "statamic": {
       "name": "Cookie Notice",
       "description": "Cookie Consent for Statamic - with support for consent groups!"
@@ -24,6 +29,7 @@
   },
   "require": {
     "php": "^7.2 || ^8.0",
+    "pixelfear/composer-dist-plugin": "^0.1.5",
     "statamic/cms": "^3.0 || ^3.1"
   },
   "require-dev": {
