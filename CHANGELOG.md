@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.2 (2021-07-11)
+
+### What's fixed
+
+* Fixed issue with CSS not being compiled properly
+
 ## v5.0.1 (2021-07-11)
 
 This release resolves an issue in the publish workflow of the previous release. Please review [v5.0.0](https://github.com/doublethreedigital/cookie-notice/releases/tag/v5.0.0) for the changelog.
