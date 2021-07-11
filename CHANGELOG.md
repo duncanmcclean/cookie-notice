@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.3 (2021-07-11)
+
+### What's new
+
+* When upgrading to v5, you'll now get warnings about breaking changes if they affect you.
+
 ## v5.0.2 (2021-07-11)
 
 ### What's fixed
