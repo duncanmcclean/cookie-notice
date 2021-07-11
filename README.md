@@ -14,8 +14,6 @@ This repository contains the source code for Cookie Notice. Cookie Notice is a c
 * Conditionally load code, based on user's consent
 * Full customisation of the notice view, if required
 
-> This addon doesn't currently support usage alongside Statamic's Static Caching functionality. However, this is [on the roadmap for the future](https://github.com/doublethreedigital/cookie-notice/issues/40).
-
 ## Installation
 
 1. Install via Composer - `composer require doublethreedigital/cookie-notice`
