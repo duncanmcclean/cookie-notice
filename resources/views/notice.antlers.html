@@ -62,82 +62,82 @@
     </div>
 
     <script>
-        const cookiesForm = document.getElementById('cookiesForm');
-        const hideConsentFormButton = document.getElementById('hideConsentFormButton');
-        const manageCookiesButton = document.getElementById('manageCookiesButton');
-        const COOKIE_NAME = '{{ cookie_name }}';
-        const groups = JSON.parse('{{ groups | json }}');
+        const cookiesForm = document.getElementById('cookiesForm')
+        const hideConsentFormButton = document.getElementById('hideConsentFormButton')
+        const manageCookiesButton = document.getElementById('manageCookiesButton')
+        const COOKIE_NAME = '{{ cookie_name }}'
+        const groups = JSON.parse('{{ groups | json }}')
 
         window.cookieNotice = {
             consentWithCookies: function (groups) {
-                this.setCookie(COOKIE_NAME, groups, 30);
-                this.hideConsentNotice();
+                this.setCookie(COOKIE_NAME, groups, 30)
+                this.hideConsentNotice()
             },
 
             showConsentNotice: function() {
-                manageCookiesButton.setAttribute('style', 'display: none;');
-                cookiesForm.removeAttribute('style');
+                manageCookiesButton.setAttribute('style', 'display: none;')
+                cookiesForm.removeAttribute('style')
             },
 
             hideConsentNotice: function() {
-                manageCookiesButton.removeAttribute('style');
-                cookiesForm.setAttribute('style', 'display: none;');
+                manageCookiesButton.removeAttribute('style')
+                cookiesForm.setAttribute('style', 'display: none;')
             },
 
             cookieExists: function(name) {
-                return document.cookie.indexOf(name + '=') !== -1;
+                return document.cookie.indexOf(name + '=') !== -1
             },
 
             getCookie: function(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
+                const value = `; ${document.cookie}`
+                const parts = value.split(`; ${name}=`)
+                if (parts.length === 2) return parts.pop().split(';').shift()
             },
 
             setCookie: function(name, value, expirationInDays) {
-                const date = new Date();
-                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+                const date = new Date()
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000))
 
                 document.cookie = name + '=' + value
                     + ';expires=' + date.toUTCString()
                     + ';domain={{ domain }}'
                     + ';path=/{{ config:session:secure ? ';secure' : null }}'
-                    + '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}';
+                    + '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}'
             },
 
             hasConsent: function (group) {
-                const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',');
+                const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
                 if (group = groups.find(g => g.name === group)) {
-                    return consented.includes(group.slug);
+                    return consented.includes(group.slug)
                 }
 
-                return consented.length > 0;
+                return consented.length > 0
             }
-        };
+        }
 
         cookiesForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const groups = formData.getAll('groups');
+            event.preventDefault()
+            const formData = new FormData(event.target)
+            const groups = formData.getAll('groups')
 
-            window.cookieNotice.consentWithCookies(groups);
-        });
+            window.cookieNotice.consentWithCookies(groups)
+        })
 
         window.addEventListener('load', function () {
             if (! window.cookieNotice.cookieExists(COOKIE_NAME)) {
-                window.cookieNotice.showConsentNotice();
-                hideConsentFormButton.setAttribute('style', 'display: none;');
+                window.cookieNotice.showConsentNotice()
+                hideConsentFormButton.setAttribute('style', 'display: none;')
             } else {
-                const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',');
+                const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
 
                 for (let i = 0; i < groups.length; i++) {
-                    document.getElementById(groups[i]).setAttribute('checked', true);
+                    document.getElementById(groups[i]).setAttribute('checked', true)
                 }
             }
-        });
+        })
 
-        hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice);
-        manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice);
+        hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
+        manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
     </script>
 
     <link rel="stylesheet" href="/vendor/cookie-notice/css/cookie-notice.css">
