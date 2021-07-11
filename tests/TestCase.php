@@ -35,10 +35,6 @@ abstract class TestCase extends OrchestraTestCase
                 'namespace' => 'DoubleThreeDigital\\CookieNotice\\',
             ],
         ];
-
-        Statamic::pushActionRoutes(function() {
-            return require_once realpath(__DIR__.'/../routes/actions.php');
-        });
     }
 
     protected function resolveApplicationConfiguration($app)

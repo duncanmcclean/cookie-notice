@@ -15,12 +15,8 @@ class CookieNoticeTag extends Tags
     public function index()
     {
         $viewData = array_merge($this->gatherData(), [
-            'endpoint'      => route('statamic.cookie-notice.update'),
-            'cookie'        => request()->cookie(config('cookie-notice.cookie_name')),
-
-            'hasConsented'  => $hasConsented = $this->hasConsented(),
-            'has_consented' => $hasConsented,
-
+            'domain' => config('session.domain') ?? request()->getHost(),
+            'cookie_name'   => config('cookie-notice.cookie_name'),
             'groups'        => $this->groups(),
         ]);
 
@@ -30,21 +26,6 @@ class CookieNoticeTag extends Tags
         );
     }
 
-    public function hasConsented(string $groupName = null)
-    {
-        $group = ! is_null($groupName) ? $groupName : str_slug($this->params->get('group'));
-
-        $consent = json_decode(
-            Cookie::get(Config::get('cookie-notice.cookie_name'))
-        );
-
-        if (! $group) {
-            return is_array($consent);
-        }
-
-        return is_array($consent) ? in_array($group, $consent) : false;
-    }
-
     protected function groups(): array
     {
         return collect(Config::get('cookie-notice.groups'))
@@ -52,7 +33,6 @@ class CookieNoticeTag extends Tags
                 return array_merge($value, [
                     'name' => $key,
                     'slug' => 'group_'.str_slug($key),
-                    'consented' => $this->hasConsented(str_slug($key)),
                 ]);
             })
             ->values()

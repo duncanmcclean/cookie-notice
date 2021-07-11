@@ -15,10 +15,6 @@ class ServiceProvider extends AddonServiceProvider
         CookieNoticeTag::class,
     ];
 
-    protected $routes = [
-        'actions' => __DIR__.'/../routes/actions.php',
-    ];
-
     public function boot()
     {
         parent::boot();

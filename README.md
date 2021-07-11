@@ -97,9 +97,8 @@ php artisan vendor:publish --tag=cookie-notice-views
 
 The view will then be published into your `resources/views/vendor` directory. Inside the view, there's a couple of variables that are available to you:
 
-* `endpoint`
-* `cookie`
-* `has_consented` (alias of `hasConsented`)
+* `domain`
+* `cookie_name`
 * `groups`
 * `csrf_field`
 * `csrf_token`
@@ -110,22 +109,22 @@ The view will then be published into your `resources/views/vendor` directory. In
 
 #### If user has given any consent...
 
-If you want to check if the user has given consent to any of your consent groups, you can do this:
+If you want to check if the user has given consent to any of your consent groups, you can do this with JavaScript:
 
-```handlebars
-{{ if {cookie_notice:hasConsented} }}
-    <!-- has consented to something -->
-{{ /if }}
+```js
+if (window.cookieNotice.hasConsent()) {
+    // has consented to something
+}
 ```
 
 #### If user has consented for...
 
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
 
-```handlebars
-{{ if {cookie_notice:hasConsented group='Marketing'} }}
-    <!-- marketing scripts -->
-{{ /if }}
+```js
+if (window.cookieNotice.hasConsent('Marketing')) {
+    // marketing scripts
+}
 ```
 
 ## Security
