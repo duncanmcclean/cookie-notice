@@ -112,7 +112,9 @@ The view will then be published into your `resources/views/vendor` directory. In
 If you want to check if the user has given consent to any of your consent groups, you can do this with JavaScript:
 
 ```js
-window.cookieNotice.hasConsent();
+if (window.cookieNotice.hasConsent()) {
+    // has consented to something
+}
 ```
 
 #### If user has consented for...
@@ -120,7 +122,9 @@ window.cookieNotice.hasConsent();
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
 
 ```js
-window.cookieNotice.hasConsent('Marketing');
+if (window.cookieNotice.hasConsent('Marketing')) {
+    // marketing scripts
+}
 ```
 
 ## Security
