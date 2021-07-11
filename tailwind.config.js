@@ -1,7 +1,7 @@
 module.exports = {
   prefix: 'cookies-',
   purge: [
-    './resources/views/notice.blade.php'
+    './resources/views/notice.antlers.php'
   ],
   theme: {
     extend: {},
