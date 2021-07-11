@@ -2,6 +2,60 @@
 
 ## Unreleased
 
+## v5.0.0
+
+**⚠️ This update contains breaking changes.**
+
+Cookie Notice is now compatible with [Static Caching](https://statamic.dev/static-caching#content)!
+
+### What's new
+
+* Now compatible with static caching #40
+
+### Breaking changes
+
+**Assets**
+
+All users of this addon will need to re-publish Cookie Notice's assets after updating.
+
+```
+php artisan vendor:publish --tag=cookie-notice-assets
+```
+
+**Antlers view**
+
+If you've chosen to publish Cookie Notices views so you can edit them (they'll exist in `resources/views/vendor`), you will need to re-publish the views and make your changes again. Changes had to be made to support static caching.
+
+```
+php artisan vendor:publish --tag=cookie-notice-views
+```
+
+**Checking for consent**
+
+Additionally, if you're checking for a user's consent anywhere, you'll need to do this using JavaScript instead of the Antlers tags.
+
+*Before*
+```handlebars
+{{ if {cookie_notice:hasConsented} }}
+    <!-- has consented to something -->
+{{ /if }}
+
+{{ if {cookie_notice:hasConsented group='Marketing'} }}
+    <!-- marketing scripts -->
+{{ /if }}
+```
+
+*Now*
+```js
+if (window.cookieNotice.hasConsent()) {
+    // has consented to something
+}
+
+if (window.cookieNotice.hasConsent('Marketing')) {
+    // marketing scripts
+}
+```
+
 ## v4.0.1
 
 ### What's improved
