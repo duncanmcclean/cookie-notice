@@ -2,7 +2,6 @@
 
 namespace DoubleThreeDigital\CookieNotice;
 
-use DoubleThreeDigital\CookieNotice\Tags\CookieNoticeTag;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
@@ -12,7 +11,11 @@ class ServiceProvider extends AddonServiceProvider
     protected $translations = false;
 
     protected $tags = [
-        CookieNoticeTag::class,
+        Tags\CookieNoticeTag::class,
+    ];
+
+    protected $updateScripts = [
+        UpdateScripts\BreakingChangesWarning::class,
     ];
 
     public function boot()
