@@ -1,27 +1,35 @@
 {{ if !live_preview }}
     <div class="cookies-fixed cookies-bottom-0 md:cookies-right-0">
-        <form id="cookiesForm" class="cookies-bg-white cookies-rounded-lg cookies-mx-6 cookies-my-6 cookies-p-6 md:cookies-w-1/3 cookies-float-right" action="{{ endpoint }}" method="POST" style="display: none">
-            <h2 class="cookies-font-semibold cookies-text-2xl cookies-mb-1">This site uses cookies</h2>
-            <p class="cookies-text-sm">We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.</p>
+        <form
+            id="cookiesForm"
+            class="cookies-bg-white cookies-rounded-lg cookies-mx-6 cookies-my-6 cookies-p-6 md:cookies-w-1/3 cookies-float-right cookies-text-gray-800"
+            method="POST"
+            style="display: none"
+        >
+            <h2
+                class="cookies-font-semibold cookies-text-2xl cookies-mb-1"
+            >This site uses cookies</h2>
+
+            <p
+                class="cookies-text-sm"
+            >We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.</p>
 
             {{ csrf_field }}
 
             <div class="cookies-flex cookies-flex-col cookies-my-2">
                 {{ foreach:groups as="group" }}
                     {{ group }}
-                        <label class="cookis-mb-1" for="{{ slug }}">
+                        <label class="cookies-mb-1" for="{{ slug }}">
                             <input
                                 id="{{ slug }}"
                                 type="checkbox"
-                                name="{{ slug }}"
+                                name="groups"
+                                value="{{ slug }}"
                                 {{ if toggle_by_default && !cookie || required }}
-                                    checked value="on"
+                                    checked
                                 {{ /if }}
                                 {{ if required }}
-                                    required value="on" onclick="this.checked = true"
-                                {{ /if }}
-                                {{ if consented }}
-                                    value="on" checked
+                                    required onclick="this.checked = true"
                                 {{ /if }}
                             >
                             {{ name }}
@@ -34,36 +42,102 @@
             </div>
 
             <div class="cookies-flex cookies-flex-row cookies-items-center">
-                <button class="cookies-bg-blue-500 hover:cookies-bg-blue-600 cookies-rounded cookies-text-center cookies-text-white cookies-px-6 cookies-py-2 focus:cookies-outline-none" type="submit">Accept</button>
-                {{ if hasConsented }}
-                    <button id="hideConsentFormButton" class="cookies-ml-4 cookies-text-gray-800 cookies-text-sm focus:cookies-outline-none" type="button">Hide</button>
-                {{ /if }}
+                <button
+                    class="cookies-bg-blue-500 hover:cookies-bg-blue-600 cookies-rounded cookies-text-center cookies-text-white cookies-px-6 cookies-py-2 focus:cookies-outline-none cookies-cursor-pointer"
+                    type="submit"
+                >Accept</button>
+
+                <button
+                    id="hideConsentFormButton"
+                    class="cookies-ml-4 cookies-text-gray-800 cookies-text-sm focus:cookies-outline-none cookies-cursor-pointer cookies-bg-white"
+                    type="button"
+                >Hide</button>
             </div>
         </form>
 
-        <button id="manageCookiesButton" class="cookies-bg-white cookies-rounded-lg cookies-mr-2 cookies-mb-2 cookies-p-2 cookies-float-right focus:cookies-outline-none">Manage Cookies</button>
+        <button
+            id="manageCookiesButton"
+            class="cookies-bg-white cookies-rounded-lg cookies-mr-2 cookies-mb-2 cookies-p-2 cookies-float-right focus:cookies-outline-none cookies-cursor-pointer"
+        >Manage Cookies</button>
     </div>
 
     <script>
         const cookiesForm = document.getElementById('cookiesForm')
         const hideConsentFormButton = document.getElementById('hideConsentFormButton')
         const manageCookiesButton = document.getElementById('manageCookiesButton')
+        const COOKIE_NAME = '{{ cookie_name }}'
+        const groups = JSON.parse('{{ groups | json }}')
 
-        function showConsentNotice() {
-            manageCookiesButton.setAttribute('style', 'display: none;')
-            cookiesForm.removeAttribute('style')
+        window.cookieNotice = {
+            consentWithCookies: function (groups) {
+                this.setCookie(COOKIE_NAME, groups, 30)
+                this.hideConsentNotice()
+            },
+
+            showConsentNotice: function() {
+                manageCookiesButton.setAttribute('style', 'display: none;')
+                cookiesForm.removeAttribute('style')
+            },
+
+            hideConsentNotice: function() {
+                manageCookiesButton.removeAttribute('style')
+                cookiesForm.setAttribute('style', 'display: none;')
+            },
+
+            cookieExists: function(name) {
+                return document.cookie.indexOf(name + '=') !== -1
+            },
+
+            getCookie: function(name) {
+                const value = `; ${document.cookie}`
+                const parts = value.split(`; ${name}=`)
+                if (parts.length === 2) return parts.pop().split(';').shift()
+            },
+
+            setCookie: function(name, value, expirationInDays) {
+                const date = new Date()
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000))
+
+                document.cookie = name + '=' + value
+                    + ';expires=' + date.toUTCString()
+                    + ';domain={{ domain }}'
+                    + ';path=/{{ config:session:secure ? ';secure' : null }}'
+                    + '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}'
+            },
+
+            hasConsent: function (group) {
+                const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+                if (group = groups.find(g => g.name === group)) {
+                    return consented.includes(group.slug)
+                }
+
+                return consented.length > 0
+            }
         }
 
-        function hideConsentNotice() {
-            manageCookiesButton.removeAttribute('style')
-            cookiesForm.setAttribute('style', 'display: none;')
-        }
+        cookiesForm.addEventListener('submit', function (event) {
+            event.preventDefault()
+            const formData = new FormData(event.target)
+            const groups = formData.getAll('groups')
 
-        {{ if !hasConsented }}
-            window.addEventListener('load', showConsentNotice)
-        {{ /if }}
-        if (hideConsentFormButton) hideConsentFormButton.addEventListener('click', hideConsentNotice)
-        manageCookiesButton.addEventListener('click', showConsentNotice)
+            window.cookieNotice.consentWithCookies(groups)
+        })
+
+        window.addEventListener('load', function () {
+            if (! window.cookieNotice.cookieExists(COOKIE_NAME)) {
+                window.cookieNotice.showConsentNotice()
+                hideConsentFormButton.setAttribute('style', 'display: none;')
+            } else {
+                const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+
+                for (let i = 0; i < groups.length; i++) {
+                    document.getElementById(groups[i]).setAttribute('checked', true)
+                }
+            }
+        })
+
+        hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
+        manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
     </script>
 
     <link rel="stylesheet" href="/vendor/cookie-notice/css/cookie-notice.css">
