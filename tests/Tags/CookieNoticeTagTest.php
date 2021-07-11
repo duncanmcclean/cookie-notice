@@ -46,7 +46,7 @@ class CookieNoticeTagTest extends TestCase
     public function can_see_cookie_notice()
     {
         $this->tag->setParameters([]);
-        
+
         $notice = $this->tag->index()->render();
 
         $this->assertIsString($notice);
@@ -56,38 +56,12 @@ class CookieNoticeTagTest extends TestCase
     }
 
     /** @test */
-    public function can_get_if_consent_is_true()
-    {
-        // TODO: need to find a way to set/fake a cookie
-        $this->markTestIncomplete();
-
-        Cookie::queue(
-            Config::get('cookie-notice.cookie_name'),
-            json_encode(['Necessary', 'Statistics']),
-            43200 // 30 days
-        );
-
-        $this->tag->setParameters(['group' => 'Statistics']);
-
-        $notice = $this->tag->hasConsented();
-        
-        $this->assertIsBool($notice);
-    }
-
-    /** @test */
-    public function can_get_if_consent_is_false()
-    {
-        // TODO: need to find a way to set/fake a cookie
-        $this->markTestIncomplete();
-    }
-
-    /** @test */
     public function cookie_notice_settings_should_not_select_checkboxes_that_are_selected_by_default()
     {
         // TODO
         $this->markTestIncomplete();
 
-        // When a user views their cookie notice settings, they may not have selected 'Analytics'. However, 
+        // When a user views their cookie notice settings, they may not have selected 'Analytics'. However,
         // when they view settings and 'Analytics' is checked_by_default, it will look like the user has already
         // selected 'Analytics'.
     }
