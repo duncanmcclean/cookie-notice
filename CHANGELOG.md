@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.3 (2021-07-17)
+
+### What's new
+
+* Added a `z-index` to the cookie notice wrapper (hopefully fixes #41)
+
 ## v5.0.4 (2021-07-11)
 
 ### What's fixed
