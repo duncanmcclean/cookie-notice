@@ -134,7 +134,7 @@ If you discover a security vulnerability within Cookie Notice, please report it 
 ## Resources
 
 * [**Issue Tracker**](https://github.com/doublethreedigital/cookie-notice/issues): Find & report bugs in Cookie Notice
-* [**Email**](mailto:duncan@doublethree.digital): Support from the developer behind the addon
+* [**Email**](mailto:help@doublethree.digital): Support from the developer behind the addon
 
 ---
 
