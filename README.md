@@ -1,6 +1,10 @@
+<!-- statamic:hide -->
+
 ![Screenshot](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/master/screenshot.png)
 
 ## Cookie Notice
+
+<!-- /statamic:hide -->
 
 Cookie Notice provides a cookie consent notice to visitors of your Statamic site. It includes the ability to toggle consent groups and by default has a clean [TailwindCSS](https://tailwindcss.com) design.
 
@@ -136,9 +140,13 @@ If you discover a security vulnerability within Cookie Notice, please report it 
 * [**Issue Tracker**](https://github.com/doublethreedigital/cookie-notice/issues): Find & report bugs in Cookie Notice
 * [**Email**](mailto:help@doublethree.digital): Support from the developer behind the addon
 
+<!-- statamic:hide -->
+
 ---
 
 <p>
 <a href="https://statamic.com"><img src="https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge" alt="Compatible with Statamic v3"></a>
 <a href="https://packagist.org/packages/doublethreedigital/cookie-notice/stats"><img src="https://img.shields.io/packagist/v/doublethreedigital/cookie-notice?style=for-the-badge" alt="Cookie Notice on Packagist"></a>
 </p>
+
+<!-- /statamic:hide -->
