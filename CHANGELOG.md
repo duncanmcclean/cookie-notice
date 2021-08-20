@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.6 (2021-08-20)
+
+### What's fixed
+
+* Fixed TailwindCSS classes being purged incorrectly #44
+
 ## v5.0.5 (2021-08-19)
 
 ### What's new
