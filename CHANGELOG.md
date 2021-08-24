@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.0.7 (2021-08-24)
+
+### What's fixed
+
+* Fixed issue with `hasConsent` if 'cookie notice cookie' does not exist #45
+
 ## v5.0.6 (2021-08-20)
 
 ### What's fixed
