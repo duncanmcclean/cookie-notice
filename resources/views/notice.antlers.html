@@ -106,11 +106,12 @@
             },
 
             hasConsent: function (group) {
-                if(window.cookieNotice.getCookie(COOKIE_NAME) === undefined){
-                    return false;
+                if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
+                    return false
                 }
-                
+
                 const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+
                 if (group = groups.find(g => g.name === group)) {
                     return consented.includes(group.slug)
                 }
