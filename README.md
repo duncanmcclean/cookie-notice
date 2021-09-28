@@ -1,6 +1,6 @@
 <!-- statamic:hide -->
 
-![Screenshot](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/master/screenshot.png)
+![Banner](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/master/banner.png)
 
 ## Cookie Notice
 
