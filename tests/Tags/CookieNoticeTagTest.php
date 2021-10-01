@@ -39,6 +39,8 @@ class CookieNoticeTagTest extends TestCase
     /** @test */
     public function cookie_notice_tag_is_registered()
     {
+        dd($this->app['statamic.tags']);
+
         $this->assertTrue(isset($this->app['statamic.tags']['cookie_notice']));
     }
 
