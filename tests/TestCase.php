@@ -32,7 +32,7 @@ abstract class TestCase extends OrchestraTestCase
         $app->make(Manifest::class)->manifest = [
             'doublethreedigital/cookie-notice' => [
                 'id' => 'doublethreedigital/cookie-notice',
-                'namespace' => 'DoubleThreeDigital\\CookieNotice\\',
+                'namespace' => 'DoubleThreeDigital\\CookieNotice',
             ],
         ];
     }
