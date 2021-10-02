@@ -157,7 +157,7 @@ Cookie Notice is a commercial addon - you **must purchase a license** via the [S
 
 Only the latest version of Cookie Notice (v5.0) will receive security updates if a vulnerability is found. 
 
-If you discover a security vulnerability, please report it to Duncan straight away, [via email](mailto:duncan@doublethree.digital). Please don't report security issues through GitHub Issues.
+If you discover a security vulnerability, please report it to Duncan straight away, [via email](mailto:security@doublethree.digital). Please don't report security issues through GitHub Issues.
 
 ## Official Support
 
