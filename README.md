@@ -1,6 +1,6 @@
 <!-- statamic:hide -->
 
-![Banner](https://raw.githubusercontent.com/doublethreedigital/cookie-notice/master/banner.png)
+![Banner](./banner.png)
 
 ## Cookie Notice
 
@@ -12,17 +12,37 @@ This repository contains the source code for Cookie Notice. Cookie Notice is a c
 
 **Disclaimer:** It's your responsibility (as the license holder) to ensure your cookie notice complies with local cookie laws.
 
-## Features
+### Cookie consent notification
 
-* Consent Groups
-* Conditionally load code, based on user's consent
-* Full customisation of the notice view, if required
+As you'd expect, this addon gives you a lightweight cookie notification. The code for which is fully customisable to meet the design of your site.
+
+### Consent Groups
+
+Cookie Notice has built-in support for consent groups - allowing your users to consent to specific types of cookies (eg. Required, Statistics, Marketing).
+
+### Initialise code with consent
+
+You may run certain bits of code only if the user has given their consent.
 
 ## Installation
 
-1. Install via Composer - `composer require doublethreedigital/cookie-notice`
-2. Publish the Cookie Notice config and it's assets - `php artisan vendor:publish --tag=cookie-notice-config && php artisan vendor:publish --tag=cookie-notice-assets`
-3. Add the notice to your site's layout `{{ cookie_notice }}`
+First, require Cookie Notice as a Composer dependency:
+
+```
+composer require doublethreedigital/cookie-notice
+```
+
+Next, publish the configuration file and it's assets (CSS & JavaScript):
+
+```
+php artisan vendor:publish --tag=cookie-notice-config && php artisan vendor:publish --tag=cookie-notice-assets
+```
+
+And finally, add the tag to your site's layout:
+
+```antlers
+{{ cookie_notice }}
+```
 
 ## Documentation
 
@@ -129,16 +149,15 @@ if (window.cookieNotice.hasConsent('Marketing')) {
 }
 ```
 
+## Commercial addon
+
+Cookie Notice is a commercial addon - you **must purchase a license** via the [Statamic Marketplace](https://statamic.com/addons/double-three-digital/cookie-notice) to use it in a production environment.
+
 ## Security
 
-From a security perspective, only the latest version will receive a security release if a vulnerability is found.
+Only the latest version of Cookie Notice (v5.0) will receive security updates if a vulnerability is found. 
 
-If you discover a security vulnerability within Cookie Notice, please report it [via email](mailto:duncan@doublethree.digital) straight away. Please don't report security issues in the issue tracker.
-
-## Resources
-
-* [**Issue Tracker**](https://github.com/doublethreedigital/cookie-notice/issues): Find & report bugs in Cookie Notice
-* [**Email**](mailto:help@doublethree.digital): Support from the developer behind the addon
+If you discover a security vulnerability, please report it to Duncan straight away, [via email](mailto:duncan@doublethree.digital). Please don't report security issues through GitHub Issues.
 
 <!-- statamic:hide -->
 
