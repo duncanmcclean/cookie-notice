@@ -159,6 +159,10 @@ Only the latest version of Cookie Notice (v5.0) will receive security updates if
 
 If you discover a security vulnerability, please report it to Duncan straight away, [via email](mailto:duncan@doublethree.digital). Please don't report security issues through GitHub Issues.
 
+## Official Support
+
+If you're in need of some help with Cookie Notice, [send me an email](mailto:help@doublethree.digital) and I'll do my best to help! (I'll usually respond within a day)
+
 <!-- statamic:hide -->
 
 ---
