@@ -3,7 +3,6 @@
 namespace DoubleThreeDigital\CookieNotice\Tags;
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cookie;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
