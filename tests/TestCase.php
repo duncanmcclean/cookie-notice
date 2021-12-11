@@ -3,9 +3,9 @@
 namespace DoubleThreeDigital\CookieNotice\Tests;
 
 use DoubleThreeDigital\CookieNotice\ServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Extend\Manifest;
 use Statamic\Providers\StatamicServiceProvider;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Statamic;
 
 abstract class TestCase extends OrchestraTestCase
@@ -21,7 +21,7 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Statamic' => Statamic::class
+            'Statamic' => Statamic::class,
         ];
     }
 
@@ -43,7 +43,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $configs = [
             'assets', 'cp', 'forms', 'static_caching',
-            'sites', 'stache', 'system', 'users'
+            'sites', 'stache', 'system', 'users',
         ];
 
         foreach ($configs as $config) {
@@ -62,7 +62,7 @@ abstract class TestCase extends OrchestraTestCase
             $this->app = null;
         }
 
-       // Call parent teardown
-       parent::tearDown();
+        // Call parent teardown
+        parent::tearDown();
     }
 }
