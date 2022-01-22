@@ -2,53 +2,59 @@
 
 ## Unreleased
 
+## v5.0.8 (2022-01-22)
+
+### What's new
+
+- The JavaScript code can be included in a different place than the Notice itself #48 #49
+
 ## v5.0.7 (2021-08-24)
 
 ### What's fixed
 
-* Fixed issue with `hasConsent` if 'cookie notice cookie' does not exist #45
+- Fixed issue with `hasConsent` if 'cookie notice cookie' does not exist #45
 
 ## v5.0.6 (2021-08-20)
 
 ### What's fixed
 
-* Fixed TailwindCSS classes being purged incorrectly #44
+- Fixed TailwindCSS classes being purged incorrectly #44
 
 ## v5.0.5 (2021-08-19)
 
 ### What's new
 
-* Support for [Statamic 3.2](https://statamic.com/blog/statamic-3.2-beta)
+- Support for [Statamic 3.2](https://statamic.com/blog/statamic-3.2-beta)
 
 ## v5.0.4 (2021-07-11)
 
 ### What's fixed
 
-* Fixed bug in new update script I added to display warnings when updating to v5.
+- Fixed bug in new update script I added to display warnings when updating to v5.
 
 ## v5.0.3 (2021-07-17)
 
 ### What's new
 
-* Added a `z-index` to the cookie notice wrapper (hopefully fixes #41)
+- Added a `z-index` to the cookie notice wrapper (hopefully fixes #41)
 
 ## v5.0.4 (2021-07-11)
 
 ### What's fixed
 
-* Fixed bug in new update script I added to display warnings when updating to v5.
+- Fixed bug in new update script I added to display warnings when updating to v5.
 
 ## v5.0.3 (2021-07-11)
 
 ### What's new
 
-* When upgrading to v5, you'll now get warnings about breaking changes if they affect you.
+- When upgrading to v5, you'll now get warnings about breaking changes if they affect you.
 
 ## v5.0.2 (2021-07-11)
 
 ### What's fixed
 
-* Fixed issue with CSS not being compiled properly
+- Fixed issue with CSS not being compiled properly
 
 ## v5.0.1 (2021-07-11)
 
@@ -62,7 +68,7 @@ Cookie Notice is now compatible with [Static Caching](https://statamic.dev/stati
 
 ### What's new
 
-* Now compatible with static caching #40
+- Now compatible with static caching #40
 
 ### Breaking changes
 
@@ -86,7 +92,8 @@ php artisan vendor:publish --tag=cookie-notice-views
 
 Additionally, if you're checking for a user's consent anywhere, you'll need to do this using JavaScript instead of the Antlers tags.
 
-*Before*
+_Before_
+
 ```handlebars
 {{ if {cookie_notice:hasConsented} }}
     <!-- has consented to something -->
@@ -97,14 +104,15 @@ Additionally, if you're checking for a user's consent anywhere, you'll need to d
 {{ /if }}
 ```
 
-*Now*
+_Now_
+
 ```js
 if (window.cookieNotice.hasConsent()) {
-    // has consented to something
+  // has consented to something
 }
 
-if (window.cookieNotice.hasConsent('Marketing')) {
-    // marketing scripts
+if (window.cookieNotice.hasConsent("Marketing")) {
+  // marketing scripts
 }
 ```
 
@@ -112,15 +120,15 @@ if (window.cookieNotice.hasConsent('Marketing')) {
 
 ### What's improved
 
-* The cookie notice will no longer show in Live Preview #42
+- The cookie notice will no longer show in Live Preview #42
 
 ## v4.0.0
 
-* Refactored view to use Antlers, instead of Blade
-* Allow for using globals inside the cookie notice view #27
+- Refactored view to use Antlers, instead of Blade
+- Allow for using globals inside the cookie notice view #27
 
 ---
 
-This release *shouldn't* be a breaking change if you're coming from v3. However, I've marked it as such in case there are any unintended side affects.
+This release _shouldn't_ be a breaking change if you're coming from v3. However, I've marked it as such in case there are any unintended side affects.
 
 You should be able to continue using your Blade cookie notice views for as long as you like. Or if you like, you could switch it around for Antlers. It really doesn't matter which one you use.
