@@ -62,8 +62,6 @@
         cookiesForm = document.getElementById('cookiesForm')
         hideConsentFormButton = document.getElementById('hideConsentFormButton')
         manageCookiesButton = document.getElementById('manageCookiesButton')
-        COOKIE_NAME = '{{ cookie_name }}'
-        groups = JSON.parse('{{ groups | json }}')
 
         cookiesForm.addEventListener('submit', function(event) {
             event.preventDefault()
