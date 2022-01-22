@@ -48,17 +48,23 @@ return [
 ];
 ```
 
-* `cookie_name` defines the name of the cookie you wish to store the users' cookie preferences.
-* `groups` is an array of consent groups. Feel free to update them however you want. The key is the name of the group, which will be displayed to the user. `required` defines whether the user is absolutly required to accept cookies for that group. `toggle_by_default` will automatically check the checkbox on the consent notice, however the user will be able to uncheck it if they want.
+- `cookie_name` defines the name of the cookie you wish to store the users' cookie preferences.
+- `groups` is an array of consent groups. Feel free to update them however you want. The key is the name of the group, which will be displayed to the user. `required` defines whether the user is absolutly required to accept cookies for that group. `toggle_by_default` will automatically check the checkbox on the consent notice, however the user will be able to uncheck it if they want.
 
 ## Usage
 
 ### Displaying the cookie notice
 
-It's simple! Just add this to your site's layout (or wherever you want to put it)
+It's simple! Just add this to your site's layout:
 
-```handlebars
+```antlers
 {{ cookie_notice }}
+```
+
+If you need to move Cookie Notice's JavaScript elsewhere on the page, you can do this:
+
+```antlers
+{{ cookie_notice:scripts }}
 ```
 
 ### Overriding the cookie notice
@@ -71,15 +77,15 @@ php artisan vendor:publish --tag=cookie-notice-views
 
 The view will then be published into your `resources/views/vendor` directory. Inside the view, there's a couple of variables that are available to you:
 
-* `domain`
-* `cookie_name`
-* `groups`
-* `csrf_field`
-* `csrf_token`
-* `current_date`, `now` and `today`
-* `site` for the current site
-* `sites` for an array of all sites
-* And also any globals you have setup...
+- `domain`
+- `cookie_name`
+- `groups`
+- `csrf_field`
+- `csrf_token`
+- `current_date`, `now` and `today`
+- `site` for the current site
+- `sites` for an array of all sites
+- And also any globals you have setup...
 
 ### If user has given any consent...
 
@@ -87,7 +93,7 @@ If you want to check if the user has given consent to any of your consent groups
 
 ```js
 if (window.cookieNotice.hasConsent()) {
-    // has consented to something
+  // has consented to something
 }
 ```
 
@@ -96,7 +102,7 @@ if (window.cookieNotice.hasConsent()) {
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
 
 ```js
-if (window.cookieNotice.hasConsent('Marketing')) {
-    // marketing scripts
+if (window.cookieNotice.hasConsent("Marketing")) {
+  // marketing scripts
 }
 ```
