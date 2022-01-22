@@ -9,20 +9,20 @@ use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
 {
+    public static $alreadyRenderedScripts = false;
+
     protected static $handle = 'cookie_notice';
 
     public function index()
     {
-        $viewData = array_merge($this->gatherData(), [
-            'domain' => config('session.domain') ?? request()->getHost(),
-            'cookie_name'   => config('cookie-notice.cookie_name'),
-            'groups'        => $this->groups(),
-        ]);
+        return view('cookie-notice::notice', $this->viewData());
+    }
 
-        return view(
-            'cookie-notice::notice',
-            $viewData
-        );
+    public function scripts()
+    {
+        static::$alreadyRenderedScripts = true;
+
+        return view('cookie-notice::scripts', $this->viewData());
     }
 
     protected function groups(): array
@@ -38,9 +38,10 @@ class CookieNoticeTag extends Tags
             ->toArray();
     }
 
-    protected function gatherData(): array
+    protected function viewData(): array
     {
         $array = [
+            // Some Statamic-y variables
             'csrf_field' => csrf_field(),
             'csrf_token' => csrf_token(),
 
@@ -50,6 +51,12 @@ class CookieNoticeTag extends Tags
 
             'site' => Site::current(),
             'sites' => Site::all()->values(),
+
+            // Cookie Notice variables
+            'domain'        => config('session.domain') ?? request()->getHost(),
+            'cookie_name'   => config('cookie-notice.cookie_name'),
+            'groups'        => $this->groups(),
+            'already_rendered_scripts' => static::$alreadyRenderedScripts,
         ];
 
         foreach (GlobalSet::all() as $global) {
