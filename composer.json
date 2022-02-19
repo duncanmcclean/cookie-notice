@@ -1,52 +1,55 @@
 {
-  "name": "doublethreedigital/cookie-notice",
-  "description": "Cookie Consent for Statamic - with support for consent groups!",
-  "license": "proprietary",
-  "autoload": {
-    "psr-4": {
-      "DoubleThreeDigital\\CookieNotice\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "DoubleThreeDigital\\CookieNotice\\Tests\\": "tests"
-    }
-  },
-  "extra": {
-    "download-dist": {
-        "url": "https://github.com/doublethreedigital/cookie-notice/releases/download/{$version}/dist.tar.gz",
-        "path": "resources/dist"
+    "name": "doublethreedigital/cookie-notice",
+    "description": "Cookie Consent for Statamic - with support for consent groups!",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "DoubleThreeDigital\\CookieNotice\\": "src"
+        }
     },
-    "statamic": {
-      "name": "Cookie Notice",
-      "description": "Cookie Consent for Statamic - with support for consent groups!"
+    "autoload-dev": {
+        "psr-4": {
+            "DoubleThreeDigital\\CookieNotice\\Tests\\": "tests"
+        }
     },
-    "laravel": {
-      "providers": [
-        "DoubleThreeDigital\\CookieNotice\\ServiceProvider"
-      ]
+    "extra": {
+        "download-dist": {
+            "url": "https://github.com/doublethreedigital/cookie-notice/releases/download/{$version}/dist.tar.gz",
+            "path": "resources/dist"
+        },
+        "statamic": {
+            "name": "Cookie Notice",
+            "description": "Cookie Consent for Statamic - with support for consent groups!"
+        },
+        "laravel": {
+            "providers": [
+                "DoubleThreeDigital\\CookieNotice\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "pixelfear/composer-dist-plugin": "^0.1.5",
+        "statamic/cms": "3.2.* || 3.3.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^8.1"
+    },
+    "scripts": {
+        "lint": [
+            "php-cs-fixer fix ./src"
+        ],
+        "test": [
+            "./vendor/bin/phpunit"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
     }
-  },
-  "require": {
-    "php": "^7.2 || ^8.0",
-    "pixelfear/composer-dist-plugin": "^0.1.5",
-    "statamic/cms": "3.0.* || 3.1.* || 3.2.*"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^4.0|^5.0|^6.0",
-    "phpunit/phpunit": "^8.1"
-  },
-  "scripts": {
-    "lint": [
-      "php-cs-fixer fix ./src"
-    ],
-    "test": [
-      "./vendor/bin/phpunit"
-    ]
-  },
-  "config": {
-    "optimize-autoloader": true,
-    "preferred-install": "dist",
-    "sort-packages": true
-  }
 }
