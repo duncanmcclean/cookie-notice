@@ -33,8 +33,7 @@
         "statamic/cms": "3.2.* || 3.3.*"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0",
-        "phpunit/phpunit": "^8.1"
+        "orchestra/testbench": "^5.0 || ^6.0 || ^7.0"
     },
     "scripts": {
         "lint": [
