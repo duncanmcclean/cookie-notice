@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## v5.1.0 (2022-02-26)
+
+### What's new
+
+- Statamic 3.3 support
+
+### Breaking changes
+
+- Dropped support for Statamic 3.0 and Statamic 3.1
+
 ## v5.0.8 (2022-01-22)
 
 ### What's new
