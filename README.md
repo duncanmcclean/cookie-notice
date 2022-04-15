@@ -6,7 +6,7 @@
 
 <!-- /statamic:hide -->
 
-Cookie Notice provides a cookie consent notice to visitors of your Statamic site. It includes the ability to toggle consent groups and by default has a clean [TailwindCSS](https://tailwindcss.com) design.
+Cookie Notice lets you prompt your website visitors for cookie consent. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
 
 This repository contains the source code for Cookie Notice. Cookie Notice is a commercial addon, to use it in production, you'll need to [purchase a license](https://statamic.com/cookie-notice).
 
