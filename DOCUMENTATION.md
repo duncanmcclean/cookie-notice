@@ -97,6 +97,14 @@ if (window.cookieNotice.hasConsent()) {
 }
 ```
 
+If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally display elements with `x-show`:
+
+```html
+<div x-show="window.cookieNotice.hasConsent()">
+  <p>Just so you know, you've consented!</p>
+</div>
+```
+
 ### If user has consented for...
 
 You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
@@ -105,4 +113,12 @@ You'll want to make sure that you're only running marketing scripts when the use
 if (window.cookieNotice.hasConsent("Marketing")) {
   // marketing scripts
 }
+```
+
+If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally display elements with `x-show`:
+
+```html
+<div x-show="window.cookieNotice.hasConsent('Marketing')">
+    <iframe src="https://youtube.com/embed/xxx">
+</div>
 ```
