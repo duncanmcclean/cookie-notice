@@ -6,10 +6,10 @@
             method="POST" 
             style="display: none"
         >
-            <h2 class="cookies-font-semibold cookies-text-2xl cookies-mb-1">This site uses cookies</h2>
+            <h2 class="cookies-font-semibold cookies-text-2xl cookies-mb-1">{{ trans key="This site uses cookies" }}</h2>
 
             <p class="cookies-text-sm">
-                We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies.
+                {{ trans key="We use cookies on this site so we can provide you with personalised content, ads and to analyse our website's traffic. By continuing to use this website, you consent to cookies." }}
             </p>
 
             {{ csrf_field }}
@@ -26,9 +26,9 @@
                                 {{ if toggle_by_default && !cookie || required }} checked {{ /if }}
                                 {{ if required }} required onclick="this.checked = true" {{ /if }}
                             >
-                            {{ name }}
+                            {{ trans :key="name" }}
                             {{ if required }}
-                                <span class="cookies-text-red-600 cookies-text-xs">required</span>
+                                <span class="cookies-text-red-600 cookies-text-xs">{{ trans key="required" }}</span>
                             {{ /if }}
                         </label>
                     {{ /group }}
@@ -40,7 +40,7 @@
                     class="cookies-bg-blue-500 hover:cookies-bg-blue-600 cookies-rounded cookies-text-center cookies-text-white cookies-px-6 cookies-py-2 focus:cookies-outline-none cookies-cursor-pointer"
                     type="submit"
                 >
-                    Accept
+                    {{ trans key="Accept" }}
                 </button>
 
                 <button 
@@ -48,7 +48,7 @@
                     class="cookies-ml-4 cookies-text-gray-800 cookies-text-sm focus:cookies-outline-none cookies-cursor-pointer cookies-bg-white"
                     type="button"
                 >
-                    Hide
+                    {{ trans key="Hide" }}
                 </button>
             </div>
         </form>
@@ -57,7 +57,7 @@
             id="manageCookiesButton"
             class="cookies-bg-white cookies-rounded-lg cookies-mr-2 cookies-mb-2 cookies-p-2 cookies-float-right focus:cookies-outline-none cookies-cursor-pointer"
         >
-            Manage Cookies
+            {{ trans key="Manage Cookies" }}
         </button>
     </div>
 
