@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v5.2.0 (2022-06-15)
+
+### What's new
+
+- The Cookie Notice view is 'translatable' out-of-the-box now #51 #52
+
 ## v5.1.0 (2022-02-26)
 
 ### What's new
