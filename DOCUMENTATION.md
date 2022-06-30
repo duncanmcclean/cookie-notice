@@ -115,6 +115,8 @@ if (window.cookieNotice.hasConsent("Marketing")) {
 }
 ```
 
+#### Example: Alpine.js
+
 If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally display elements with `x-show`:
 
 ```html
@@ -122,6 +124,39 @@ If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally displa
     <iframe src="https://youtube.com/embed/xxx">
 </div>
 ```
+
+#### Example: Google Analytics
+
+Because you're asking users for their consent first, you'll need to load in and initialise Google Analytics after the user has consented.
+
+The below example is for Google Tag Manager, however I imagine it'll be similar for Google Analytics.
+
+```html
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SOMETHING"></script>
+
+<script>
+    gtag('js', new Date());
+    gtag('config', 'G-SOMETHING');
+
+  if (window.cookieNotice.hasConsent("Analytics")) {
+    gtag('consent', 'update', {'analytics_storage': 'granted'});
+
+    let gtmBody = document.createElement('noscript')
+    gtmBody.setAttribute('id', 'gtm-noscript')
+
+    let gtmIframe = document.createElement('iframe')
+    gtmIframe.setAttribute('src', 'https://www.googletagmanager.com/ns.html?id=GTM-SOMETHING')
+    gtmIframe.setAttribute('height', 0)
+    gtmIframe.setAttribute('width', 0)
+    gtmIframe.setAttribute('style', 'display:none;visibility:hidden')
+    
+    gtmBody.appendChild(gtmIframe)
+    document.body.prepend(gtmBody)
+  }
+</script>
+```
+
+**Note:** In some EU countries (Austria, Holland, France, Italy), Google Analytics has been declared illegal. If you have users in any of these countries, you are breaking the law. Alternativly, you can use [Fathom Analytics](https://usefathom.com/ref/ZBERDK), a privacy-focused analytics service. With Fathom, you don't even need this addon because it doesn't use any cookies. (the link included is an affliate link)
 
 ### Translating
 
