@@ -149,14 +149,16 @@ The below example is for Google Tag Manager, however I imagine it'll be similar 
     gtmIframe.setAttribute('height', 0)
     gtmIframe.setAttribute('width', 0)
     gtmIframe.setAttribute('style', 'display:none;visibility:hidden')
-    
+
     gtmBody.appendChild(gtmIframe)
     document.body.prepend(gtmBody)
   }
 </script>
 ```
 
-**Note:** In some EU countries (Austria, Holland, France, Italy), Google Analytics has been declared illegal. If you have users in any of these countries, you are breaking the law. Alternativly, you can use [Fathom Analytics](https://usefathom.com/ref/ZBERDK), a privacy-focused analytics service. With Fathom, you don't even need this addon because it doesn't use any cookies. (the link included is an affliate link)
+**Note:** In some EU countries (Austria, Holland, France, Italy), Google Analytics has been declared illegal. If you have users in any of these countries, you are breaking the law. 
+
+Alternatively, you can use [Fathom Analytics](https://usefathom.com/ref/ZBERDK), a privacy-focused analytics service. With Fathom, you don't even need this addon because it doesn't use any cookies. (the link included is an affliate link)
 
 ### Translating
 
