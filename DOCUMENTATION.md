@@ -1,3 +1,23 @@
+## Installation
+
+First, require Cookie Notice as a Composer dependency:
+
+```
+composer require doublethreedigital/cookie-notice
+```
+
+Next, publish the configuration file and it's assets (CSS & JavaScript):
+
+```
+php artisan vendor:publish --tag=cookie-notice-config && php artisan vendor:publish --tag=cookie-notice-assets
+```
+
+And finally, add the tag to your site's layout:
+
+```antlers
+{{ cookie_notice }}
+```
+
 ## Configuration
 
 During installation, you'll publish a configuration file for Cookie Notice to `config/cookie-notice.php`. The contents of said file look like this:
