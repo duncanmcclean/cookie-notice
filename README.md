@@ -20,7 +20,7 @@ This repository contains the source code for Cookie Notice. Cookie Notice is a c
 
 ## Documentation
 
-Review the documentation on the [Statamic Marketplace](https://statamic.com/addons/double-three-digital/cookie-notice/docs).
+Review the documentation on the [Statamic Marketplace](https://statamic.com/addons/duncanmcclean/cookie-notice/docs).
 
 ## Support
 
@@ -30,7 +30,7 @@ If you have any questions or need help, please let me know! Either via [GitHub I
 
 ## Commercial addon
 
-Cookie Notice is a commercial addon - you **must purchase a license** via the [Statamic Marketplace](https://statamic.com/addons/double-three-digital/cookie-notice) to use it in a production environment.
+Cookie Notice is a commercial addon - you **must purchase a license** via the [Statamic Marketplace](https://statamic.com/addons/duncanmcclean/cookie-notice) to use it in a production environment.
 
 <!-- statamic:hide -->
 
