@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v6.0.0 (2022-09-26)
+
+### What's new
+
+- Cookie Notice now has events! You can listen to them to detect consent changes, then trigger the relevant third-party scripts. #54
+
 ## v5.2.0 (2022-06-15)
 
 ### What's new
