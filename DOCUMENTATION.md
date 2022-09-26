@@ -107,78 +107,130 @@ The view will then be published into your `resources/views/vendor` directory. In
 - `sites` for an array of all sites
 - And also any globals you have setup...
 
-### If user has given any consent...
+### Events
 
-If you want to check if the user has given consent to any of your consent groups, you can do this with JavaScript:
+Cookie Notice will emit events when it's initially loaded on a page or where a consent group is consented/revoked by the user. This is the best way of catching whether a user has consented to a specific group or not.
 
-```js
-if (window.cookieNotice.hasConsent()) {
-  // has consented to something
-}
-```
+> Note: Your JavaScript will need to come after Cookie Notice's own JavaScript, otherwise it won't work.
 
-If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally display elements with `x-show`:
+#### Initial load
+
+The `loaded` event will be emitted once Cookie Notice has loaded. It'll give you an array containing the consent groups the user has consented to. You'll probably only need to check the `slug`:
 
 ```html
-<div x-show="window.cookieNotice.hasConsent()">
-  <p>Just so you know, you've consented!</p>
-</div>
-```
-
-### If user has consented for...
-
-You'll want to make sure that you're only running marketing scripts when the user has consented to the Marketing consent group. To check if a user has consented to a particular group, do this:
-
-```js
-if (window.cookieNotice.hasConsent("Marketing")) {
-  // marketing scripts
-}
-```
-
-#### Example: Alpine.js
-
-If you're using [Alpine.js](https://alpinejs.dev/), you may conditionally display elements with `x-show`:
-
-```html
-<div x-show="window.cookieNotice.hasConsent('Marketing')">
-    <iframe src="https://youtube.com/embed/xxx">
-</div>
-```
-
-#### Example: Google Analytics
-
-Because you're asking users for their consent first, you'll need to load in and initialise Google Analytics after the user has consented.
-
-The below example is for Google Tag Manager, however I imagine it'll be similar for Google Analytics.
-
-```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SOMETHING"></script>
-
 <script>
-    gtag('js', new Date());
-    gtag('config', 'G-SOMETHING');
+  cookieNotice.on('loaded', (groups) => {
+      if (groups.find(group) => group.slug === 'group_statistics') {
+          // Load Google Analytics... (or something else...)
+      }
 
-  if (window.cookieNotice.hasConsent("Analytics")) {
-    gtag('consent', 'update', {'analytics_storage': 'granted'});
-
-    let gtmBody = document.createElement('noscript')
-    gtmBody.setAttribute('id', 'gtm-noscript')
-
-    let gtmIframe = document.createElement('iframe')
-    gtmIframe.setAttribute('src', 'https://www.googletagmanager.com/ns.html?id=GTM-SOMETHING')
-    gtmIframe.setAttribute('height', 0)
-    gtmIframe.setAttribute('width', 0)
-    gtmIframe.setAttribute('style', 'display:none;visibility:hidden')
-
-    gtmBody.appendChild(gtmIframe)
-    document.body.prepend(gtmBody)
-  }
+      if (groups.find(group) => group.slug === 'group_marketing') {
+          // Load Facebook Pixel... (or something else...)
+      }
+  })
 </script>
 ```
 
-**Note:** In some EU countries (Austria, Holland, France, Italy), Google Analytics has been declared illegal. If you have users in any of these countries, you are breaking the law. 
+#### Consented to group
 
-Alternatively, you can use [Fathom Analytics](https://usefathom.com/ref/ZBERDK), a privacy-focused analytics service. With Fathom, you don't even need this addon because it doesn't use any cookies. (the link included is an affliate link)
+The `consented` event will be emitted when the user has consented to a consent group. It'll give you an object containing information on the group the user has consented to.
+
+```html
+<script>
+  cookieNotice.on("consented", (group) => {
+    if (group.slug === "group_marketing") {
+      // Load Facebook Pixel...
+    }
+
+    // ...
+  });
+</script>
+```
+
+#### Revoked group
+
+The `revoked` event will be emitted when the user has revoked consent for a consent group. It'll give you an object containing information on the group the user has revoked.
+
+```html
+<script>
+  cookieNotice.on("revoked", (group) => {
+    if (group.slug === "group_marketing") {
+      // Stop Facebook Pixel from tracking the user...
+    }
+
+    // ...
+  });
+</script>
+```
+
+### Examples
+
+#### Checking consent with Alpine.js
+
+If you're using [Alpine.js](https://alpinejs.dev/) & need to conditionally display elements based on consent status, you may do something like this, using the `x-show` directive:
+
+```html
+<div x-show="window.cookieNotice.hasConsent('Marketing')">
+  <iframe src="https://youtube.com/embed/xxx">
+</div>
+```
+
+#### Google Tag Manager
+
+As you're asking for user's consent first, you should only load in Google Tag Manager after the user has consented to it.
+
+The below example demonstrates what thi looks like. It's recommended to hook into both the `loaded` event & the `consented` event so GTM is initialised both upon page load & when the user updates their consent.
+
+```html
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-SOMETHING"
+></script>
+
+<script>
+  gtag("js", new Date());
+  gtag("config", "G-SOMETHING");
+
+  function enableGoogleTagManager() {
+      gtag("consent", "update", { analytics_storage: "granted" });
+
+      let gtmBody = document.createElement("noscript");
+      gtmBody.setAttribute("id", "gtm-noscript");
+
+      let gtmIframe = document.createElement("iframe");
+      gtmIframe.setAttribute(
+        "src",
+        "https://www.googletagmanager.com/ns.html?id=GTM-SOMETHING"
+      );
+      gtmIframe.setAttribute("height", 0);
+      gtmIframe.setAttribute("width", 0);
+      gtmIframe.setAttribute("style", "display:none;visibility:hidden");
+
+      gtmBody.appendChild(gtmIframe);
+      document.body.prepend(gtmBody);
+  }
+
+  cookieNotice.on('loaded', (groups) => {
+      if (groups.find(group) => group.slug === 'group_statistics') {
+          enableGoogleTagManager();
+      }
+  });
+
+  cookieNotice.on("consented", (group) => {
+    if (group.slug === "group_statistics") {
+      enableGoogleTagManager();
+    }
+  });
+
+  cookieNotice.on("revoked", (group) => {
+    if (group.slug === "group_statistics") {
+      // Revoke Google Tag Manager...
+    }
+  });
+</script>
+```
+
+> **Note:** In some EU countries (Austria, Holland, France, Italy), Google Tag Manager / Google Analytics has been declared illegal. If you have users in **any** of these countries, you are breaking the law simply by using it. Look into something like [Fathom Analytics](https://usefathom.com/ref/ZBERDK), a privacy-focused analytics service. You won't even need this addon if it's the only third-party script you're using.
 
 ### Translating
 

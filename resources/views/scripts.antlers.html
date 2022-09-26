@@ -4,10 +4,25 @@
     let hideConsentFormButton = document.getElementById('hideConsentFormButton')
     let manageCookiesButton = document.getElementById('manageCookiesButton')
     let COOKIE_NAME = '{{ cookie_name }}'
-    let groups = JSON.parse('{{ groups | json }}')
+    let consentGroups = JSON.parse('{{ groups | json }}')
 
     window.cookieNotice = {
+        listeners: [],
+
         consentWithCookies: function(groups) {
+            consentGroups.forEach((consentGroup) => {
+                let previousStatus = this.getCookie(COOKIE_NAME).split(',').includes(consentGroup.slug)
+                let currentStatus = groups.includes(consentGroup.slug)
+
+                if (previousStatus !== currentStatus && currentStatus === true) {
+                    this.dispatchEvent('consented', consentGroup)
+                }
+
+                if (previousStatus !== currentStatus && currentStatus === false) {
+                    this.dispatchEvent('revoked', consentGroup)
+                }
+            })
+
             this.setCookie(COOKIE_NAME, groups, 30)
             this.hideConsentNotice()
         },
@@ -50,26 +65,31 @@
 
             const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
 
-            if (group = groups.find(g => g.name === group)) {
+            if (group = consentGroups.find(g => g.name === group)) {
                 return consented.includes(group.slug)
             }
 
             return consented.length > 0
-        }
+        },
+
+        on: (event, callback) => {
+            cookieNotice.listeners.push({
+                event: event,
+                callback: callback,
+            });
+        },
+
+        dispatchEvent: (event, payload) => {
+            cookieNotice.listeners
+                .filter((listener) => listener.event === event)
+                .forEach((listener) => listener.callback(payload));
+        },
     }
 
     window.addEventListener('load', function() {
         cookiesForm = document.getElementById('cookiesForm')
         hideConsentFormButton = document.getElementById('hideConsentFormButton')
         manageCookiesButton = document.getElementById('manageCookiesButton')
-
-        cookiesForm.addEventListener('submit', function(event) {
-            event.preventDefault()
-            const formData = new FormData(event.target)
-            const groups = formData.getAll('groups')
-
-            window.cookieNotice.consentWithCookies(groups)
-        })
 
         cookiesForm.addEventListener('submit', function(event) {
             event.preventDefault()
@@ -92,6 +112,13 @@
 
         hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
         manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
+
+        window.cookieNotice.dispatchEvent(
+            'loaded',
+            window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
+                return consentGroups.find((group) => group.slug === slug)
+            })
+        )
     })
 </script>
 <!-- End: Cookie Notice scripts -->
