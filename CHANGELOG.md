@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v6.0.1 (2022-10-10
+
+### What's fixed
+
+* Fixed an issue for new users providing consent
+
 ## v6.0.0 (2022-09-26)
 
 ### What's new
