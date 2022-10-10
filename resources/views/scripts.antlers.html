@@ -11,7 +11,7 @@
 
         consentWithCookies: function(groups) {
             consentGroups.forEach((consentGroup) => {
-                let previousStatus = this.getCookie(COOKIE_NAME).split(',').includes(consentGroup.slug)
+                let previousStatus = this.getCookie(COOKIE_NAME)?.split(',').includes(consentGroup.slug)
                 let currentStatus = groups.includes(consentGroup.slug)
 
                 if (previousStatus !== currentStatus && currentStatus === true) {
