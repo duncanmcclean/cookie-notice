@@ -86,8 +86,7 @@
         },
     }
 
-    window.addEventListener('load', function() {
-        cookiesForm = document.getElementById('cookiesForm')
+    cookiesForm = document.getElementById('cookiesForm')
         hideConsentFormButton = document.getElementById('hideConsentFormButton')
         manageCookiesButton = document.getElementById('manageCookiesButton')
 
@@ -113,6 +112,7 @@
         hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
         manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
 
+    window.addEventListener('load', function() {
         window.cookieNotice.dispatchEvent(
             'loaded',
             window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
