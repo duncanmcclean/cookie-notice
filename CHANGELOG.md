@@ -2,11 +2,17 @@
 
 ## Unreleased
 
-## v6.0.1 (2022-10-10
+## v6.0.2 (2022-10-14)
+
+### What's improved
+
+- You can now click the buttons on the cookie notice widget while the page is still loading #55 #56
+
+## v6.0.1 (2022-10-10)
 
 ### What's fixed
 
-* Fixed an issue for new users providing consent
+- Fixed an issue for new users providing consent
 
 ## v6.0.0 (2022-09-26)
 
