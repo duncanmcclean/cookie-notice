@@ -20,7 +20,7 @@ This repository contains the source code for Cookie Notice. Cookie Notice is a c
 
 ## Documentation
 
-Review the documentation on the [Statamic Marketplace](https://statamic.com/addons/duncanmcclean/cookie-notice/docs).
+Visit the [Cookie Notice website](https://cookie-notice.duncanmcclean.com/) to read the addon's documentation.
 
 ## Support
 
