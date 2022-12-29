@@ -4,7 +4,7 @@
 
 ## v7.0.0 (2022-12-29)
 
-The supported versions of PHP/Statamic/Laravel used alongside this addon has changed, the currently supported versions are:
+The supported versions of PHP/Statamic/Laravel used alongside this addon have changed, the supported versions are now:
 
 - PHP 8.1 & 8.2
 - Statamic 3.3
