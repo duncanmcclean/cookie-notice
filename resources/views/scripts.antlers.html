@@ -87,38 +87,40 @@
     }
 
     cookiesForm = document.getElementById('cookiesForm')
-        hideConsentFormButton = document.getElementById('hideConsentFormButton')
-        manageCookiesButton = document.getElementById('manageCookiesButton')
+    hideConsentFormButton = document.getElementById('hideConsentFormButton')
+    manageCookiesButton = document.getElementById('manageCookiesButton')
 
-        cookiesForm.addEventListener('submit', function(event) {
-            event.preventDefault()
-            const formData = new FormData(event.target)
-            const groups = formData.getAll('groups')
+    cookiesForm.addEventListener('submit', function(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const groups = formData.getAll('groups')
 
-            window.cookieNotice.consentWithCookies(groups)
-        })
+        window.cookieNotice.consentWithCookies(groups)
+    })
 
-        if (!window.cookieNotice.cookieExists(COOKIE_NAME)) {
-            window.cookieNotice.showConsentNotice()
-            hideConsentFormButton.setAttribute('style', 'display: none;')
-        } else {
-            const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+    if (!window.cookieNotice.cookieExists(COOKIE_NAME)) {
+        window.cookieNotice.showConsentNotice()
+        hideConsentFormButton.setAttribute('style', 'display: none;')
+    } else {
+        const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
 
-            for (let i = 0; i < groups.length; i++) {
-                document.getElementById(groups[i]).setAttribute('checked', true)
-            }
+        for (let i = 0; i < groups.length; i++) {
+            document.getElementById(groups[i]).setAttribute('checked', true)
         }
+    }
 
-        hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
-        manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
+    hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
+    manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
 
     window.addEventListener('load', function() {
-        window.cookieNotice.dispatchEvent(
-            'loaded',
-            window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
-                return consentGroups.find((group) => group.slug === slug)
-            })
-        )
+        if (window.cookieNotice.cookieExists(COOKIE_NAME)) {
+            window.cookieNotice.dispatchEvent(
+                'loaded',
+                window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
+                    return consentGroups.find((group) => group.slug === slug)
+                })
+            )
+        }
     })
 </script>
 <!-- End: Cookie Notice scripts -->
