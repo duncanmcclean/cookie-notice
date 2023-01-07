@@ -6,3 +6,6 @@ package-lock.json
 .php_cs.cache
 .idea
 .antlers.json
+
+mix-manifest.json
+resources/dist/css/*.css
