@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## v7.1.0 (2023-01-07)
+
+### What's improved
+
+- There's been a few small design changes to the notice
+- CSS for the notice are now loaded inline, rather than via an external stylesheet (prevents it from not being displayed with some ad-blockers)
+
+### What's fixed
+
+- Fixed a JavaScript issue when loading the notice for the first time
+- Fixed an issue where text on 'Manage Cookies' button sometimes wouldn't show
+- Fixed an issue where the CSS file in `public/vendor/cookie-notice` wouldn't be included in your site's Git repository
+
 ## v7.0.0 (2022-12-29)
 
 The supported versions of PHP/Statamic/Laravel used alongside this addon have changed, the supported versions are now:
