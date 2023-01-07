@@ -6,6 +6,7 @@ use DoubleThreeDigital\CookieNotice\Tags\CookieNoticeTag;
 use DoubleThreeDigital\CookieNotice\Tests\TestCase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
 
 class CookieNoticeTagTest extends TestCase
@@ -34,6 +35,9 @@ class CookieNoticeTagTest extends TestCase
                 'toggle_by_default' => false,
             ],
         ]);
+
+        File::makeDirectory(public_path('vendor/cookie-notice/css'), 0755, true, true);
+        File::put(public_path('vendor/cookie-notice/css/cookie-notice.css'), '');
     }
 
     /** @test */
