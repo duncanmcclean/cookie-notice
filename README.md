@@ -1,44 +1,48 @@
-<!-- statamic:hide -->
-
-![Banner](./banner.png)
-
-## Cookie Notice
-
-<!-- /statamic:hide -->
+<p align="center">
+<picture>
+    <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)">
+    <img align="center" width="250" height="70" src="./logo-default.svg">
+</picture>
+</p>
+<br>
 
 Cookie Notice lets you prompt your website visitors for cookie consent. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
 
-This repository contains the source code for Cookie Notice. Cookie Notice is a commercial addon, to use it in production, you'll need to [purchase a license](https://statamic.com/cookie-notice).
+**Disclaimer:** It's your responsibility to ensure your website complies with local cookie laws.
 
-**Disclaimer:** It's your responsibility (as the license holder) to ensure your cookie notice complies with local cookie laws.
+[Read the docs](https://cookie-notice.duncanmcclean.com).
 
 ## Features
 
-- Provides a lightweight cookie consent notification
-- Support for 'consent groups'
-- Initialise code after user consent
+### Cookie consent notification
 
-## Documentation
+As you'd expect, this addon gives you a lightweight cookie notification. The code for which is fully customisable to meet the design of your site.
 
-Visit the [Cookie Notice website](https://cookie-notice.duncanmcclean.com/) to read the addon's documentation.
+### Consent Groups
+
+Cookie Notice has built-in support for consent groups - allowing your users to consent to specific types of cookies (eg. Required, Statistics, Marketing).
+
+### Initialise code with consent
+
+You may run certain bits of code only if the user has given their consent.
 
 ## Support
 
-If you have any questions or need help, please let me know! Either via [GitHub Issues](https://github.com/duncanmcclean/cookie-notice/issues/new/choose) (for bugs & feature requests) or [via email](mailto:hello@doublethree.digital) for everything else!
+If you find a bug, have some question or have a feature request, please open a [GitHub Issue or Discussion](https://github.com/duncanmcclean/cookie-notice/issues/new/choose).
 
-> Only the latest version of this addon is supported. If you open a bug report using an old version, your issue will be closed.
+> Please note: only the latest version of this addon is supported. Any bug reports regarding an old version will be closed.
 
-## Commercial addon
+## Contributing
 
-Cookie Notice is a commercial addon - you **must purchase a license** via the [Statamic Marketplace](https://statamic.com/addons/duncanmcclean/cookie-notice) to use it in a production environment.
+Contributions are welcome, and are accepted via pull requests. You should follow this process when contributing:
 
-<!-- statamic:hide -->
+1. Fork the repository
+2. Make your code change
+3. Open a pull request, detailing the changes you've made.
+4. Ensure StyleCI isn't reporting any code-style errors. If it is, you should resolve those.
 
----
+If your pull request is a Work in Progress, please mark your pull request as a draft.
 
-<p>
-<a href="https://statamic.com"><img src="https://img.shields.io/badge/Statamic-3.3+-FF269E?style=for-the-badge" alt="Compatible with Statamic v3"></a>
-<a href="https://packagist.org/packages/doublethreedigital/cookie-notice/stats"><img src="https://img.shields.io/packagist/v/doublethreedigital/cookie-notice?style=for-the-badge" alt="Cookie Notice on Packagist"></a>
-</p>
+## Security
 
-<!-- /statamic:hide -->
+If you've found a bug regarding security please email security@doublethree.digital instead of using the issue tracker.
