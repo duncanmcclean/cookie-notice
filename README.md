@@ -38,6 +38,10 @@ If you find a bug, have some question or have a feature request, please open a [
 
 > Please note: only the latest version of this addon is supported. Any bug reports regarding an old version will be closed.
 
+## Commercial addon
+
+This addon is **paid software**. You must purchase a license from the [Statamic Marketplace](https://statamic.com/cookie-notice) in order to use this addon in a production environment.
+
 ## Contributing
 
 Contributions are welcome, and are accepted via pull requests. You should follow this process when contributing:
