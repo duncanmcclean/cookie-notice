@@ -1,3 +1,5 @@
+<!-- statamic:hide -->
+
 <p align="center">
 <picture>
     <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)">
@@ -5,6 +7,8 @@
 </picture>
 </p>
 <br>
+
+<!-- /statamic:hide -->
 
 Cookie Notice lets you prompt your website visitors for cookie consent. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
 
@@ -26,6 +30,8 @@ Cookie Notice has built-in support for consent groups - allowing your users to c
 
 You may run certain bits of code only if the user has given their consent.
 
+<!-- statamic:hide -->
+
 ## Support
 
 If you find a bug, have some question or have a feature request, please open a [GitHub Issue or Discussion](https://github.com/duncanmcclean/cookie-notice/issues/new/choose).
@@ -46,3 +52,5 @@ If your pull request is a Work in Progress, please mark your pull request as a d
 ## Security
 
 If you've found a bug regarding security please email security@doublethree.digital instead of using the issue tracker.
+
+<!-- /statamic:hide -->
