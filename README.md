@@ -30,13 +30,13 @@ Cookie Notice has built-in support for consent groups - allowing your users to c
 
 You may run certain bits of code only if the user has given their consent.
 
-<!-- statamic:hide -->
-
 ## Support
 
 If you find a bug, have some question or have a feature request, please open a [GitHub Issue or Discussion](https://github.com/duncanmcclean/cookie-notice/issues/new/choose).
 
 > Please note: only the latest version of this addon is supported. Any bug reports regarding an old version will be closed.
+
+<!-- statamic:hide -->
 
 ## Commercial addon
 
