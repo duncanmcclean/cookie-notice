@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v7.1.1 (2023-01-27)
+
+### What's new
+
+- Statamic 3.4 Support
+
 ## v7.1.0 (2023-01-07)
 
 ### What's improved
