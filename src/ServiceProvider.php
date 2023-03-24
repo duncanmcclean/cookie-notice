@@ -8,6 +8,7 @@ use Statamic\Statamic;
 class ServiceProvider extends AddonServiceProvider
 {
     protected $config = false;
+
     protected $translations = false;
 
     protected $tags = [
