@@ -1,8 +1,8 @@
 <?php
 
-namespace DoubleThreeDigital\CookieNotice\Tests;
+namespace DuncanMcClean\CookieNotice\Tests;
 
-use DoubleThreeDigital\CookieNotice\ServiceProvider;
+use DuncanMcClean\CookieNotice\ServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Statamic\Extend\Manifest;
 use Statamic\Providers\StatamicServiceProvider;
@@ -30,9 +30,9 @@ abstract class TestCase extends OrchestraTestCase
         parent::getEnvironmentSetUp($app);
 
         $app->make(Manifest::class)->manifest = [
-            'doublethreedigital/cookie-notice' => [
-                'id' => 'doublethreedigital/cookie-notice',
-                'namespace' => 'DoubleThreeDigital\\CookieNotice',
+            'duncanmcclean/cookie-notice' => [
+                'id' => 'duncanmcclean/cookie-notice',
+                'namespace' => 'DuncanMcClean\\CookieNotice',
             ],
         ];
     }

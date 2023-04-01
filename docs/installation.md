@@ -5,7 +5,7 @@ title: Installation
 First, require Cookie Notice as a Composer dependency:
 
 ```
-composer require doublethreedigital/cookie-notice
+composer require duncanmcclean/cookie-notice
 ```
 
 Next, publish the configuration file and it's assets (CSS & JavaScript):

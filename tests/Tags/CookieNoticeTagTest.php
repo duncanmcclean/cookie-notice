@@ -1,11 +1,10 @@
 <?php
 
-namespace DoubleThreeDigital\CookieNotice\Tests\Tags;
+namespace DuncanMcClean\CookieNotice\Tests\Tags;
 
-use DoubleThreeDigital\CookieNotice\Tags\CookieNoticeTag;
-use DoubleThreeDigital\CookieNotice\Tests\TestCase;
+use DuncanMcClean\CookieNotice\Tags\CookieNoticeTag;
+use DuncanMcClean\CookieNotice\Tests\TestCase;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
 

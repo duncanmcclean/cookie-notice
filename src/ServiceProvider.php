@@ -1,6 +1,6 @@
 <?php
 
-namespace DoubleThreeDigital\CookieNotice;
+namespace DuncanMcClean\CookieNotice;
 
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
