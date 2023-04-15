@@ -19,20 +19,23 @@ class ServiceProvider extends AddonServiceProvider
         UpdateScripts\BreakingChangesWarning::class,
     ];
 
+    protected $vite = [
+        'resources/css/cookie-notice.css',
+    ];
+
     public function boot()
     {
         parent::boot();
 
         Statamic::booted(function () {
-            $this
-                ->bootVendorAssets();
+            $this->bootVendorAssets();
         });
     }
 
     protected function bootVendorAssets()
     {
         $this->publishes([
-            __DIR__.'/../resources/dist' => public_path('vendor/cookie-notice'),
+            __DIR__.'/../dist' => public_path('vendor/cookie-notice'),
         ], 'cookie-notice-assets');
 
         $this->publishes([

@@ -8,5 +8,7 @@ package-lock.json
 .antlers.json
 composer.lock
 
-mix-manifest.json
-resources/dist/css/*.css
+dist
+!dist/.gitkeep
+vite.hot
+.env

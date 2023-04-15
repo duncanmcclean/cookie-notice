@@ -27,10 +27,10 @@ jobs:
         run: composer install
 
       - name: Compile assets
-        run: npm run production
+        run: npm run build
 
       - name: Create zip
-        run: cd resources && tar -czvf dist.tar.gz dist
+        run: tar -czvf dist.tar.gz dist
 
       - name: Get Changelog
         id: changelog
@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./resources/dist.tar.gz
+          asset_path: ./dist.tar.gz
           asset_name: dist.tar.gz
           asset_content_type: application/tar+gz
 
