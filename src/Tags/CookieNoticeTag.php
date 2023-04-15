@@ -1,6 +1,6 @@
 <?php
 
-namespace DoubleThreeDigital\CookieNotice\Tags;
+namespace DuncanMcClean\CookieNotice\Tags;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -74,7 +74,7 @@ class CookieNoticeTag extends Tags
         }
 
         // Get the CSS from the site's vendor/cookie-notice directory (as otherwise, some ad-blockers will block the styles)
-        $cookieNoticeVersion = Addon::get('doublethreedigital/cookie-notice')->version();
+        $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
 
         $array['inline_css'] = Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
             return File::get(public_path('vendor/cookie-notice/css/cookie-notice.css'));

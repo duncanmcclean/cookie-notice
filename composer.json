@@ -1,15 +1,15 @@
 {
-    "name": "doublethreedigital/cookie-notice",
+    "name": "duncanmcclean/cookie-notice",
     "description": "Cookie Consent for Statamic - with support for consent groups!",
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "DoubleThreeDigital\\CookieNotice\\": "src"
+            "DuncanMcClean\\CookieNotice\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DoubleThreeDigital\\CookieNotice\\Tests\\": "tests"
+            "DuncanMcClean\\CookieNotice\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -23,14 +23,14 @@
         },
         "laravel": {
             "providers": [
-                "DoubleThreeDigital\\CookieNotice\\ServiceProvider"
+                "DuncanMcClean\\CookieNotice\\ServiceProvider"
             ]
         }
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "pixelfear/composer-dist-plugin": "^0.1.5",
-        "statamic/cms": "3.3.* || 3.4.*"
+        "statamic/cms": "^4.0"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0"
@@ -51,5 +51,5 @@
             "pixelfear/composer-dist-plugin": true
         }
     },
-    "minimum-stability": "beta"
+    "minimum-stability": "alpha"
 }

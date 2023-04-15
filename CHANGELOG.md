@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### What's new
+
+- Cookie Notice v8 now supports Statamic 4 #61
+- Now using Vite to build assets internally #60
+
+### Upgrade guide
+
+1. In your site's `composer.json` file, replace `doublethreedigital/cookie-notice` with `duncanmcclean/cookie-notice`
+2. Then, change the addon's version constraint to `^8.0`
+
 ## v7.1.1 (2023-01-27)
 
 ### What's new
