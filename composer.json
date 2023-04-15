@@ -15,7 +15,7 @@
     "extra": {
         "download-dist": {
             "url": "https://github.com/duncanmcclean/cookie-notice/releases/download/{$version}/dist.tar.gz",
-            "path": "resources/dist"
+            "path": "dist"
         },
         "statamic": {
             "name": "Cookie Notice",

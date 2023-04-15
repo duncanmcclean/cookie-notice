@@ -56,9 +56,9 @@ class CookieNoticeTag extends Tags
             'sites' => Site::all()->values(),
 
             // Cookie Notice variables
-            'domain'        => config('session.domain') ?? request()->getHost(),
-            'cookie_name'   => config('cookie-notice.cookie_name'),
-            'groups'        => $this->groups(),
+            'domain' => config('session.domain') ?? request()->getHost(),
+            'cookie_name' => config('cookie-notice.cookie_name'),
+            'groups' => $this->groups(),
             'already_rendered_scripts' => static::$alreadyRenderedScripts,
         ];
 
