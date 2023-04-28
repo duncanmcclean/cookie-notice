@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v8.0.0 (2023-04-28)
+
 ### What's new
 
 - Cookie Notice v8 now supports Statamic 4 #61
