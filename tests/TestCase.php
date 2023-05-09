@@ -10,7 +10,7 @@ use Statamic\Statamic;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -58,18 +58,5 @@ abstract class TestCase extends OrchestraTestCase
         }
 
         $app['config']->set('statamic.users.repository', 'file');
-    }
-
-    public function tearDown(): void
-    {
-        // Destroy the $app
-        if ($this->app) {
-            $this->callBeforeApplicationDestroyedCallbacks();
-
-            $this->app = null;
-        }
-
-        // Call parent teardown
-        parent::tearDown();
     }
 }
