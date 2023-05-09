@@ -30,7 +30,8 @@
     "require": {
         "php": "^8.2",
         "pixelfear/composer-dist-plugin": "^0.1.5",
-        "statamic/cms": "^4.0"
+        "statamic/cms": "^4.0",
+        "pestphp/pest": "^1.22"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0"
@@ -40,7 +41,7 @@
             "php-cs-fixer fix ./src"
         ],
         "test": [
-            "./vendor/bin/phpunit"
+            "./vendor/bin/pest"
         ]
     },
     "config": {
@@ -48,7 +49,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pixelfear/composer-dist-plugin": true
+            "pixelfear/composer-dist-plugin": true,
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "alpha"
