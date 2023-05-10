@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.0.1 (2023-04-10)
+
+### What's fixed
+
+- Fixed an issue with Vite assets not being published correctly #65
+
 ## v8.0.0 (2023-04-28)
 
 ### What's new
