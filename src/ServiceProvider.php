@@ -20,7 +20,10 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $vite = [
-        'resources/css/cookie-notice.css',
+        'publicDirectory' => 'dist',
+        'input' => [
+            'resources/css/cookie-notice.css',
+        ],
     ];
 
     public function boot()
