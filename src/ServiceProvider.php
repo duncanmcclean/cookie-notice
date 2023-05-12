@@ -21,6 +21,7 @@ class ServiceProvider extends AddonServiceProvider
 
     protected $vite = [
         'publicDirectory' => 'dist',
+        'buildDirectory' => 'css',
         'input' => [
             'resources/css/cookie-notice.css',
         ],
