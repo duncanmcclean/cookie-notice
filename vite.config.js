@@ -3,6 +3,7 @@ import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
   build: {
+    manifest: false,
     rollupOptions: {
       output: {
         assetFileNames: '[name][extname]',
