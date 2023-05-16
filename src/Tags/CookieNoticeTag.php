@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Str;
 use Statamic\Facades\Addon;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
-use Illuminate\Support\Str;
 
 class CookieNoticeTag extends Tags
 {
@@ -92,6 +92,6 @@ class CookieNoticeTag extends Tags
     {
         $url = Vite::asset($asset, $buildDirectory);
 
-        return public_path('vendor/cookie-notice') . '/' . Str::after($url, 'cookie-notice/');
+        return public_path('vendor/cookie-notice').'/'.Str::after($url, 'cookie-notice/');
     }
 }
