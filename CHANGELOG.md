@@ -2,13 +2,19 @@
 
 ## Unreleased
 
-## v8.0.2 (2023-04-12)
+## v8.0.3 (2023-05-16)
+
+### What's fixed
+
+- Fixed Vite build issues once and for all #68 #72 #73
+
+## v8.0.2 (2023-05-12)
 
 ### What's fixed
 
 - Fix build issues with Vite #66 #67 by @florianbrinkmann
 
-## v8.0.1 (2023-04-10)
+## v8.0.1 (2023-05-10)
 
 ### What's fixed
 
