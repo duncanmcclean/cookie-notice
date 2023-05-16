@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.0.6 (2023-05-16)
+
+### What's fixed
+
+- Changed how CSS is being marked as published
+
 ## v8.0.5 (2023-05-16)
 
 ### What's fixed
