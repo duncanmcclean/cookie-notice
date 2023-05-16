@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.0.4 (2023-05-16)
+
+### What's fixed
+
+- Moved Pest into `require-dev`
+
 ## v8.0.3 (2023-05-16)
 
 ### What's fixed
