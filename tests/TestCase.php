@@ -10,13 +10,6 @@ use Statamic\Statamic;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->withoutVite();
-    }
-
     protected function getPackageProviders($app)
     {
         return [
