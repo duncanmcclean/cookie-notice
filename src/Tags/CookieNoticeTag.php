@@ -5,10 +5,12 @@ namespace DuncanMcClean\CookieNotice\Tags;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Vite;
 use Statamic\Facades\Addon;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
+use Illuminate\Support\Str;
 
 class CookieNoticeTag extends Tags
 {
@@ -77,9 +79,19 @@ class CookieNoticeTag extends Tags
         $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
 
         $array['inline_css'] = Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
-            return File::get(public_path('vendor/cookie-notice/css/cookie-notice.css'));
+            return File::get($this->getViteAssetPath('resources/css/cookie-notice.css', 'vendor/cookie-notice/build'));
         });
 
         return $array;
+    }
+
+    /**
+     * Converts the Vite asset URL to a path on the filesystem.
+     */
+    protected function getViteAssetPath($asset, $buildDirectory = null): string
+    {
+        $url = Vite::asset($asset, $buildDirectory);
+
+        return public_path('vendor/cookie-notice') . '/' . Str::after($url, 'cookie-notice/');
     }
 }

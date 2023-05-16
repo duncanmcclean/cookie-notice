@@ -19,14 +19,6 @@ class ServiceProvider extends AddonServiceProvider
         UpdateScripts\BreakingChangesWarning::class,
     ];
 
-    protected $vite = [
-        'publicDirectory' => 'dist',
-        'buildDirectory' => 'css',
-        'input' => [
-            'resources/css/cookie-notice.css',
-        ],
-    ];
-
     public function boot()
     {
         parent::boot();
