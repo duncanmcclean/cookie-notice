@@ -20,7 +20,7 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $publishables = [
-        __DIR__.'/../dist' => 'vendor/cookie-notice',
+        __DIR__.'/../dist' => '',
     ];
 
     public function boot()
