@@ -30,11 +30,11 @@
     "require": {
         "php": "^8.2",
         "pixelfear/composer-dist-plugin": "^0.1.5",
-        "statamic/cms": "^4.0",
-        "pestphp/pest": "^1.22"
+        "statamic/cms": "^4.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.0"
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.22"
     },
     "scripts": {
         "lint": [
