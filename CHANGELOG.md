@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.0.7 (2023-05-16)
+
+### What's fixed
+
+- Fixed publishing of Cookie Notice's CSS file
+
 ## v8.0.6 (2023-05-16)
 
 ### What's fixed
