@@ -30,8 +30,17 @@ beforeEach(function () use (&$tag) {
         ],
     ]);
 
-    File::makeDirectory(public_path('vendor/cookie-notice/css'), 0755, true, true);
-    File::put(public_path('vendor/cookie-notice/css/cookie-notice.css'), '');
+    File::makeDirectory(public_path('vendor/cookie-notice/build'), 0755, true, true);
+    File::put(public_path('vendor/cookie-notice/build/manifest.json'), json_encode([
+        'resources/css/cookie-notice.css' => [
+            'file' => 'assets/cookie-notice-testing.css',
+            'isEntry' => true,
+            'src' => 'resources/css/cookie-notice.css',
+        ],
+    ]));
+
+    File::makeDirectory(public_path('vendor/cookie-notice/build/assets'), 0755, true, true);
+    File::put(public_path('vendor/cookie-notice/build/assets/cookie-notice-testing.css'), '');
 });
 
 test('cookie notice tag is registered', function () use (&$tag) {
