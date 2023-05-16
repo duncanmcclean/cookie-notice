@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.0.5 (2023-05-16)
+
+### What's fixed
+
+- Adjusted tag of publishable assets
+
 ## v8.0.4 (2023-05-16)
 
 ### What's fixed
