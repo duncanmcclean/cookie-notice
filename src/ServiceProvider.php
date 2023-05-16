@@ -32,7 +32,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         $this->publishes([
             __DIR__.'/../dist' => public_path('vendor/cookie-notice'),
-        ], 'cookie-notice-assets');
+        ], 'cookie-notice');
 
         $this->publishes([
             __DIR__.'/../config/cookie-notice.php' => config_path('cookie-notice.php'),
