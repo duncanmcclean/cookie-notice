@@ -4,7 +4,7 @@ title: "Example: Google Tag Manager"
 
 As you're asking for user's consent first, you should only load in Google Tag Manager after the user has consented to it.
 
-The below example demonstrates what thi looks like. It's recommended to hook into both the `loaded` event & the `consented` event so GTM is initialised both upon page load & when the user updates their consent.
+The below example demonstrates what this looks like. It's recommended to hook into both the `loaded` event & the `consented` event so GTM is initialised both upon page load & when the user updates their consent.
 
 ```html
 <script
