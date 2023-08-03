@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Str;
 use Statamic\Facades\Addon;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
@@ -79,7 +78,7 @@ class CookieNoticeTag extends Tags
         $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
 
         $array['inline_css'] = Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
-            return File::get($this->getViteAssetPath('resources/css/cookie-notice.css', 'vendor/cookie-notice/build'));
+            return File::get($this->getViteAssetPath('resources/css/cookie-notice.css'));
         });
 
         return $array;
@@ -88,10 +87,14 @@ class CookieNoticeTag extends Tags
     /**
      * Converts the Vite asset URL to a path on the filesystem.
      */
-    protected function getViteAssetPath($asset, $buildDirectory = null): string
+    protected function getViteAssetPath($asset): string
     {
-        $url = Vite::asset($asset, $buildDirectory);
+        $manifest = json_decode(File::get(public_path('vendor/cookie-notice/build/manifest.json')), true);
 
-        return public_path('vendor/cookie-notice').'/'.Str::after($url, 'cookie-notice/');
+        if (! isset($manifest[$asset])) {
+            throw new \Exception("Cookie Notice: Unable to find {$asset} in Vite Manifest.");
+        }
+
+        return public_path('vendor/cookie-notice/build/'.$manifest[$asset]['file']);
     }
 }
