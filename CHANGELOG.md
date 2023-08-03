@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.1.1 (2023-08-03)
+
+### What's fixed
+
+* Fixed handing of Vite assets in `{{ cookie_notice }}` tag for *some* sites #75 #76 by @duncanmcclean
+
 ## v8.1.0 (2023-06-14)
 
 ### What's new
