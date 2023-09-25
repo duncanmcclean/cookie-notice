@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v8.1.2 (2023-09-26)
+
+### What's fixed
+
+* Fixed an issue where "toggle by default" setting was causing consent groups to always be checked. #77 #78 by @duncanmcclean
+
 ## v8.1.1 (2023-08-03)
 
 ### What's fixed
