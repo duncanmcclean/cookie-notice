@@ -29,6 +29,27 @@
         showConsentNotice: function() {
             manageCookiesButton.setAttribute('style', 'display: none;')
             cookiesForm.removeAttribute('style')
+
+            // Figure out which checkboxes should be checked by default.
+            // https://github.com/duncanmcclean/cookie-notice/issues/77
+            consentGroups.forEach((consentGroup) => {
+                let checkbox = document.getElementById(consentGroup.slug)
+
+                if (window.cookieNotice.hasConsentedToSomething())  {
+                    if (window.cookieNotice.hasConsent(consentGroup.slug)) {
+                        console.log('has consent for ' + consentGroup.slug)
+                        return checkbox.checked = true
+                    }
+
+                    return;
+                }
+
+                if (checkbox.dataset.toggleByDefault === 'true') {
+                    console.log('toggle by default for ' + consentGroup.slug)
+
+                    return checkbox.checked = true
+                }
+            })
         },
 
         hideConsentNotice: function() {
@@ -64,11 +85,17 @@
 
             const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
 
-            if (group = consentGroups.find(g => g.name === group)) {
-                return consented.includes(group.slug)
+            return consented.includes(group);
+        },
+
+        hasConsentedToSomething: function() {
+            if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
+                return false
             }
 
-            return consented.length > 0
+            const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+
+            return consented.length > 0;
         },
 
         on: (event, callback) => {
