@@ -21,7 +21,7 @@
                     {{ group }}
                         <label class="cookies-mb-1" for="{{ slug }}">
                             <input id="{{ slug }}" type="checkbox" name="groups" value="{{ slug }}"
-                                {{ if toggle_by_default && !cookie || required }} checked {{ /if }}
+                                {{ if toggle_by_default && !cookie || required }} data-toggle-by-default="true" {{ /if }}
                                 {{ if required }} required onclick="this.checked = true" {{ /if }}>
                             {{ trans :key="name" }}
                             {{ if required }}
