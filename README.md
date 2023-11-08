@@ -8,7 +8,7 @@
 </p>
 <br>
 
-> **Note:** This addon is no longer receiving bug fixes or new features. Consider using [Fathom](https://usefathom.com/ref/ZBERDK) instead of Google Analytics for website analytics (fathom doesn't require a cookie notice).
+> **Warning:** Cookie Notice is no longer receiving bug fixes or new features. Consider using [Fathom Analytics](https://usefathom.com/ref/ZBERDK) instead of Google Analytics (Fathom is privacy focused, so no need for a cookie banner).
 
 <!-- /statamic:hide -->
 
