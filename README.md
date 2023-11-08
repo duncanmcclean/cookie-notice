@@ -8,6 +8,8 @@
 </p>
 <br>
 
+> **Note:** This addon is no longer receiving bug fixes or new features. Consider using [Fathom](https://usefathom.com/ref/ZBERDK) instead of Google Analytics for website analytics (fathom doesn't require a cookie notice).
+
 <!-- /statamic:hide -->
 
 Cookie Notice lets you prompt your website visitors for cookie consent. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
