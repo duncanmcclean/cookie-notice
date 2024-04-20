@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Str;
 use Statamic\Facades\Addon;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
@@ -35,7 +36,7 @@ class CookieNoticeTag extends Tags
             ->map(function ($value, $key) {
                 return array_merge($value, [
                     'name' => $key,
-                    'slug' => 'group_'.str_slug($key),
+                    'slug' => 'group_'.Str::slug($key),
                 ]);
             })
             ->values()
