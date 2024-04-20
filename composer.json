@@ -30,19 +30,11 @@
     "require": {
         "php": "^8.1",
         "pixelfear/composer-dist-plugin": "^0.1.5",
-        "statamic/cms": "^4.0"
+        "statamic/cms": "^5.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.0",
-        "pestphp/pest": "^1.22"
-    },
-    "scripts": {
-        "lint": [
-            "php-cs-fixer fix ./src"
-        ],
-        "test": [
-            "./vendor/bin/pest"
-        ]
+        "orchestra/testbench": "^8.0 || ^9.0",
+        "pestphp/pest": "^2.2"
     },
     "config": {
         "optimize-autoloader": true,
@@ -53,5 +45,5 @@
             "pestphp/pest-plugin": true
         }
     },
-    "minimum-stability": "alpha"
+    "minimum-stability": "dev"
 }
