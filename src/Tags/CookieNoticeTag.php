@@ -65,7 +65,6 @@ class CookieNoticeTag extends Tags
         return public_path('vendor/cookie-notice/build/'.$manifest[$asset]['file']);
     }
 
-
     protected function getGlobalsData(): array
     {
         $globalsData = [];
