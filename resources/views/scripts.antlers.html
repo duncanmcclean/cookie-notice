@@ -1,151 +1,164 @@
 <script>
-    let cookiesForm = document.getElementById('cookiesForm')
-    let hideConsentFormButton = document.getElementById('hideConsentFormButton')
-    let manageCookiesButton = document.getElementById('manageCookiesButton')
-    let COOKIE_NAME = '{{ cookie_name }}'
-    let consentGroups = JSON.parse('{{ groups | json }}')
+window.CookieNotice = {
+    widget: null,
+    config: {},
 
-    window.cookieNotice = {
-        listeners: [],
+    listeners: [],
+    widgetIsVisible: false,
 
-        consentWithCookies: function(groups) {
-            consentGroups.forEach((consentGroup) => {
-                let previousStatus = this.getCookie(COOKIE_NAME)?.split(',').includes(consentGroup.slug)
-                let currentStatus = groups.includes(consentGroup.slug)
+    boot(widget, config) {
+        this.widget = widget;
+        this.config = config;
 
-                if (previousStatus !== currentStatus && currentStatus === true) {
-                    this.dispatchEvent('consented', consentGroup)
+        this.initPreferences();
+
+        this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this));
+        document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this));
+
+        // Internal event listeners (for the built-in widget)
+        Object.values(this.widget.querySelectorAll('[data-toggle-consent-group]'))?.forEach((button) => {
+            button.addEventListener('click', this.toggleConsentGroup.bind(this))
+        });
+
+        console.log('✨ Cookie Notice booted', this.widget, this.config);
+    },
+
+    hideWidget() {
+        this.widgetIsVisible = false;
+        this.widget.style.display = 'none';
+    },
+
+    showWidget() {
+        this.widgetIsVisible = true;
+        this.widget.style.display = 'block';
+    },
+
+    /**
+    * Reads the user's preference cookie & dispatches the relevant events.
+    */
+    initPreferences() {
+        if (this.cookieExists(this.config.cookie_name)) {
+            this.hideWidget();
+            let preferences = JSON.parse(this.getCookie(this.config.cookie_name));
+
+            this.config.consent_groups.forEach((consentGroup) => {
+                let preference = preferences.find((preference) => preference.handle === consentGroup.handle);
+
+                if (preference) {
+                    // TODO: how do we toggle the right classes on our button??
+                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).value = preference.value ? '1' : '0';
+
+                    preference.value
+                        ? this.dispatchEvent('accepted', consentGroup.handle)
+                        : this.dispatchEvent('declined', consentGroup.handle);
                 }
-
-                if (previousStatus !== currentStatus && currentStatus === false) {
-                    this.dispatchEvent('revoked', consentGroup)
-                }
-            })
-
-            this.setCookie(COOKIE_NAME, groups, 30)
-            this.hideConsentNotice()
-        },
-
-        showConsentNotice: function() {
-            manageCookiesButton.setAttribute('style', 'display: none;')
-            cookiesForm.removeAttribute('style')
-
-            // Figure out which checkboxes should be checked by default.
-            // https://github.com/duncanmcclean/cookie-notice/issues/77
-            consentGroups.forEach((consentGroup) => {
-                let checkbox = document.getElementById(consentGroup.slug)
-
-                if (window.cookieNotice.hasConsentedToSomething())  {
-                    if (window.cookieNotice.hasConsent(consentGroup.slug)) {
-                        console.log('has consent for ' + consentGroup.slug)
-                        return checkbox.checked = true
-                    }
-
-                    return;
-                }
-
-                if (checkbox.dataset.toggleByDefault === 'true') {
-                    console.log('toggle by default for ' + consentGroup.slug)
-
-                    return checkbox.checked = true
-                }
-            })
-        },
-
-        hideConsentNotice: function() {
-            manageCookiesButton.removeAttribute('style')
-            cookiesForm.setAttribute('style', 'display: none;')
-        },
-
-        cookieExists: function(name) {
-            return document.cookie.indexOf(name + '=') !== -1
-        },
-
-        getCookie: function(name) {
-            const value = `; ${document.cookie}`
-            const parts = value.split(`; ${name}=`)
-            if (parts.length === 2) return parts.pop().split(';').shift()
-        },
-
-        setCookie: function(name, value, expirationInDays) {
-            const date = new Date()
-            date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000))
-
-            document.cookie = name + '=' + value +
-                ';expires=' + date.toUTCString() +
-                ';domain={{ domain }}' +
-                ';path=/{{ config:session:secure ? ';secure' : null }}' +
-                '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}'
-        },
-
-        hasConsent: function(group) {
-            if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
-                return false
-            }
-
-            const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
-
-            return consented.includes(group);
-        },
-
-        hasConsentedToSomething: function() {
-            if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
-                return false
-            }
-
-            const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
-
-            return consented.length > 0;
-        },
-
-        on: (event, callback) => {
-            cookieNotice.listeners.push({
-                event: event,
-                callback: callback,
             });
-        },
-
-        dispatchEvent: (event, payload) => {
-            cookieNotice.listeners
-                .filter((listener) => listener.event === event)
-                .forEach((listener) => listener.callback(payload));
-        },
-    }
-
-    cookiesForm = document.getElementById('cookiesForm')
-    hideConsentFormButton = document.getElementById('hideConsentFormButton')
-    manageCookiesButton = document.getElementById('manageCookiesButton')
-
-    cookiesForm.addEventListener('submit', function(event) {
-        event.preventDefault()
-        const formData = new FormData(event.target)
-        const groups = formData.getAll('groups')
-
-        window.cookieNotice.consentWithCookies(groups)
-    })
-
-    if (!window.cookieNotice.cookieExists(COOKIE_NAME)) {
-        window.cookieNotice.showConsentNotice()
-        hideConsentFormButton.setAttribute('style', 'display: none;')
-    } else {
-        const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
-
-        for (let i = 0; i < groups.length; i++) {
-            document.getElementById(groups[i]).setAttribute('checked', true)
         }
-    }
+    },
 
-    hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
-    manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
+    /**
+    * Saves the user's preferences to a cookie & dispatches the relevant events.
+    */
+    savePreferences() {
+        let oldPreferences = this.cookieExists(this.config.cookie_name)
+            ? JSON.parse(this.getCookie(this.config.cookie_name))
+            : this.config.consent_groups.map((consentGroup) => {
+                return {
+                    handle: consentGroup.handle,
+                    value: false
+                }
+            });
 
-    window.addEventListener('load', function() {
-        if (window.cookieNotice.cookieExists(COOKIE_NAME)) {
-            window.cookieNotice.dispatchEvent(
-                'loaded',
-                window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
-                    return consentGroups.find((group) => group.slug === slug)
-                })
-            )
-        }
-    })
+        let preferences = this.config.consent_groups.map((consentGroup) => {
+            return {
+                handle: consentGroup.handle,
+                value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).value === '1' ? true : false
+            }
+        });
+
+        this.dispatchEvent('preferences_updated', preferences)
+
+        preferences.forEach((preference) => {
+            let oldPreference = oldPreferences.find((oldPreference) => oldPreference.handle === preference.handle);
+
+            if (! oldPreference) {
+                oldPreference = {
+                    handle: preference.handle,
+                    value: false
+                }
+            }
+
+            if (oldPreference.value !== preference.value) {
+                console.log('🍪 Preference changed for', preference.handle, preference.value ? 'accepted' : 'declined')
+
+                if (preference.value === true) {
+                    this.dispatchEvent('accepted', preference.handle)
+                }
+
+                if (preference.value === false) {
+                    this.dispatchEvent('declined', preference.handle)
+                }
+            }
+        })
+
+        this.setCookie(this.config.cookie_name, JSON.stringify(preferences), this.config.cookie_expiry);
+
+        this.hideWidget();
+    },
+
+    /**
+    * @internal
+    * Toggle the relevent consent groups in the built-in widget. This method is responsible for toggling the
+    * classes & changing around values. It shouldn't be called by custom widgets.
+    *
+    * @param {Event} e
+    */
+    toggleConsentGroup(e) {
+        let isToggled = this.widget.querySelector(`[name="group-${e.target.dataset.toggleConsentGroup}"]`).value === '1' ? false : true;
+
+        this.widget.querySelector(`[name="group-${e.target.dataset.toggleConsentGroup}"]`).value = isToggled ? '1' : '0';
+
+        e.target.setAttribute('aria-checked', isToggled ? 'false' : 'true');
+
+        e.target.classList.remove('cn-bg-indigo-600', 'cn-bg-gray-200');
+        e.target.classList.add(isToggled ? 'cn-bg-indigo-600' : 'cn-bg-gray-200');
+
+        e.target.querySelector('span.toggle').classList.remove('cn-translate-x-5', 'cn-translate-x-0');
+        e.target.querySelector('span.toggle').classList.add(isToggled ? 'cn-translate-x-5' : 'cn-translate-x-0');
+    },
+
+    on(event, callback) {
+        this.listeners.push({
+            event: event,
+            callback: callback,
+        });
+    },
+
+    dispatchEvent (event, payload) {
+        this.listeners
+            .filter((listener) => listener.event === event)
+            .forEach((listener) => listener.callback(payload));
+    },
+
+    cookieExists(name) {
+        return document.cookie.indexOf(name + '=') !== -1
+    },
+
+    getCookie(name) {
+        const value = `; ${document.cookie}`
+        const parts = value.split(`; ${name}=`)
+        if (parts.length === 2) return parts.pop().split(';').shift()
+    },
+
+    setCookie(name, value, expirationInDays) {
+        const date = new Date()
+        date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000))
+
+        document.cookie = name + '=' + value +
+            ';expires=' + date.toUTCString() +
+            ';domain={{ domain }}' +
+            ';path=/{{ config:session:secure ? ';secure' : null }}' +
+            '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}'
+    },
+}
 </script>

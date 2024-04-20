@@ -2,56 +2,40 @@
 title: Events
 ---
 
-Cookie Notice will emit events when it's initially loaded on a page or where a consent group is consented/revoked by the user. This is the best way of catching whether a user has consented to a specific group or not.
+Whenever the page loads or the user changes their consent preferences, Cookie Notice will dispatch events so you can run the relevant scripts.
 
-> Note: Your JavaScript will need to come after Cookie Notice's own JavaScript, otherwise it won't work.
+> **Note:**
+> Make sure your JavaScript is *after* the `{{ cookie_notice:scripts }}` tag.
 
-## Initial load
-
-The `loaded` event will be emitted once Cookie Notice has loaded. It'll give you an array containing the consent groups the user has consented to. You'll probably only need to check the `slug`:
+## `accepted`
+**Dispatched when the user provides their consent to a consent group. Also dispatched when loading the page, with the user's existing preferences.**
 
 ```html
 <script>
-  cookieNotice.on('loaded', (groups) => {
-      if (groups.find(group) => group.slug === 'group_statistics') {
-          // Load Google Analytics... (or something else...)
-      }
-
-      if (groups.find(group) => group.slug === 'group_marketing') {
-          // Load Facebook Pixel... (or something else...)
-      }
-  })
+window.CookieNotice.on('accepted', (consentGroup) => {
+    //
+});
 </script>
 ```
 
-## Consented to group
-
-The `consented` event will be emitted when the user has consented to a consent group. It'll give you an object containing information on the group the user has consented to.
+## `declined`
+**Dispatched when the user removes their consent from a consent group. Also dispatched when loading the page, with the user's existing preferences.**
 
 ```html
 <script>
-  cookieNotice.on("consented", (group) => {
-    if (group.slug === "group_marketing") {
-      // Load Facebook Pixel...
-    }
-
-    // ...
-  });
+window.CookieNotice.on('declined', (consentGroup) => {
+    //
+});
 </script>
 ```
 
-## Revoked group
-
-The `revoked` event will be emitted when the user has revoked consent for a consent group. It'll give you an object containing information on the group the user has revoked.
+## `preferences_updated`
+**Dispatched when the user updates their consent preferences.**
 
 ```html
 <script>
-  cookieNotice.on("revoked", (group) => {
-    if (group.slug === "group_marketing") {
-      // Stop Facebook Pixel from tracking the user...
-    }
-
-    // ...
-  });
+window.CookieNotice.on('preferences_updated', (preferences) => {
+    //
+});
 </script>
 ```

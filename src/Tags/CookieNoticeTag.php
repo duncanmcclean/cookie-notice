@@ -3,9 +3,7 @@
 namespace DuncanMcClean\CookieNotice\Tags;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Vite;
 use Statamic\Facades\Addon;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
@@ -13,75 +11,43 @@ use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
 {
-    public static $alreadyRenderedScripts = false;
-
     protected static $handle = 'cookie_notice';
 
     public function index()
     {
-        return view('cookie-notice::notice', $this->viewData());
+        if ($this->context->get('live_preview')) {
+            return;
+        }
+
+        return view($this->params->get('view') ?? 'cookie-notice::notice', $this->viewData());
     }
 
     public function scripts()
     {
-        static::$alreadyRenderedScripts = true;
+        if ($this->context->get('live_preview')) {
+            return;
+        }
 
         return view('cookie-notice::scripts', $this->viewData());
     }
 
-    protected function groups(): array
-    {
-        return collect(Config::get('cookie-notice.groups'))
-            ->map(function ($value, $key) {
-                return array_merge($value, [
-                    'name' => $key,
-                    'slug' => 'group_'.str_slug($key),
-                ]);
-            })
-            ->values()
-            ->toArray();
-    }
-
     protected function viewData(): array
     {
-        $array = [
-            // Some Statamic-y variables
-            'csrf_field' => csrf_field(),
-            'csrf_token' => csrf_token(),
-
-            'current_date' => $now = now(),
-            'now' => $now,
-            'today' => $now,
-
-            'site' => Site::current(),
-            'sites' => Site::all()->values(),
-
-            // Cookie Notice variables
-            'domain' => config('session.domain') ?? request()->getHost(),
-            'cookie_name' => config('cookie-notice.cookie_name'),
-            'groups' => $this->groups(),
-            'already_rendered_scripts' => static::$alreadyRenderedScripts,
-        ];
-
-        // Push data from Globals into the view
-        foreach (GlobalSet::all() as $global) {
-            if (! $global->existsIn(Site::current()->handle())) {
-                continue;
-            }
-
-            $global = $global->in(Site::current()->handle());
-
-            $array[$global->handle()] = $global->toAugmentedArray();
-        }
-
-        // Get the CSS from the site's vendor/cookie-notice directory (as otherwise, some ad-blockers will block the styles)
         $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
 
-        $array['inline_css'] = Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
-            return File::get($this->getViteAssetPath('resources/css/cookie-notice.css'));
-        });
-
-        return $array;
+        return array_merge([
+            'config' => [
+                'domain' => config('session.domain') ?? request()->getHost(),
+                'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
+                'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
+                'consent_groups' => config('cookie-notice.consent_groups'),
+            ],
+            'consent_groups' => config('cookie-notice.consent_groups'),
+            // 'inline_css' => Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
+            //     return File::get($this->getViteAssetPath('resources/css/cookie-notice.css'));
+            // }),
+            'inline_css' => File::get($this->getViteAssetPath('resources/css/cookie-notice.css')),
+        ], $this->getGlobalsData());
     }
 
     /**
@@ -89,6 +55,7 @@ class CookieNoticeTag extends Tags
      */
     protected function getViteAssetPath($asset): string
     {
+        // TODO: can we get away without publishing the assets?
         $manifest = json_decode(File::get(public_path('vendor/cookie-notice/build/manifest.json')), true);
 
         if (! isset($manifest[$asset])) {
@@ -96,5 +63,23 @@ class CookieNoticeTag extends Tags
         }
 
         return public_path('vendor/cookie-notice/build/'.$manifest[$asset]['file']);
+    }
+
+
+    protected function getGlobalsData(): array
+    {
+        $globalsData = [];
+
+        foreach (GlobalSet::all() as $global) {
+            if (! $global->existsIn(Site::current()->handle())) {
+                continue;
+            }
+
+            $global = $global->in(Site::current()->handle());
+
+            $globalsData[$global->handle()] = $global->toAugmentedArray();
+        }
+
+        return $globalsData;
     }
 }

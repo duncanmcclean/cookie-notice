@@ -2,10 +2,13 @@
 title: Translating
 ---
 
-If you need to, you can translate any of the 'strings' in the cookie notice (like 'Accept' and 'Manage Cookies'). In order to do this, you'll need to create a JSON translations file:
+If you're developing a language other than English, you'll likely want to translate the "strings" in the cookie notice widget.
 
-1. In your `lang` folder (or `resources/lang` for some sites), create a `{locale}.json` file (replace `{locale}` with the name of the locale you wish to translate - eg `en.json`)
-2. You may then set keys & values to represent the default string and the string of your translation.
+To do this, you'll need to create a JSON translations file:
+
+1. Create a `lang` directory in the root of your project, if you don't have one already.
+2. Create a `{locale}.json` file (obviously replace `{locale}` with your locale)
+3. In the file, you may provide key/value pairs for each of the strings you wish to translate:
 
 ```json
 // lang/de.json
