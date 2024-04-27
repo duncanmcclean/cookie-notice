@@ -42,6 +42,10 @@ class CookieNoticeTag extends Tags
                 'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
                 'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
                 'consent_groups' => config('cookie-notice.consent_groups'),
+                'session' => [
+                    'secure' => config('session.secure'),
+                    'same_site' => config('session.same_site'),
+                ],
             ],
             'consent_groups' => config('cookie-notice.consent_groups'),
             'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
