@@ -2,9 +2,11 @@
 
 namespace DuncanMcClean\CookieNotice\Tags;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
+use Statamic\Facades\YAML;
 use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
@@ -35,8 +37,19 @@ class CookieNoticeTag extends Tags
             ->useHotFile(__DIR__ . '/../../vite.hot')
             ->content('resources/js/cookie-notice.js');
 
-        // TODO: refactor to get from custom cp page
-        return view('cookie-notice::scripts', array_merge($this->viewData(), ['inline_js' => $js]));
+        $yaml = File::get(storage_path('statamic/addons/cookie-notice/scripts.yaml'));
+
+        return view('cookie-notice::scripts', [
+            'inline_js' => $js,
+            'scripts' => collect(YAML::parse($yaml))
+                ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
+                // add group key to each script
+                ->flatMap(function (array $scripts, string $consentGroup) {
+                    return collect($scripts)->map(function (array $script) use ($consentGroup) {
+                        return array_merge($script, ['group' => $consentGroup]);
+                    })->all();
+                }),
+        ]);
     }
 
     protected function viewData(): array
