@@ -2,9 +2,7 @@
 
 namespace DuncanMcClean\CookieNotice\Tags;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\File;
-use Statamic\Facades\Addon;
+use Illuminate\Support\Facades\Vite;
 use Statamic\Facades\GlobalSet;
 use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
@@ -15,11 +13,16 @@ class CookieNoticeTag extends Tags
 
     public function index()
     {
+        return $this->widget();
+    }
+
+    public function widget()
+    {
         if ($this->context->get('live_preview')) {
             return;
         }
 
-        return view($this->params->get('view') ?? 'cookie-notice::notice', $this->viewData());
+        return view($this->params->get('view') ?? 'cookie-notice::widget', $this->viewData());
     }
 
     public function scripts()
@@ -33,8 +36,6 @@ class CookieNoticeTag extends Tags
 
     protected function viewData(): array
     {
-        $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
-
         return array_merge([
             'config' => [
                 'domain' => config('session.domain') ?? request()->getHost(),
@@ -43,26 +44,10 @@ class CookieNoticeTag extends Tags
                 'consent_groups' => config('cookie-notice.consent_groups'),
             ],
             'consent_groups' => config('cookie-notice.consent_groups'),
-            // 'inline_css' => Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
-            //     return File::get($this->getViteAssetPath('resources/css/cookie-notice.css'));
-            // }),
-            'inline_css' => File::get($this->getViteAssetPath('resources/css/cookie-notice.css')),
+            'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
+                ->useHotFile(__DIR__ . '/../../vite.hot')
+                ->content('resources/css/cookie-notice.css'),
         ], $this->getGlobalsData());
-    }
-
-    /**
-     * Converts the Vite asset URL to a path on the filesystem.
-     */
-    protected function getViteAssetPath($asset): string
-    {
-        // TODO: can we get away without publishing the assets?
-        $manifest = json_decode(File::get(public_path('vendor/cookie-notice/build/manifest.json')), true);
-
-        if (! isset($manifest[$asset])) {
-            throw new \Exception("Cookie Notice: Unable to find {$asset} in Vite Manifest.");
-        }
-
-        return public_path('vendor/cookie-notice/build/'.$manifest[$asset]['file']);
     }
 
     protected function getGlobalsData(): array
