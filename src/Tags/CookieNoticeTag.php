@@ -35,7 +35,8 @@ class CookieNoticeTag extends Tags
             ->useHotFile(__DIR__ . '/../../vite.hot')
             ->content('resources/js/cookie-notice.js');
 
-        return "<script>{$js}</script>";
+        // TODO: refactor to get from custom cp page
+        return view('cookie-notice::scripts', array_merge($this->viewData(), ['inline_js' => $js]));
     }
 
     protected function viewData(): array

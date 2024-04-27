@@ -53,8 +53,6 @@ window.CookieNotice = {
     * Reads the user's preference cookie & dispatches the relevant events.
     */
     initPreferences() {
-        console.log(this.listeners)
-
         if (this.cookieExists(this.config.cookie_name)) {
             this.hideWidget()
             let preferences = JSON.parse(this.getCookie(this.config.cookie_name))
