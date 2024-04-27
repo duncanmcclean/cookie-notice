@@ -38,11 +38,11 @@ class CookieNoticeTag extends Tags
     {
         return array_merge([
             'config' => [
-                'domain' => config('session.domain') ?? request()->getHost(),
                 'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
                 'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
                 'consent_groups' => config('cookie-notice.consent_groups'),
                 'session' => [
+                    'domain' => config('session.domain') ?? request()->getHost(),
                     'secure' => config('session.secure'),
                     'same_site' => config('session.same_site'),
                 ],

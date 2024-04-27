@@ -129,7 +129,7 @@ window.CookieNotice = {
 
         document.cookie = name + '=' + value +
             ';expires=' + date.toUTCString() +
-            `;domain=${this.config.domain}` +
+            `;domain=${this.config.session.domain}` +
             `;path=/` + (this.config.session.secure ? ';secure' : '') +
             (this.config.session.same_site ? `;samesite=${this.config.session.same_site}` : '')
     },
