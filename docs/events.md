@@ -39,3 +39,16 @@ window.CookieNotice.on('preferences_updated', (preferences) => {
 });
 </script>
 ```
+
+
+
+
+TODO: find somewhere better to put this
+
+just plop your script in the `<head>` with `type="text/plain"` and `data-consent-group="group-handle"` and it'll get executed when the user provides consent.
+
+```html
+<script type="text/plain" data-consent-group="analytics">
+    console.log('running analytics');
+</script>
+```

@@ -9,12 +9,11 @@ window.CookieNotice = {
         this.widget = widget
         this.config = config
 
+        this.initListeners()
         this.initPreferences()
 
         this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this))
         document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this))
-
-        console.log('✨ Cookie Notice booted', this.widget, this.config)
     },
 
     hideWidget() {
@@ -28,9 +27,34 @@ window.CookieNotice = {
     },
 
     /**
+     * Initializes the script event listeners, to execute & disable scripts based on the user's consent preferences.
+     */
+    initListeners() {
+        this.on('accepted', (consentGroup) => {
+            document.querySelectorAll(`[data-consent-group="${consentGroup}"]`).forEach((script) => {
+                let scriptContent = script.innerHTML
+                script.remove()
+
+                let newScript = document.createElement('script')
+                newScript.innerHTML = scriptContent
+                newScript.setAttribute('data-consent-group', consentGroup)
+                document.head.appendChild(newScript)
+            })
+        })
+
+        this.on('declined', (consentGroup) => {
+            document.querySelectorAll(`[data-consent-group="${consentGroup}"]`).forEach((script) => {
+                script.setAttribute('type', 'text/plain')
+            })
+        })
+    },
+
+    /**
     * Reads the user's preference cookie & dispatches the relevant events.
     */
     initPreferences() {
+        console.log(this.listeners)
+
         if (this.cookieExists(this.config.cookie_name)) {
             this.hideWidget()
             let preferences = JSON.parse(this.getCookie(this.config.cookie_name))
