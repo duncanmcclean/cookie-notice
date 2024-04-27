@@ -15,11 +15,6 @@ window.CookieNotice = {
         this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this));
         document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this));
 
-        // Internal event listeners (for the built-in widget)
-        Object.values(this.widget.querySelectorAll('[data-toggle-consent-group]'))?.forEach((button) => {
-            button.addEventListener('click', this.toggleConsentGroup.bind(this))
-        });
-
         console.log('✨ Cookie Notice booted', this.widget, this.config);
     },
 
@@ -45,8 +40,7 @@ window.CookieNotice = {
                 let preference = preferences.find((preference) => preference.handle === consentGroup.handle);
 
                 if (preference) {
-                    // TODO: how do we toggle the right classes on our button??
-                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).value = preference.value ? '1' : '0';
+                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value;
 
                     preference.value
                         ? this.dispatchEvent('accepted', consentGroup.handle)
@@ -72,7 +66,7 @@ window.CookieNotice = {
         let preferences = this.config.consent_groups.map((consentGroup) => {
             return {
                 handle: consentGroup.handle,
-                value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).value === '1' ? true : false
+                value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked ? true : false
             }
         });
 
@@ -106,27 +100,6 @@ window.CookieNotice = {
         this.hideWidget();
     },
 
-    /**
-    * @internal
-    * Toggle the relevent consent groups in the built-in widget. This method is responsible for toggling the
-    * classes & changing around values. It shouldn't be called by custom widgets.
-    *
-    * @param {Event} e
-    */
-    toggleConsentGroup(e) {
-        let isToggled = this.widget.querySelector(`[name="group-${e.target.dataset.toggleConsentGroup}"]`).value === '1' ? false : true;
-
-        this.widget.querySelector(`[name="group-${e.target.dataset.toggleConsentGroup}"]`).value = isToggled ? '1' : '0';
-
-        e.target.setAttribute('aria-checked', isToggled ? 'false' : 'true');
-
-        e.target.classList.remove('cn-bg-indigo-600', 'cn-bg-gray-200');
-        e.target.classList.add(isToggled ? 'cn-bg-indigo-600' : 'cn-bg-gray-200');
-
-        e.target.querySelector('span.toggle').classList.remove('cn-translate-x-5', 'cn-translate-x-0');
-        e.target.querySelector('span.toggle').classList.add(isToggled ? 'cn-translate-x-5' : 'cn-translate-x-0');
-    },
-
     on(event, callback) {
         this.listeners.push({
             event: event,
@@ -134,7 +107,7 @@ window.CookieNotice = {
         });
     },
 
-    dispatchEvent (event, payload) {
+    dispatchEvent(event, payload) {
         this.listeners
             .filter((listener) => listener.event === event)
             .forEach((listener) => listener.callback(payload));

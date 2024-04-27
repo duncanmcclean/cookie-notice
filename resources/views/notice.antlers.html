@@ -6,18 +6,16 @@
         <div class="cn-space-y-2 cn-text-base cn-leading-7 cn-text-gray-600">
             <h2 class="cn-text-2xl cn-font-bold">{{ trans key="This site uses cookies" }}</h2>
             <p class="cn-pb-2">{{ trans key="By using this site, you agree to our use of cookies. Cookies help improve your browsing experience and provide personalized content." }}</p>
-            <ul class="cn-flex cn-flex-col cn-space-y-3 cn-pb-4">
+            <ul class="cn-flex cn-flex-col cn-space-y-4 cn-pb-4">
                 {{ consent_groups }}
-                    <li class="cn-flex cn-items-center cn-gap-x-3">
-                        <input type="hidden" name="group-{{ handle }}">
-                        <button type="button" data-toggle-consent-group="{{ handle }}" class="cn-relative cn-inline-flex cn-h-6 cn-w-11 cn-flex-shrink-0 cn-cursor-pointer cn-rounded-full cn-border-2 cn-border-transparent cn-bg-gray-200 cn-transition-colors cn-duration-200 cn-ease-in-out cn-focus:outline-none focus:cn-ring-2 focus:cn-ring-indigo-600 focus:cn-ring-offset-2" role="switch" aria-checked="false">
-                            <span class="cn-sr-only">{{ trans key="Toggle consent group" }}</span>
-                            <span aria-hidden="true" class="toggle cn-pointer-events-none cn-inline-block cn-h-5 cn-w-5 cn-translate-x-0 cn-transform cn-rounded-full cn-bg-white cn-shadow cn-ring-0 cn-transition cn-duration-200 cn-ease-in-out"></span>
-                        </button>
+                    <li class="cn-flex cn-items-start cn-gap-x-3">
+                        <div class="cn-flex cn-mt-2">
+                            <input id="group-{{ handle }}" aria-describedby="group-{{ handle }}-description" name="group-{{ handle }}" type="checkbox" class="cn-h-4 cn-w-4 cn-rounded cn-border-gray-300 cn-text-blue-600 focus:cn-ring-indigo-600">
+                        </div>
                         <div class="cn-flex cn-flex-col">
-                            <label for="group-{{ handle }}" class="cn-font-semibold">{{ name }}</label>
+                            <label for="group-{{ handle }}" class="cn-font-semibold cn-select-none">{{ name }}</label>
                             {{ if description }}
-                                <span class="cn-text-sm">{{ description }}</span>
+                                <span class="cn-text-sm cn-select-none">{{ description }}</span>
                             {{ /if }}
                         </div>
                     </li>
