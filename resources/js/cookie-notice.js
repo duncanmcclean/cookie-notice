@@ -86,8 +86,6 @@ window.CookieNotice = {
             }
 
             if (oldPreference.value !== preference.value) {
-                console.log('🍪 Preference changed for', preference.handle, preference.value ? 'accepted' : 'declined')
-
                 if (preference.value === true) {
                     this.dispatchEvent('accepted', preference.handle)
                 }
