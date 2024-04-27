@@ -46,6 +46,10 @@ window.CookieNotice = {
                         : this.dispatchEvent('declined', consentGroup.handle)
                 }
             });
+        } else {
+            this.config.consent_groups
+                .filter((consentGroup) => consentGroup.enable_by_default)
+                .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = true)
         }
     },
 
