@@ -37,10 +37,20 @@ To create your own widget, you'll need to create your own view. Here's the boile
 </script>
 ```
 
-Next, provide the `view` parameter to the `{{ cookie_notice }}` tag to ensure the Cookie Notice tag uses the correct view:
+Next, update the value of the `widget_view` config option in your `cookie-notice.php` config file:
 
-```antlers
-{{ cookie_notice view="components/cookie_notice" }}
+```php
+/*
+|--------------------------------------------------------------------------
+| Consent Widget
+|--------------------------------------------------------------------------
+|
+| Out of the box, this addon provides a simple consent widget. However, you're
+| free to create your own widget, just specify the view here.
+|
+*/
+
+'widget_view' => 'components.custom_cookie_consent_widget',
 ```
 
 ## "Update Cookie Preferences" button

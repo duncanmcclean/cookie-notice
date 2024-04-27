@@ -36,7 +36,7 @@ php artisan vendor:publish --tag=cookie-notice-config && php artisan vendor:publ
         {{ cookie_notice:scripts }} {{# [tl! add] #}}
     </head>
     <body>
-        {{ cookie_notice }} {{# [tl! add] #}}
+        {{ cookie_notice:widget }} {{# [tl! add] #}}
         <script src="{{ mix src='/js/site.js' }}"></script>
     </body>
 </html>

@@ -22,7 +22,7 @@ class CookieNoticeTag extends Tags
             return;
         }
 
-        return view($this->params->get('view') ?? 'cookie-notice::widget', $this->viewData());
+        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), $this->viewData());
     }
 
     public function scripts()

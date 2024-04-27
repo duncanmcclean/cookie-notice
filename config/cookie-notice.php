@@ -18,6 +18,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Consent Widget
+    |--------------------------------------------------------------------------
+    |
+    | Out of the box, this addon provides a simple consent widget. However, you're
+    | free to create your own widget, just specify the view here.
+    |
+    */
+
+    'widget_view' => 'cookie-notice::widget',
+
+    /*
+    |--------------------------------------------------------------------------
     | Consent Groups
     |--------------------------------------------------------------------------
     |

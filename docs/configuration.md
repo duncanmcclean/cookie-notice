@@ -25,6 +25,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Consent Widget
+    |--------------------------------------------------------------------------
+    |
+    | Out of the box, this addon provides a simple consent widget. However, you're
+    | free to create your own widget, just specify the view here.
+    |
+    */
+
+    'widget_view' => 'cookie-notice::widget',
+
+    /*
+    |--------------------------------------------------------------------------
     | Consent Groups
     |--------------------------------------------------------------------------
     |
@@ -59,6 +71,12 @@ The `cookie_name` config option determines the name of the cookie used to store 
 The `cookie_expiry` config option determines how long the user's cookie preferences should be kept for before re-prompting for consent.
 
 The default is 14 days.
+
+## `widget_view`
+
+Out of the box, Cookie Notice ships with a simple cookie consent widget. However, you're more than welcome to create your own consent widget. All you need to do is swap out the view here.
+
+You can find out more about building your own widget on the [Customization](/customization) page.
 
 ## `consent_groups`
 
