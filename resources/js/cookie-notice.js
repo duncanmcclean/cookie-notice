@@ -1,4 +1,3 @@
-<script>
 window.CookieNotice = {
     widget: null,
     config: {},
@@ -7,25 +6,25 @@ window.CookieNotice = {
     widgetIsVisible: false,
 
     boot(widget, config) {
-        this.widget = widget;
-        this.config = config;
+        this.widget = widget
+        this.config = config
 
-        this.initPreferences();
+        this.initPreferences()
 
-        this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this));
-        document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this));
+        this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this))
+        document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this))
 
-        console.log('✨ Cookie Notice booted', this.widget, this.config);
+        console.log('✨ Cookie Notice booted', this.widget, this.config)
     },
 
     hideWidget() {
-        this.widgetIsVisible = false;
-        this.widget.style.display = 'none';
+        this.widgetIsVisible = false
+        this.widget.style.display = 'none'
     },
 
     showWidget() {
-        this.widgetIsVisible = true;
-        this.widget.style.display = 'block';
+        this.widgetIsVisible = true
+        this.widget.style.display = 'block'
     },
 
     /**
@@ -33,18 +32,18 @@ window.CookieNotice = {
     */
     initPreferences() {
         if (this.cookieExists(this.config.cookie_name)) {
-            this.hideWidget();
-            let preferences = JSON.parse(this.getCookie(this.config.cookie_name));
+            this.hideWidget()
+            let preferences = JSON.parse(this.getCookie(this.config.cookie_name))
 
             this.config.consent_groups.forEach((consentGroup) => {
-                let preference = preferences.find((preference) => preference.handle === consentGroup.handle);
+                let preference = preferences.find((preference) => preference.handle === consentGroup.handle)
 
                 if (preference) {
-                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value;
+                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value
 
                     preference.value
                         ? this.dispatchEvent('accepted', consentGroup.handle)
-                        : this.dispatchEvent('declined', consentGroup.handle);
+                        : this.dispatchEvent('declined', consentGroup.handle)
                 }
             });
         }
@@ -61,19 +60,19 @@ window.CookieNotice = {
                     handle: consentGroup.handle,
                     value: false
                 }
-            });
+            })
 
         let preferences = this.config.consent_groups.map((consentGroup) => {
             return {
                 handle: consentGroup.handle,
                 value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked ? true : false
             }
-        });
+        })
 
         this.dispatchEvent('preferences_updated', preferences)
 
         preferences.forEach((preference) => {
-            let oldPreference = oldPreferences.find((oldPreference) => oldPreference.handle === preference.handle);
+            let oldPreference = oldPreferences.find((oldPreference) => oldPreference.handle === preference.handle)
 
             if (! oldPreference) {
                 oldPreference = {
@@ -95,22 +94,22 @@ window.CookieNotice = {
             }
         })
 
-        this.setCookie(this.config.cookie_name, JSON.stringify(preferences), this.config.cookie_expiry);
+        this.setCookie(this.config.cookie_name, JSON.stringify(preferences), this.config.cookie_expiry)
 
-        this.hideWidget();
+        this.hideWidget()
     },
 
     on(event, callback) {
         this.listeners.push({
             event: event,
             callback: callback,
-        });
+        })
     },
 
     dispatchEvent(event, payload) {
         this.listeners
             .filter((listener) => listener.event === event)
-            .forEach((listener) => listener.callback(payload));
+            .forEach((listener) => listener.callback(payload))
     },
 
     cookieExists(name) {
@@ -134,4 +133,3 @@ window.CookieNotice = {
             (this.config.session.same_site ? `;samesite=${this.config.session.same_site}` : '')
     },
 }
-</script>

@@ -6,7 +6,7 @@ export default defineConfig({
         laravel({
             hotFile: "vite.hot",
             publicDirectory: "dist",
-            input: ['resources/css/cookie-notice.css'],
+            input: ['resources/css/cookie-notice.css', 'resources/js/cookie-notice.js'],
         }),
     ],
 });

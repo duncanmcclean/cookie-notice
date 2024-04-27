@@ -31,7 +31,11 @@ class CookieNoticeTag extends Tags
             return;
         }
 
-        return view('cookie-notice::scripts', $this->viewData());
+        $js = Vite::useBuildDirectory('vendor/cookie-notice/build')
+            ->useHotFile(__DIR__ . '/../../vite.hot')
+            ->content('resources/js/cookie-notice.js');
+
+        return "<script>{$js}</script>";
     }
 
     protected function viewData(): array
