@@ -39,6 +39,6 @@ class Scripts
 
     private static function path(): string
     {
-        return storage_path('statamic/addons/cookie-notice/scripts.yaml');
+        return base_path('content/cookie-notice.yaml');
     }
 }

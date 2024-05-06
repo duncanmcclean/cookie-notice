@@ -6,7 +6,7 @@ use Statamic\Facades\YAML;
 
 it('gets the scripts data', function () {
     File::shouldReceive('exists')
-        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->with(base_path('content/cookie-notice.yaml'))
         ->andReturn(true);
 
     YAML::shouldReceive('file')
@@ -37,7 +37,7 @@ it('gets the scripts data', function () {
 
 it('returns empty array when scripts file is missing', function () {
     File::shouldReceive('exists')
-        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->with(base_path('content/cookie-notice.yaml'))
         ->andReturn(false);
 
     YAML::shouldReceive('file')->never();
@@ -49,7 +49,7 @@ it('returns empty array when scripts file is missing', function () {
 
 it('gets the revision', function () {
     File::shouldReceive('exists')
-        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->with(base_path('content/cookie-notice.yaml'))
         ->andReturn(true);
 
     YAML::shouldReceive('file')
@@ -70,7 +70,7 @@ it('gets the revision', function () {
 
 it('gets the scripts', function () {
     File::shouldReceive('exists')
-        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->with(base_path('content/cookie-notice.yaml'))
         ->andReturn(true);
 
     YAML::shouldReceive('file')
@@ -107,11 +107,11 @@ it('saves the scripts data', function () {
         ->andReturn('yaml');
 
     File::shouldReceive('ensureDirectoryExists')
-        ->with(dirname(storage_path('statamic/addons/cookie-notice/scripts.yaml')))
+        ->with(base_path('content'))
         ->once();
 
     File::shouldReceive('put')
-        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'), 'yaml')
+        ->with(base_path('content/cookie-notice.yaml'), 'yaml')
         ->once();
 
     Scripts::save(['necessary' => [

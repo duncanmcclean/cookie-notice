@@ -13,6 +13,6 @@ abstract class TestCase extends AddonTestCase
     {
         parent::setUp();
 
-        $this->app['files']->delete(storage_path('statamic/addons/cookie-notice/scripts.yaml'));
+        $this->app['files']->delete(base_path('content/cookie-notice.yaml'));
     }
 }
