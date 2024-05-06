@@ -2,7 +2,6 @@
 
 namespace DuncanMcClean\CookieNotice\Http\Controllers\CP;
 
-use DuncanMcClean\CookieNotice\Http\Requests\CP\UpdateScriptsRequest;
 use DuncanMcClean\CookieNotice\Scripts\Blueprint;
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Http\Request;
@@ -24,8 +23,8 @@ class ScriptsController extends CpController
 
         return view('cookie-notice::cp.scripts', [
             'blueprint' => $blueprint->toPublishArray(),
-            'values'    => $fields->values(),
-            'meta'      => $fields->meta(),
+            'values' => $fields->values(),
+            'meta' => $fields->meta(),
         ]);
     }
 

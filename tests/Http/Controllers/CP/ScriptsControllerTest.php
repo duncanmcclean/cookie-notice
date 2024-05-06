@@ -1,8 +1,8 @@
 <?php
 
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
-use Statamic\Facades\User;
 use Statamic\Facades\Role;
+use Statamic\Facades\User;
 
 use function Pest\Laravel\actingAs;
 
@@ -54,8 +54,8 @@ it('saves the scripts', function () {
                 ],
             ],
         ])
-    ->assertOk()
-    ->assertJson(['message' => 'Scripts saved']);
+        ->assertOk()
+        ->assertJson(['message' => 'Scripts saved']);
 
     expect(Scripts::get())->toBe([
         'necessary' => [

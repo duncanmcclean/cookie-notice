@@ -3,9 +3,7 @@
 namespace DuncanMcClean\CookieNotice\Tags;
 
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
-use Statamic\Facades\YAML;
 use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
@@ -36,7 +34,7 @@ class CookieNoticeTag extends Tags
             ],
             'consent_groups' => config('cookie-notice.consent_groups'),
             'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
-                ->useHotFile(__DIR__ . '/../../vite.hot')
+                ->useHotFile(__DIR__.'/../../vite.hot')
                 ->content('resources/css/cookie-notice.css'),
         ]);
     }
@@ -48,7 +46,7 @@ class CookieNoticeTag extends Tags
         }
 
         $js = Vite::useBuildDirectory('vendor/cookie-notice/build')
-            ->useHotFile(__DIR__ . '/../../vite.hot')
+            ->useHotFile(__DIR__.'/../../vite.hot')
             ->content('resources/js/cookie-notice.js');
 
         return view('cookie-notice::scripts', [

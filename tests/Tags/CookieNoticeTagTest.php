@@ -1,13 +1,8 @@
 <?php
 
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
-use DuncanMcClean\CookieNotice\Tags\CookieNoticeTag;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Statamic\Facades\Antlers;
-use function PHPUnit\Framework\assertIsString;
-use function PHPUnit\Framework\assertStringContainsString;
-use function PHPUnit\Framework\assertTrue;
 use Statamic\Facades\Parse;
 
 beforeEach(function () {

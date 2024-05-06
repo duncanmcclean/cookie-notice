@@ -76,7 +76,7 @@ class Blueprint
                                             new ValidInlineJavaScript,
                                         ],
                                     ],
-                                ]
+                                ],
                             ],
                             'mode' => 'stacked',
                             'type' => 'grid',
@@ -85,7 +85,7 @@ class Blueprint
                             'add_row' => 'Add Script',
                             'fullscreen' => false,
                         ],
-                    ]
+                    ],
                 ];
 
                 return [$consentGroup['handle'] => ['display' => $consentGroup['name'], 'sections' => [['fields' => $fields]]]];
