@@ -193,9 +193,9 @@ If your site uses a language other than English, you'll probably want to transla
 
 ## Upgrading from v8.x to v9.x
 
-Cookie Notice v9 is a complete overhaul of the addon, with a focus on making it easier to manage scripts and more flexibility around customizing the consent widget.
+In version 9, Cookie Notice has been completely overhauled, with a big focus on making it easier to manage third-party scripts and more flexibility for developers around customizing the consent widget.
 
-Follow these steps to upgrade to v9.x:
+To upgrade to v9.x, you'll need to make some manual changes.
 
 1. Delete the `cookie-notice.php` file from your `config` directory.
 2. In your `composer.json` file, update the `duncanmcclean/cookie-notice` version to `^9.0`.

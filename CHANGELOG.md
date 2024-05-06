@@ -2,14 +2,18 @@
 
 ## v9.0.0 (2024-xx-xx)
 
-<!-- ### Read First 👀
-Be sure to read the [Upgrade Guide](https://cookie-notice.duncanmcclean.com/upgrade-guides/v8-to-v9) first as manual changes may be necessary. -->
+> In version 9, Cookie Notice has been completely overhauled, with a big focus on making it easier to manage third-party scripts and more flexibility for developers around customizing the consent widget.
+> To upgrade, please follow the [upgrade guide](https://statamic.com/addons/duncanmcclean/cookie-notice/docs#upgrading-from-v8x-to-v9x).
 
 ### What's new
-
 * Statamic 5 support #79 by @duncanmcclean
+* A new Control Panel to let clients manage third-party scripts (including Google Tag Manager & Meta Pixel).
+
+### What's improved
+* Improved design on the consent widget
+* Easier than ever to build custom consent widgets
 
 ### What's changed
-
 * Dropped PHP 8.1 support
 * Dropped Statamic 4 support
+* Everything (seriously, it's a big update)
