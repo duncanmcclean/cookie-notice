@@ -10,25 +10,25 @@
 
 <!-- /statamic:hide -->
 
-Cookie Notice lets you prompt your website visitors for cookie consent. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
+Cookie Notice provides a simple, lightweight cookie consent widget for your Statamic site. The addon includes a clean Tailwind CSS design (fully-customisable) and support for consent groups.
 
-**Disclaimer:** It's your responsibility to ensure your website complies with local cookie laws.
+**Disclaimer:** We've made every effort to ensure this addon is compliant with cookie laws. However, it's your responsibility to ensure your website complies with local cookie laws.
 
-[Read the docs](https://cookie-notice.duncanmcclean.com).
+[Read the docs](https://statamic.com/addons/duncanmcclean/cookie-notice/docs).
 
 ## Features
 
-### Cookie consent notification
-
-As you'd expect, this addon gives you a lightweight cookie notification. The code for which is fully customisable to meet the design of your site.
+### Cookie consent widget
+This addon provides a simple, lightweight cookie consent widget. You're able to fully customize the design of the widget to match your site's design.
 
 ### Consent Groups
+Cookie Notice has built-in support for consent groups. This allows your users to consent to specific types of cookies (eg. Required, Statistics, Marketing).
 
-Cookie Notice has built-in support for consent groups - allowing your users to consent to specific types of cookies (eg. Required, Statistics, Marketing).
+### New: Ability to manage scripts from the Control Panel
+It's now possible to manage third-party scripts without leaving the Control Panel. Give your clients the ability to add or remove scripts without needing to ask you, or dive into the code. Supports adding Google Tag Manager, Meta Pixels and inline JavaScript.
 
-### Initialise code with consent
-
-You may run certain bits of code only if the user has given their consent.
+### New: Events
+Cookie Notice allows you to listen for changes in a user's consent, allowing you to run specific JavaScript based on those events.
 
 ## Support
 
