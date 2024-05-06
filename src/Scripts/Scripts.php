@@ -2,6 +2,7 @@
 
 namespace DuncanMcClean\CookieNotice\Scripts;
 
+use DuncanMcClean\CookieNotice\Events\ScriptsSaved;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\YAML;
 
@@ -35,6 +36,8 @@ class Scripts
 
         File::ensureDirectoryExists(dirname(static::path()));
         File::put(static::path(), $yaml);
+
+        ScriptsSaved::dispatch();
     }
 
     private static function path(): string

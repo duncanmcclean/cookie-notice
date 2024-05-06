@@ -1,6 +1,8 @@
 <?php
 
+use DuncanMcClean\CookieNotice\Events\ScriptsSaved;
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\YAML;
 
@@ -97,6 +99,8 @@ it('gets the scripts', function () {
 });
 
 it('saves the scripts data', function () {
+    Event::fake();
+
     YAML::shouldReceive('dump')
         ->with(['necessary' => [
             [
@@ -120,4 +124,6 @@ it('saves the scripts data', function () {
             'gtm_container_id' => 'GTM-123456CN',
         ],
     ]]);
+
+    Event::assertDispatched(ScriptsSaved::class);
 });
