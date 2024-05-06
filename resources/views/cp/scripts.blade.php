@@ -1,8 +1,9 @@
 @extends('statamic::layout')
+@section('title', 'Manage Scripts')
 
 @section('content')
     <publish-form
-        title="Scripts"
+        title="Manage Scripts"
         action="{{ cp_route('cookie-notice.scripts.update') }}"
         :blueprint='@json($blueprint)'
         :meta='@json($meta)'

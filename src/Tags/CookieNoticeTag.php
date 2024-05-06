@@ -4,8 +4,6 @@ namespace DuncanMcClean\CookieNotice\Tags;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
-use Statamic\Facades\GlobalSet;
-use Statamic\Facades\Site;
 use Statamic\Facades\YAML;
 use Statamic\Tags\Tags;
 
@@ -43,7 +41,6 @@ class CookieNoticeTag extends Tags
             'inline_js' => $js,
             'scripts' => collect(YAML::parse($yaml))
                 ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
-                // add group key to each script
                 ->flatMap(function (array $scripts, string $consentGroup) {
                     return collect($scripts)->map(function (array $script) use ($consentGroup) {
                         return array_merge($script, ['group' => $consentGroup]);
@@ -54,7 +51,7 @@ class CookieNoticeTag extends Tags
 
     protected function viewData(): array
     {
-        return array_merge([
+        return [
             'config' => [
                 'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
                 'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
@@ -69,23 +66,6 @@ class CookieNoticeTag extends Tags
             'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
                 ->useHotFile(__DIR__ . '/../../vite.hot')
                 ->content('resources/css/cookie-notice.css'),
-        ], $this->getGlobalsData());
-    }
-
-    protected function getGlobalsData(): array
-    {
-        $globalsData = [];
-
-        foreach (GlobalSet::all() as $global) {
-            if (! $global->existsIn(Site::current()->handle())) {
-                continue;
-            }
-
-            $global = $global->in(Site::current()->handle());
-
-            $globalsData[$global->handle()] = $global->toAugmentedArray();
-        }
-
-        return $globalsData;
+        ];
     }
 }
