@@ -12,16 +12,20 @@ it('gets the scripts data', function () {
     YAML::shouldReceive('file')
         ->andReturnSelf()
         ->shouldReceive('parse')
-        ->andReturn(['necessary' => [
-            [
-                'type' => 'google-tag-manager',
-                'gtm_container_id' => 'GTM-123456CN',
+        ->andReturn([
+            'revision' => '5',
+            'necessary' => [
+                [
+                    'type' => 'google-tag-manager',
+                    'gtm_container_id' => 'GTM-123456CN',
+                ],
             ],
-        ]]);
+        ]);
 
-    $scripts = Scripts::get();
+    $data = Scripts::data();
 
-    expect($scripts)->toBeArray()->toBe([
+    expect($data)->toBeArray()->toBe([
+        'revision' => '5',
         'necessary' => [
             [
                 'type' => 'google-tag-manager',
@@ -38,9 +42,58 @@ it('returns empty array when scripts file is missing', function () {
 
     YAML::shouldReceive('file')->never();
 
-    $scripts = Scripts::get();
+    $data = Scripts::data();
 
-    expect($scripts)->toBeArray()->toBe([]);
+    expect($data)->toBeArray()->toBe([]);
+});
+
+it('gets the revision', function () {
+    File::shouldReceive('exists')
+        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->andReturn(true);
+
+    YAML::shouldReceive('file')
+        ->andReturnSelf()
+        ->shouldReceive('parse')
+        ->andReturn([
+            'revision' => '5',
+            'necessary' => [
+                [
+                    'type' => 'google-tag-manager',
+                    'gtm_container_id' => 'GTM-123456CN',
+                ],
+            ],
+        ]);
+
+    expect(Scripts::revision())->toBe(5);
+});
+
+it('gets the scripts', function () {
+    File::shouldReceive('exists')
+        ->with(storage_path('statamic/addons/cookie-notice/scripts.yaml'))
+        ->andReturn(true);
+
+    YAML::shouldReceive('file')
+        ->andReturnSelf()
+        ->shouldReceive('parse')
+        ->andReturn([
+            'revision' => '5',
+            'necessary' => [
+                [
+                    'type' => 'google-tag-manager',
+                    'gtm_container_id' => 'GTM-123456CN',
+                ],
+            ],
+        ]);
+
+    expect(Scripts::scripts())->toBe([
+        'necessary' => [
+            [
+                'type' => 'google-tag-manager',
+                'gtm_container_id' => 'GTM-123456CN',
+            ],
+        ],
+    ]);
 });
 
 it('saves the scripts data', function () {

@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'cookie_name' => 'COOKIE_NOTICE',
+    'cookie_name' => 'COOKIE_NOTICE_PREFERENCES',
 
     'cookie_expiry' => 14,
 

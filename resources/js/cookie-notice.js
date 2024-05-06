@@ -53,12 +53,15 @@ window.CookieNotice = {
     * Reads the user's preference cookie & dispatches the relevant events.
     */
     initPreferences() {
-        if (this.cookieExists(this.config.cookie_name)) {
+        let preferences = this.cookieExists(this.config.cookie_name)
+            ? JSON.parse(this.getCookie(this.config.cookie_name))
+            : null
+
+        if (preferences && preferences.revision === this.config.revision) {
             this.hideWidget()
-            let preferences = JSON.parse(this.getCookie(this.config.cookie_name))
 
             this.config.consent_groups.forEach((consentGroup) => {
-                let preference = preferences.find((preference) => preference.handle === consentGroup.handle)
+                let preference = preferences.consent.find((preference) => preference.handle === consentGroup.handle)
 
                 if (preference) {
                     this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value
@@ -80,7 +83,7 @@ window.CookieNotice = {
     */
     savePreferences() {
         let oldPreferences = this.cookieExists(this.config.cookie_name)
-            ? JSON.parse(this.getCookie(this.config.cookie_name))
+            ? JSON.parse(this.getCookie(this.config.cookie_name)).consent
             : this.config.consent_groups.map((consentGroup) => {
                 return {
                     handle: consentGroup.handle,
@@ -88,16 +91,19 @@ window.CookieNotice = {
                 }
             })
 
-        let preferences = this.config.consent_groups.map((consentGroup) => {
-            return {
-                handle: consentGroup.handle,
-                value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked ? true : false
-            }
-        })
+        let preferences = {
+            revision: this.config.revision,
+            consent: this.config.consent_groups.map((consentGroup) => {
+                return {
+                    handle: consentGroup.handle,
+                    value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked ? true : false
+                }
+            })
+        }
 
         this.dispatchEvent('preferences_updated', preferences)
 
-        preferences.forEach((preference) => {
+        preferences.consent.forEach((preference) => {
             let oldPreference = oldPreferences.find((oldPreference) => oldPreference.handle === preference.handle)
 
             if (! oldPreference) {

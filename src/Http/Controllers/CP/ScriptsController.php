@@ -11,12 +11,12 @@ class ScriptsController extends CpController
 {
     public function __construct()
     {
-        $this->authorize('manage scripts');
+//        $this->authorize('manage scripts');
     }
 
     public function edit()
     {
-        $values = Scripts::get();
+        $values = Scripts::data();
         $blueprint = Blueprint::blueprint();
 
         $fields = $blueprint->fields()->addValues($values)->preProcess();
@@ -41,6 +41,4 @@ class ScriptsController extends CpController
 
         return response()->json(['message' => 'Scripts saved']);
     }
-
-    // TODO: revision field
 }

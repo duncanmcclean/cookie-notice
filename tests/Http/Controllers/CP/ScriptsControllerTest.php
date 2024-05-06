@@ -22,12 +22,13 @@ it('renders the manage scripts page', function () {
 });
 
 it('saves the scripts', function () {
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 
     $this->withoutExceptionHandling();
 
     actingAs(User::make()->makeSuper()->save())
         ->post('/cp/cookie-notice/scripts', [
+            'revision' => '2',
             'necessary' => [
                 [
                     'script_type' => 'other',
@@ -57,7 +58,8 @@ it('saves the scripts', function () {
         ->assertOk()
         ->assertJson(['message' => 'Scripts saved']);
 
-    expect(Scripts::get())->toBe([
+    expect(Scripts::data())->toBe([
+        'revision' => '2',
         'necessary' => [
             [
                 'script_type' => 'other',
@@ -78,10 +80,11 @@ it('saves the scripts', function () {
 });
 
 it('does not save the scripts when script has invalid GTM format', function () {
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
         ->post('/cp/cookie-notice/scripts', [
+            'revision' => '1',
             'analytics' => [
                 [
                     'script_type' => 'google-tag-manager',
@@ -96,14 +99,15 @@ it('does not save the scripts when script has invalid GTM format', function () {
             'analytics.0.gtm_container_id' => 'This must be a valid Google Tag Manager Container ID.',
         ]);
 
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 });
 
 it('does not save the scripts when script has invalid Meta Pixel ID format', function () {
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
         ->post('/cp/cookie-notice/scripts', [
+            'revision' => '1',
             'analytics' => [
                 [
                     'script_type' => 'meta-pixel',
@@ -118,14 +122,15 @@ it('does not save the scripts when script has invalid Meta Pixel ID format', fun
             'analytics.0.meta_pixel_id' => 'This must be a valid Meta Pixel ID.',
         ]);
 
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 });
 
 it('does not save the scripts when script contains script tag', function () {
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
         ->post('/cp/cookie-notice/scripts', [
+            'revision' => '1',
             'necessary' => [
                 [
                     'script_type' => 'other',
@@ -140,5 +145,5 @@ it('does not save the scripts when script contains script tag', function () {
             'necessary.0.inline_javascript' => 'This field must not contain `<script>` tags.',
         ]);
 
-    expect(Scripts::get())->toBe([]);
+    expect(Scripts::data())->toBe([]);
 });

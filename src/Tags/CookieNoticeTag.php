@@ -26,6 +26,7 @@ class CookieNoticeTag extends Tags
                 'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
                 'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
                 'consent_groups' => config('cookie-notice.consent_groups'),
+                'revision' => Scripts::revision(),
                 'session' => [
                     'domain' => config('session.domain') ?? request()->getHost(),
                     'secure' => config('session.secure'),
@@ -51,7 +52,7 @@ class CookieNoticeTag extends Tags
 
         return view('cookie-notice::scripts', [
             'inline_js' => $js,
-            'scripts' => collect(Scripts::get())
+            'scripts' => collect(Scripts::scripts())
                 ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
                 ->flatMap(function (array $scripts, string $consentGroup) {
                     return collect($scripts)->map(function (array $script) use ($consentGroup) {
