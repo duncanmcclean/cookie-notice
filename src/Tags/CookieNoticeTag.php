@@ -2,6 +2,7 @@
 
 namespace DuncanMcClean\CookieNotice\Tags;
 
+use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Vite;
 use Statamic\Facades\YAML;
@@ -22,36 +23,7 @@ class CookieNoticeTag extends Tags
             return;
         }
 
-        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), $this->viewData());
-    }
-
-    public function scripts()
-    {
-        if ($this->context->get('live_preview')) {
-            return;
-        }
-
-        $js = Vite::useBuildDirectory('vendor/cookie-notice/build')
-            ->useHotFile(__DIR__ . '/../../vite.hot')
-            ->content('resources/js/cookie-notice.js');
-
-        $yaml = File::get(storage_path('statamic/addons/cookie-notice/scripts.yaml'));
-
-        return view('cookie-notice::scripts', [
-            'inline_js' => $js,
-            'scripts' => collect(YAML::parse($yaml))
-                ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
-                ->flatMap(function (array $scripts, string $consentGroup) {
-                    return collect($scripts)->map(function (array $script) use ($consentGroup) {
-                        return array_merge($script, ['group' => $consentGroup]);
-                    })->all();
-                }),
-        ]);
-    }
-
-    protected function viewData(): array
-    {
-        return [
+        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), [
             'config' => [
                 'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
                 'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
@@ -66,6 +38,28 @@ class CookieNoticeTag extends Tags
             'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
                 ->useHotFile(__DIR__ . '/../../vite.hot')
                 ->content('resources/css/cookie-notice.css'),
-        ];
+        ]);
+    }
+
+    public function scripts()
+    {
+        if ($this->context->get('live_preview')) {
+            return;
+        }
+
+        $js = Vite::useBuildDirectory('vendor/cookie-notice/build')
+            ->useHotFile(__DIR__ . '/../../vite.hot')
+            ->content('resources/js/cookie-notice.js');
+
+        return view('cookie-notice::scripts', [
+            'inline_js' => $js,
+            'scripts' => collect(Scripts::get())
+                ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
+                ->flatMap(function (array $scripts, string $consentGroup) {
+                    return collect($scripts)->map(function (array $script) use ($consentGroup) {
+                        return array_merge($script, ['group' => $consentGroup]);
+                    })->all();
+                }),
+        ]);
     }
 }

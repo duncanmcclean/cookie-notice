@@ -7,10 +7,10 @@ use Statamic\Facades\YAML;
 
 class Scripts
 {
-    public static function get(): ?array
+    public static function get(): array
     {
         if (! File::exists(static::path())) {
-            return null;
+            return [];
         }
 
         return YAML::file(static::path())->parse();

@@ -3,7 +3,7 @@
 
 @section('content')
     <publish-form
-        title="Manage Scripts"
+        title="{{ __('Manage Scripts') }}"
         action="{{ cp_route('cookie-notice.scripts.update') }}"
         :blueprint='@json($blueprint)'
         :meta='@json($meta)'

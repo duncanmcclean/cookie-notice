@@ -2,6 +2,9 @@
 
 namespace DuncanMcClean\CookieNotice\Scripts;
 
+use DuncanMcClean\CookieNotice\Rules\ValidGtmContainerID;
+use DuncanMcClean\CookieNotice\Rules\ValidInlineJavaScript;
+use DuncanMcClean\CookieNotice\Rules\ValidMetaPixelID;
 use Statamic\Fields\Blueprint as StatamicBlueprint;
 
 class Blueprint
@@ -9,7 +12,7 @@ class Blueprint
     public static function blueprint(): StatamicBlueprint
     {
         return app(StatamicBlueprint::class)->setContents([
-            'tabs' => collect(config('cookie-notice.consent_groups'))->mapWithKeys(function ($consentGroup) {
+            'tabs' => collect(config('cookie-notice.consent_groups'))->mapWithKeys(function (array $consentGroup) {
                 $fields = [
                     [
                         'handle' => "{$consentGroup['handle']}",
@@ -26,6 +29,7 @@ class Blueprint
                                         'type' => 'button_group',
                                         'display' => __('Script Type'),
                                         'width' => 50,
+                                        'required' => true,
                                     ],
                                 ],
                                 [
@@ -39,6 +43,10 @@ class Blueprint
                                         'display' => __('Container ID'),
                                         'instructions' => __('You can find this at the top right of your Google Tag Manager account. Usually starts with `GTM-`.'),
                                         'if' => ['script_type' => 'equals google-tag-manager'],
+                                        'validate' => [
+                                            'required_if:script_type,google-tag-manager',
+                                            new ValidGtmContainerID,
+                                        ],
                                     ],
                                 ],
                                 [
@@ -48,6 +56,10 @@ class Blueprint
                                         'display' => __('Pixel ID'),
                                         'instructions' => __('You can find this in your Meta Events Manager account.'),
                                         'if' => ['script_type' => 'equals meta-pixel'],
+                                        'validate' => [
+                                            'required_if:script_type,meta-pixel',
+                                            new ValidMetaPixelID,
+                                        ],
                                     ],
                                 ],
                                 [
@@ -59,6 +71,10 @@ class Blueprint
                                         'mode' => 'javascript',
                                         'mode_selectable' => false,
                                         'if' => ['script_type' => 'equals other'],
+                                        'validate' => [
+                                            'required_if:script_type,other',
+                                            new ValidInlineJavaScript,
+                                        ],
                                     ],
                                 ]
                             ],

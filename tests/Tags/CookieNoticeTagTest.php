@@ -1,60 +1,86 @@
 <?php
 
+use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use DuncanMcClean\CookieNotice\Tags\CookieNoticeTag;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Antlers;
-
 use function PHPUnit\Framework\assertIsString;
 use function PHPUnit\Framework\assertStringContainsString;
 use function PHPUnit\Framework\assertTrue;
+use Statamic\Facades\Parse;
 
-$tag = null;
+beforeEach(function () {
+    File::ensureDirectoryExists(resource_path('views/partials'));
+});
 
-beforeEach(function () use (&$tag) {
-    $tag = (new CookieNoticeTag())
-        ->setParser(Antlers::parser())
-        ->setContext([]);
+it('renders the cookie consent widget', function () {
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>'))
+        ->toContain('<!-- Start of Cookie Notice Widget -->')
+        ->toContain('window.CookieNotice.boot(');
+});
 
-    Config::set('cookie-notice.groups', [
-        'Necessary' => [
-            'required' => true,
-            'toggle_by_default' => true,
-        ],
-        'Statistics' => [
-            'required' => false,
-            'toggle_by_default' => false,
-        ],
-        'Marketing' => [
-            'required' => false,
-            'toggle_by_default' => false,
-        ],
+it('renders the cookie consent widget using a custom view', function () {
+    Config::set('cookie-notice.widget_view', 'partials.custom-cookie-notice-widget');
+    File::put(resource_path('views/partials/custom-cookie-notice-widget.antlers.html'), '<div>Custom Cookie Notice Widget</div>');
+
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>'))
+        ->toContain('<div>Custom Cookie Notice Widget</div>');
+});
+
+it('does not render the cookie consent widget when live previewing', function () {
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>', ['live_preview' => true]))
+        ->not->toContain('<!-- Start of Cookie Notice Widget -->')
+        ->not->toContain('window.CookieNotice.boot(');
+});
+
+it('returns cookie consent javascript', function () {
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+        ->toContain('<!-- Start of Cookie Notice Scripts -->')
+        ->toContain('<script>');
+});
+
+it('outputs google tag manager scripts', function () {
+    Scripts::save([
+        'analytics' => [[
+            'script_type' => 'google-tag-manager',
+            'gtm_container_id' => 'GTM-123456CN',
+        ]],
     ]);
 
-    File::makeDirectory(public_path('vendor/cookie-notice/build'), 0755, true, true);
-    File::put(public_path('vendor/cookie-notice/build/manifest.json'), json_encode([
-        'resources/css/cookie-notice.css' => [
-            'file' => 'assets/cookie-notice-testing.css',
-            'isEntry' => true,
-            'src' => 'resources/css/cookie-notice.css',
-        ],
-    ]));
-
-    File::makeDirectory(public_path('vendor/cookie-notice/build/assets'), 0755, true, true);
-    File::put(public_path('vendor/cookie-notice/build/assets/cookie-notice-testing.css'), '');
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+        ->toContain('<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>')
+        ->toContain("'script','dataLayer','GTM-123456CN'");
 });
 
-test('cookie notice tag is registered', function () use (&$tag) {
-    assertTrue(isset($this->app['statamic.tags']['cookie_notice']));
+it('outputs meta pixel scripts', function () {
+    Scripts::save([
+        'analytics' => [[
+            'script_type' => 'meta-pixel',
+            'meta_pixel_id' => '123456789123456',
+        ]],
+    ]);
+
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+        ->toContain('<script type="text/plain" data-consent-group="analytics">')
+        ->toContain("fbq('init', '123456789123456');");
 });
 
-test('can see cookie notice', function () use (&$tag) {
-    $tag->setParameters([]);
+it('outputs inline javascript', function () {
+    Scripts::save([
+        'analytics' => [[
+            'script_type' => 'other',
+            'inline_javascript' => 'console.log("Hello, World!")',
+        ]],
+    ]);
 
-    $notice = $tag->index()->render();
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+        ->toContain('<script type="text/plain" data-consent-group="analytics">')
+        ->toContain('console.log("Hello, World!")');
+});
 
-    assertIsString($notice);
-    assertStringContainsString('id="group_necessary"', $notice);
-    assertStringContainsString('id="group_statistics"', $notice);
-    assertStringContainsString('id="group_marketing"', $notice);
+it('does not return cookie consent javascript when live previewing', function () {
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', ['live_preview' => true]))
+        ->not->toContain('<!-- Start of Cookie Notice Scripts -->')
+        ->not->toContain('<script>');
 });

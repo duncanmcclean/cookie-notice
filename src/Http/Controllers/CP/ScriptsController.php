@@ -2,12 +2,19 @@
 
 namespace DuncanMcClean\CookieNotice\Http\Controllers\CP;
 
+use DuncanMcClean\CookieNotice\Http\Requests\CP\UpdateScriptsRequest;
 use DuncanMcClean\CookieNotice\Scripts\Blueprint;
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Http\Request;
+use Statamic\Http\Controllers\CP\CpController;
 
-class ScriptsController
+class ScriptsController extends CpController
 {
+    public function __construct()
+    {
+        $this->authorize('manage scripts');
+    }
+
     public function edit()
     {
         $values = Scripts::get();
@@ -24,9 +31,6 @@ class ScriptsController
 
     public function update(Request $request)
     {
-        // TODO: validate request (ensure we have valid pixel ids, gtm thingys, etc)
-//        $validated = $request->validate([]);
-
         $blueprint = Blueprint::blueprint();
         $fields = $blueprint->fields()->addValues($request->all());
 
@@ -39,6 +43,5 @@ class ScriptsController
         return response()->json(['message' => 'Scripts saved']);
     }
 
-    // todo: add tests
-    // todo: revision field
+    // TODO: revision field
 }
