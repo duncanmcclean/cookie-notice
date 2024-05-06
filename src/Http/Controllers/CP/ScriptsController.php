@@ -7,7 +7,6 @@ use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Statamic\Http\Controllers\CP\CpController;
-use Statamic\Statamic;
 
 class ScriptsController extends CpController
 {

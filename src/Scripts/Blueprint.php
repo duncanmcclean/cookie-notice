@@ -26,7 +26,7 @@ class Blueprint
                                         'validate' => ['required'],
                                         'default' => '1',
                                     ],
-                                ]
+                                ],
                             ],
                         ],
                     ])->merge(collect(config('cookie-notice.consent_groups'))->map(function (array $consentGroup) {
