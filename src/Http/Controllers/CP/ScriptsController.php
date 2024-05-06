@@ -5,17 +5,16 @@ namespace DuncanMcClean\CookieNotice\Http\Controllers\CP;
 use DuncanMcClean\CookieNotice\Scripts\Blueprint;
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Statamic\Http\Controllers\CP\CpController;
+use Statamic\Statamic;
 
 class ScriptsController extends CpController
 {
-    public function __construct()
-    {
-//        $this->authorize('manage scripts');
-    }
-
     public function edit()
     {
+        abort_if(Auth::user()->cant('manage scripts'), 403);
+
         $values = Scripts::data();
         $blueprint = Blueprint::blueprint();
 
@@ -30,6 +29,8 @@ class ScriptsController extends CpController
 
     public function update(Request $request)
     {
+        abort_if(Auth::user()->cant('manage scripts'), 403);
+
         $blueprint = Blueprint::blueprint();
         $fields = $blueprint->fields()->addValues($request->all());
 

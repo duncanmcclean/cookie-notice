@@ -11,7 +11,7 @@ it('cant render manage scripts page without permission', function () {
 
     actingAs(User::make()->assignRole($role)->save())
         ->get('/cp/cookie-notice/scripts')
-        ->assertForbidden();
+        ->assertRedirect('/cp');
 });
 
 it('renders the manage scripts page', function () {
