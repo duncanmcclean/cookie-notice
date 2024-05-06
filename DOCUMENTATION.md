@@ -61,7 +61,7 @@ There's a couple of different ways you can manage scripts with the Cookie Notice
 
 This is likely the easiest way to manage scripts, since you (& your clients) can do it without needing to touch any code. You can access the "Manage Scripts" page in the Control Panel, under the "Utilities" section.
 
-TODO: screenshot
+![Screenshot of "Manage Scripts" page in the Control Panel](./docs-cp.png)
 
 From the "Manage Scripts" page, you can configure the scripts to be loaded for each of the configured consent groups. For ease of use, Google Tag Manager & Meta Pixels can be added by simply providing the container ID or pixel ID.
 
@@ -115,7 +115,7 @@ window.CookieNotice.on('preferences_updated', (preferences) => {
 
 Cookie Notice ships with a minimal consent widget, allowing your users to easily accept or decline the configured consent groups.
 
-TODO: screenshot
+![Screenshot of the built-in widget](./docs-widget.png)
 
 ### Building a custom widget
 
