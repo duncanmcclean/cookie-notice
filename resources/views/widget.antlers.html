@@ -1,0 +1,38 @@
+<!-- Start of Cookie Notice Widget -->
+<style>{{ inline_css }}</style>
+
+<div id="cookie-notice" class="cn-relative cn-font-sans" style="z-index: 999">
+    <div class="cn-fixed cn-bottom-6 cn-right-6 cn-bg-white cn-ml-4 cn-px-4 cn-py-8 cn-shadow-xl cn-ring-1 cn-ring-gray-900/5 sm:cn-mx-auto sm:cn-max-w-lg sm:cn-rounded-lg sm:cn-px-10">
+        <div class="cn-space-y-2 cn-text-base cn-leading-7 cn-text-gray-600">
+            <h2 class="cn-text-2xl cn-font-bold">{{ trans key="This site uses cookies" }}</h2>
+            <p class="cn-pb-2">{{ trans key="By using this site, you agree to our use of cookies. Cookies help improve your browsing experience and provide personalized content." }}</p>
+            <ul class="cn-flex cn-flex-col cn-space-y-4 cn-pb-4">
+                {{ consent_groups }}
+                    <li class="cn-flex cn-items-start cn-gap-x-3">
+                        <div class="cn-flex cn-mt-2">
+                            <input id="group-{{ handle }}" aria-describedby="group-{{ handle }}-description" name="group-{{ handle }}" type="checkbox" class="cn-h-4 cn-w-4 cn-rounded cn-border-gray-300 cn-text-blue-600 focus:cn-ring-indigo-600">
+                        </div>
+                        <div class="cn-flex cn-flex-col">
+                            <label for="group-{{ handle }}" class="cn-font-semibold cn-select-none">{{ name }}</label>
+                            {{ if description }}
+                                <span class="cn-text-sm cn-select-none">{{ description }}</span>
+                            {{ /if }}
+                        </div>
+                    </li>
+                {{ /consent_groups }}
+            </ul>
+            <button type="button" class="cn-rounded-md cn-bg-blue-100 cn-px-3.5 cn-py-2.5 cn-text-sm cn-font-semibold cn-text-blue-600 cn-shadow-sm hover:cn-bg-blue-100/75" data-save-preferences>{{ trans key="Save Preferences" }}</button>
+            <p class="cn-text-xs cn-text-gray-400 cn-pt-1">{{ trans key="You can always change your preferences later." }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        window.CookieNotice.boot(
+            document.getElementById('cookie-notice'),
+            JSON.parse('{{ config | to_json }}')
+        );
+    });
+</script>
+<!-- End of Cookie Notice Widget -->

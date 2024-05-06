@@ -1,151 +1,73 @@
-<script>
-    let cookiesForm = document.getElementById('cookiesForm')
-    let hideConsentFormButton = document.getElementById('hideConsentFormButton')
-    let manageCookiesButton = document.getElementById('manageCookiesButton')
-    let COOKIE_NAME = '{{ cookie_name }}'
-    let consentGroups = JSON.parse('{{ groups | json }}')
+<!-- Start of Cookie Notice Scripts -->
+<script>{{ inline_js }}</script>
 
-    window.cookieNotice = {
-        listeners: [],
-
-        consentWithCookies: function(groups) {
-            consentGroups.forEach((consentGroup) => {
-                let previousStatus = this.getCookie(COOKIE_NAME)?.split(',').includes(consentGroup.slug)
-                let currentStatus = groups.includes(consentGroup.slug)
-
-                if (previousStatus !== currentStatus && currentStatus === true) {
-                    this.dispatchEvent('consented', consentGroup)
-                }
-
-                if (previousStatus !== currentStatus && currentStatus === false) {
-                    this.dispatchEvent('revoked', consentGroup)
-                }
-            })
-
-            this.setCookie(COOKIE_NAME, groups, 30)
-            this.hideConsentNotice()
-        },
-
-        showConsentNotice: function() {
-            manageCookiesButton.setAttribute('style', 'display: none;')
-            cookiesForm.removeAttribute('style')
-
-            // Figure out which checkboxes should be checked by default.
-            // https://github.com/duncanmcclean/cookie-notice/issues/77
-            consentGroups.forEach((consentGroup) => {
-                let checkbox = document.getElementById(consentGroup.slug)
-
-                if (window.cookieNotice.hasConsentedToSomething())  {
-                    if (window.cookieNotice.hasConsent(consentGroup.slug)) {
-                        console.log('has consent for ' + consentGroup.slug)
-                        return checkbox.checked = true
-                    }
-
-                    return;
-                }
-
-                if (checkbox.dataset.toggleByDefault === 'true') {
-                    console.log('toggle by default for ' + consentGroup.slug)
-
-                    return checkbox.checked = true
-                }
-            })
-        },
-
-        hideConsentNotice: function() {
-            manageCookiesButton.removeAttribute('style')
-            cookiesForm.setAttribute('style', 'display: none;')
-        },
-
-        cookieExists: function(name) {
-            return document.cookie.indexOf(name + '=') !== -1
-        },
-
-        getCookie: function(name) {
-            const value = `; ${document.cookie}`
-            const parts = value.split(`; ${name}=`)
-            if (parts.length === 2) return parts.pop().split(';').shift()
-        },
-
-        setCookie: function(name, value, expirationInDays) {
-            const date = new Date()
-            date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000))
-
-            document.cookie = name + '=' + value +
-                ';expires=' + date.toUTCString() +
-                ';domain={{ domain }}' +
-                ';path=/{{ config:session:secure ? ';secure' : null }}' +
-                '{{ if config:session:same_site }};samesite={{ config:session:same_site }}{{ /if }}'
-        },
-
-        hasConsent: function(group) {
-            if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
-                return false
-            }
-
-            const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
-
-            return consented.includes(group);
-        },
-
-        hasConsentedToSomething: function() {
-            if (window.cookieNotice.getCookie(COOKIE_NAME) === undefined) {
-                return false
-            }
-
-            const consented = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
-
-            return consented.length > 0;
-        },
-
-        on: (event, callback) => {
-            cookieNotice.listeners.push({
-                event: event,
-                callback: callback,
+{{ scripts }}
+    {{ if script_type === 'google-tag-manager' }}
+        <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>
+        <script>
+            gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'wait_for_update': 1500
             });
-        },
+        </script>
 
-        dispatchEvent: (event, payload) => {
-            cookieNotice.listeners
-                .filter((listener) => listener.event === event)
-                .forEach((listener) => listener.callback(payload));
-        },
-    }
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
 
-    cookiesForm = document.getElementById('cookiesForm')
-    hideConsentFormButton = document.getElementById('hideConsentFormButton')
-    manageCookiesButton = document.getElementById('manageCookiesButton')
+        <script>
+            window.CookieNotice.on('accepted', (consentGroup) => {
+                if (consentGroup === '{{ group }}') {
+                    console.log('provided consent')
 
-    cookiesForm.addEventListener('submit', function(event) {
-        event.preventDefault()
-        const formData = new FormData(event.target)
-        const groups = formData.getAll('groups')
+                    gtag('consent', 'update', {
+                        ad_user_data: 'granted',
+                        ad_personalization: 'granted',
+                        ad_storage: 'granted',
+                        analytics_storage: 'granted'
+                    })
+                }
+            })
 
-        window.cookieNotice.consentWithCookies(groups)
-    })
+            window.CookieNotice.on('declined', (consentGroup) => {
+                if (consentGroup === '{{ group }}') {
+                    console.log('revoked consent')
 
-    if (!window.cookieNotice.cookieExists(COOKIE_NAME)) {
-        window.cookieNotice.showConsentNotice()
-        hideConsentFormButton.setAttribute('style', 'display: none;')
-    } else {
-        const groups = window.cookieNotice.getCookie(COOKIE_NAME).split(',')
+                    gtag('consent', 'update', {
+                        ad_user_data: 'denied',
+                        ad_personalization: 'denied',
+                        ad_storage: 'denied',
+                        analytics_storage: 'denied'
+                    })
+                }
+            })
+        </script>
+    {{ /if }}
 
-        for (let i = 0; i < groups.length; i++) {
-            document.getElementById(groups[i]).setAttribute('checked', true)
-        }
-    }
+    {{ if script_type === 'meta-pixel' }}
+        <script type="text/plain" data-consent-group="{{ group }}">
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '{{ meta_pixel_id }}');
+            fbq('track', 'PageView');
+        </script>
+    {{ /if }}
 
-    hideConsentFormButton.addEventListener('click', window.cookieNotice.hideConsentNotice)
-    manageCookiesButton.addEventListener('click', window.cookieNotice.showConsentNotice)
-
-    window.addEventListener('load', function() {
-        if (window.cookieNotice.cookieExists(COOKIE_NAME)) {
-            window.cookieNotice.dispatchEvent(
-                'loaded',
-                window.cookieNotice.getCookie(COOKIE_NAME).split(',').map((slug) => {
-                    return consentGroups.find((group) => group.slug === slug)
-                })
-            )
-        }
-    })
-</script>
+    {{ if script_type === 'other' }}
+        <script type="text/plain" data-consent-group="{{ group }}">
+            {{ inline_javascript }}
+        </script>
+    {{ /if }}
+{{ /scripts }}
+<!-- End of Cookie Notice Scripts -->

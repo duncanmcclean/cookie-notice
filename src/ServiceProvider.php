@@ -2,70 +2,48 @@
 
 namespace DuncanMcClean\CookieNotice;
 
+use DuncanMcClean\CookieNotice\Events\ScriptsSaved;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\File;
+use Statamic\Facades\CP\Nav;
+use Statamic\Facades\Permission;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
 
 class ServiceProvider extends AddonServiceProvider
 {
-    protected $config = false;
+    protected $publishables = [
+        __DIR__.'/../dist' => '',
+    ];
 
-    protected $translations = false;
+    protected $routes = [
+        'cp' => __DIR__.'/../routes/cp.php',
+    ];
 
     protected $tags = [
         Tags\CookieNoticeTag::class,
     ];
 
-    protected $updateScripts = [
-        UpdateScripts\BreakingChangesWarning::class,
-    ];
-
-    protected $publishables = [
-        __DIR__.'/../dist' => '',
-    ];
-
-    public function boot()
+    public function bootAddon()
     {
-        parent::boot();
-
-        Statamic::booted(function () {
-            $this->bootVendorAssets();
-        });
-    }
-
-    protected function bootVendorAssets()
-    {
-        $this->publishes([
-            __DIR__.'/../config/cookie-notice.php' => config_path('cookie-notice.php'),
-        ], 'cookie-notice-config');
-
-        $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/cookie-notice'),
-        ], 'cookie-notice-views');
-
-        $this->mergeConfigFrom(__DIR__.'/../config/cookie-notice.php', 'cookie-notice');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'cookie-notice');
-
-        return $this;
-    }
-
-    protected function bootPublishAfterInstall()
-    {
-        if (! $this->publishAfterInstall) {
-            return $this;
-        }
-
-        // Temp: Adds $this->publishables to the list of publishable assets.
-        if (empty($this->scripts) && empty($this->stylesheets) && empty($this->vite) && empty($this->publishables)) {
-            return $this;
-        }
-
-        Statamic::afterInstalled(function ($command) {
-            $command->call('vendor:publish', [
-                '--tag' => $this->getAddon()->slug(),
-                '--force' => true,
-            ]);
+        Permission::extend(function () {
+            Permission::register('manage scripts')
+                ->label(__('Manage Scripts'));
         });
 
-        return $this;
+        Nav::extend(function ($nav) {
+            $nav->create(__('Cookie Notice'))
+                ->section('Tools')
+                ->route('cookie-notice.scripts.edit')
+                ->icon(File::get(__DIR__.'/../resources/svg/cookie.svg'))
+                ->can('manage scripts')
+                ->children([
+                    'Scripts' => cp_route('cookie-notice.scripts.edit'),
+                ]);
+        });
+
+        if (Statamic::pro() && config('statamic.git.enabled')) {
+            Event::listen(ScriptsSaved::class, fn ($event) => (new Statamic\Git\Subscriber)->commit($event));
+        }
     }
 }

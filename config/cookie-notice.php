@@ -7,13 +7,26 @@ return [
     | Cookie
     |--------------------------------------------------------------------------
     |
-    | It's ironic, but this addon uses cookies to store if a user has consented
-    | to cookies or not, and which ones they've consented to. Don't worry
-    | though, no cookie is stored if the user doesn't consent.
+    | It's ironic, but this addon uses cookies to determine which consent groups
+    | a user has consented to. Configure the name & expiry of the cookie here.
     |
     */
 
-    'cookie_name' => 'COOKIE_NOTICE',
+    'cookie_name' => 'COOKIE_NOTICE_PREFERENCES',
+
+    'cookie_expiry' => 14,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Consent Widget
+    |--------------------------------------------------------------------------
+    |
+    | Out of the box, this addon provides a simple consent widget. However, you're
+    | free to create your own widget, just specify the view here.
+    |
+    */
+
+    'widget_view' => 'cookie-notice::widget',
 
     /*
     |--------------------------------------------------------------------------
@@ -25,18 +38,17 @@ return [
     |
     */
 
-    'groups' => [
-        'Necessary' => [
-            'required' => true,
-            'toggle_by_default' => true,
+    'consent_groups' => [
+        [
+            'name' => 'Necessary',
+            'handle' => 'necessary',
+            'enable_by_default' => true,
         ],
-        'Statistics' => [
-            'required' => false,
-            'toggle_by_default' => false,
-        ],
-        'Marketing' => [
-            'required' => false,
-            'toggle_by_default' => false,
+        [
+            'name' => 'Analytics',
+            'handle' => 'analytics',
+            'description' => 'These cookies are used to provide us with analytics on which content visitors read, etc.',
+            'enable_by_default' => false,
         ],
     ],
 

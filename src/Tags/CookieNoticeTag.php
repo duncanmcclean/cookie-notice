@@ -2,100 +2,63 @@
 
 namespace DuncanMcClean\CookieNotice\Tags;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
+use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Str;
-use Statamic\Facades\Addon;
-use Statamic\Facades\GlobalSet;
-use Statamic\Facades\Site;
 use Statamic\Tags\Tags;
 
 class CookieNoticeTag extends Tags
 {
-    public static $alreadyRenderedScripts = false;
-
     protected static $handle = 'cookie_notice';
 
     public function index()
     {
-        return view('cookie-notice::notice', $this->viewData());
+        return $this->widget();
+    }
+
+    public function widget()
+    {
+        if ($this->context->get('live_preview')) {
+            return;
+        }
+
+        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), [
+            'config' => [
+                'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
+                'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
+                'consent_groups' => config('cookie-notice.consent_groups'),
+                'revision' => Scripts::revision(),
+                'session' => [
+                    'domain' => config('session.domain') ?? request()->getHost(),
+                    'secure' => config('session.secure'),
+                    'same_site' => config('session.same_site'),
+                ],
+            ],
+            'consent_groups' => config('cookie-notice.consent_groups'),
+            'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
+                ->useHotFile(__DIR__.'/../../vite.hot')
+                ->content('resources/css/cookie-notice.css'),
+        ]);
     }
 
     public function scripts()
     {
-        static::$alreadyRenderedScripts = true;
-
-        return view('cookie-notice::scripts', $this->viewData());
-    }
-
-    protected function groups(): array
-    {
-        return collect(Config::get('cookie-notice.groups'))
-            ->map(function ($value, $key) {
-                return array_merge($value, [
-                    'name' => $key,
-                    'slug' => 'group_'.Str::slug($key),
-                ]);
-            })
-            ->values()
-            ->toArray();
-    }
-
-    protected function viewData(): array
-    {
-        $array = [
-            // Some Statamic-y variables
-            'csrf_field' => csrf_field(),
-            'csrf_token' => csrf_token(),
-
-            'current_date' => $now = now(),
-            'now' => $now,
-            'today' => $now,
-
-            'site' => Site::current(),
-            'sites' => Site::all()->values(),
-
-            // Cookie Notice variables
-            'domain' => config('session.domain') ?? request()->getHost(),
-            'cookie_name' => config('cookie-notice.cookie_name'),
-            'groups' => $this->groups(),
-            'already_rendered_scripts' => static::$alreadyRenderedScripts,
-        ];
-
-        // Push data from Globals into the view
-        foreach (GlobalSet::all() as $global) {
-            if (! $global->existsIn(Site::current()->handle())) {
-                continue;
-            }
-
-            $global = $global->in(Site::current()->handle());
-
-            $array[$global->handle()] = $global->toAugmentedArray();
+        if ($this->context->get('live_preview')) {
+            return;
         }
 
-        // Get the CSS from the site's vendor/cookie-notice directory (as otherwise, some ad-blockers will block the styles)
-        $cookieNoticeVersion = Addon::get('duncanmcclean/cookie-notice')->version();
+        $js = Vite::useBuildDirectory('vendor/cookie-notice/build')
+            ->useHotFile(__DIR__.'/../../vite.hot')
+            ->content('resources/js/cookie-notice.js');
 
-        $array['inline_css'] = Cache::rememberForever("CookieNotice:{$cookieNoticeVersion}:InlineCss", function () {
-            return File::get($this->getViteAssetPath('resources/css/cookie-notice.css'));
-        });
-
-        return $array;
-    }
-
-    /**
-     * Converts the Vite asset URL to a path on the filesystem.
-     */
-    protected function getViteAssetPath($asset): string
-    {
-        $manifest = json_decode(File::get(public_path('vendor/cookie-notice/build/manifest.json')), true);
-
-        if (! isset($manifest[$asset])) {
-            throw new \Exception("Cookie Notice: Unable to find {$asset} in Vite Manifest.");
-        }
-
-        return public_path('vendor/cookie-notice/build/'.$manifest[$asset]['file']);
+        return view('cookie-notice::scripts', [
+            'inline_js' => $js,
+            'scripts' => collect(Scripts::scripts())
+                ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
+                ->flatMap(function (array $scripts, string $consentGroup) {
+                    return collect($scripts)->map(function (array $script) use ($consentGroup) {
+                        return array_merge($script, ['group' => $consentGroup]);
+                    })->all();
+                }),
+        ]);
     }
 }
