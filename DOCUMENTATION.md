@@ -142,6 +142,7 @@ For example, you may only want to load a YouTube embed when the user provides co
    <template x-if="showVideo">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
    </template>
+
    <template x-if="!showVideo">
       <p>Consent not given for marketing cookies. Video cannot be loaded.</p>
    </template>
