@@ -1,14 +1,18 @@
 ## Installation
 
 1. Require Cookie Notice as a Composer dependency:
+
     ```
     composer require duncanmcclean/cookie-notice
     ```
+
 2. Publish the addon's configuration file:
+
     ```
     php artisan vendor:publish --tag=cookie-notice-config
     ```
-3. Add the Cookie Notice tags to your layout(s). Make sure the `{{ cookie_notice:scripts }}` tag is in the `<head>` and the `{{ cookie_notice:widget }}` tag is near the top of the `<body>`.
+
+3. Add the Cookie Notice tags to your layout(s). Make sure the `{{ cookie_notice:scripts }}` tag is in the `<head>` and the `{{ cookie_notice:widget }}` tag is near the top of the `<body>`:
     
     ```antlers
     <!doctype html>
@@ -238,15 +242,19 @@ To upgrade to v9.x, you'll need to make some manual changes.
 
 1. Delete the `cookie-notice.php` file from your `config` directory.
 2. In your `composer.json` file, update the `duncanmcclean/cookie-notice` version to `^9.0`.
+
    ```json
    "duncanmcclean/cookie-notice": "^9.0"
    ```
+
 3. Run `composer update duncanmcclean/cookie-notice --with-dependencies`.
 4. Re-publish the addon's configuration file and update it as needed:
+
     ```
     php artisan vendor:publish --tag=cookie-notice-config
     ```
 5. Make sure you're using **both** the `{{ cookie_notice:scripts }}` and `{{ cookie_notice }}` tags in your site's layout(s): 
+
     ```antlers
     <!doctype html>
     <html>
