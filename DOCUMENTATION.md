@@ -9,6 +9,7 @@
     php artisan vendor:publish --tag=cookie-notice-config
     ```
 3. Add the Cookie Notice tags to your layout(s). Make sure the `{{ cookie_notice:scripts }}` tag is in the `<head>` and the `{{ cookie_notice:widget }}` tag is near the top of the `<body>`.
+    
     ```antlers
     <!doctype html>
     <html>
