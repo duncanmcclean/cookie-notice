@@ -158,7 +158,7 @@ For example, you may only want to load a YouTube embed when the user provides co
 
 Cookie Notice ships with a minimal consent widget, allowing your users to easily accept or decline the configured consent groups.
 
-![Screenshot of the built-in widget]([docs-widget.png](https://raw.githubusercontent.com/duncanmcclean/cookie-notice/9.x/docs-widget.png))
+![Screenshot of the built-in widget](https://raw.githubusercontent.com/duncanmcclean/cookie-notice/9.x/docs-widget.png)
 
 ### Building a custom widget
 
