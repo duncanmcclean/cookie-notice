@@ -261,3 +261,4 @@ To upgrade to v9.x, you'll need to make some manual changes.
 6. If you were previously calling the `window.cookieNotice.hasConsent('group_name')` method, you should refactor your code to use [event listeners](#events) instead.
 7. If you were previously loading Google Tag Manager or a Meta Pixel manually, you may now configure them in [the Control Panel](#via-the-control-panel).
 8. If you were previously overriding the `notice` view in `resources/views/vendor/cookie-notice`, you will need to re-implement in a [custom widget](#building-a-custom-widget).
+9. If you were previously listening to Cookie Notice's `consented` or `revoked` events, you should now listen for the `accepted` and `declined` events instead.
