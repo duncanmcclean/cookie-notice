@@ -111,6 +111,43 @@ window.CookieNotice.on('preferences_updated', (preferences) => {
 
 > Make sure your JavaScript is **after** the `{{ cookie_notice:scripts }}` tag, otherwise the `window.CookieNotice` object won't be available.
 
+### Example: Loading embeds based on consent (Alpine.js)
+
+For example, you may only want to load a YouTube embed when the user provides consent for the `marketing` consent group. You can take advantage of the `accepted` and `declined` events to do this:
+
+```html
+<script>
+   document.addEventListener('alpine:init', () => {
+      Alpine.data('CookieConsentHandler', () => ({
+         showVideo: false,
+
+         init() {
+            window.CookieNotice.on('accepted', (consentGroup) => {
+               if (consentGroup === 'marketing') {
+                  this.showVideo = true;
+               }
+            })
+
+            window.CookieNotice.on('declined', (consentGroup) => {
+               if (consentGroup === 'marketing') {
+                  this.showVideo = false;
+               }
+            })
+         },
+      }));
+   });
+</script>
+
+<div x-data="CookieConsentHandler">
+   <template x-if="showVideo">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+   </template>
+   <template x-if="!showVideo">
+      <p>Consent not given for marketing cookies. Video cannot be loaded.</p>
+   </template>
+</div>
+```
+
 ## Consent Widget
 
 Cookie Notice ships with a minimal consent widget, allowing your users to easily accept or decline the configured consent groups.
