@@ -1,6 +1,6 @@
 # Changelog
 
-## v9.0.0 (2024-xx-xx)
+## v9.0.0 (2024-05-09)
 
 > In version 9, Cookie Notice has been completely overhauled, with a big focus on making it easier to manage third-party scripts and more flexibility for developers around customizing the consent widget.
 > To upgrade, please follow the [upgrade guide](https://statamic.com/addons/duncanmcclean/cookie-notice/docs#upgrading-from-v8x-to-v9x).
