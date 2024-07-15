@@ -2,6 +2,8 @@
 
 return [
 
+    'path' => base_path('content/cookie-notice.yaml'),
+
     /*
     |--------------------------------------------------------------------------
     | Cookie

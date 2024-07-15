@@ -42,6 +42,6 @@ class Scripts
 
     private static function path(): string
     {
-        return base_path('content/cookie-notice.yaml');
+        return config('cookie-notice.path');
     }
 }
