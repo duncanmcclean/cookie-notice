@@ -52,4 +52,17 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Scripts
+    |--------------------------------------------------------------------------
+    |
+    | When you configure scripts in the Control Panel, they get saved to a YAML file.
+    | By default, this file is saved to the `content` directory. However, you're free to
+    | change this path if you'd like.
+    |
+    */
+
+    'path' => base_path('content/cookie-notice.yaml'),
+
 ];
