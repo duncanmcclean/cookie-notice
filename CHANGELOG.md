@@ -1,5 +1,15 @@
 # Changelog
 
+## v9.2.0 (2025-02-25)
+
+### What's new
+* Supports Laravel 12 #88 by @duncanmcclean
+
+### What's improved
+* Updated GitHub Actions workflow #87 by @duncanmcclean
+
+
+
 ## v9.1.0 (2024-07-18)
 
 ### What's new
