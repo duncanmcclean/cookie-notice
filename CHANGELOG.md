@@ -1,5 +1,12 @@
 # Changelog
 
+## v9.3.0 (2025-05-10)
+
+### What's new
+* Added "Consent Types" checkboxes for GTM scripts #85 by @jhhazelaar
+
+
+
 ## v9.2.0 (2025-02-25)
 
 ### What's new
