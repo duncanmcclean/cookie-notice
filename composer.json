@@ -30,12 +30,12 @@
     "require": {
         "php": "^8.2",
         "pixelfear/composer-dist-plugin": "^0.1.5",
-        "statamic/cms": "^5.0"
+        "statamic/cms": "^5.41"
     },
     "require-dev": {
-        "orchestra/testbench": "^8.0 || ^9.0",
-        "pestphp/pest": "^2.2",
-        "pestphp/pest-plugin-laravel": "2.x-dev"
+        "orchestra/testbench": "^8.28 || ^9.6.1 || ^10.0",
+        "pestphp/pest": "^2.2 || ^3.0",
+        "pestphp/pest-plugin-laravel": "^2.0 || ^3.0"
     },
     "config": {
         "optimize-autoloader": true,
