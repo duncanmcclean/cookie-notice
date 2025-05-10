@@ -76,7 +76,7 @@ class Blueprint
                                                     'ad_storage' => 'ad_storage',
                                                     'ad_user_data' => 'ad_user_data',
                                                     'ad_personalization' => 'ad_personalization',
-                                                    'analytics_storage' => 'analytics_storage'
+                                                    'analytics_storage' => 'analytics_storage',
                                                 ],
                                                 'inline' => true,
                                                 'default' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
