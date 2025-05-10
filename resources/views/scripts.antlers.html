@@ -20,33 +20,21 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
 
-        <script>
-            window.CookieNotice.on('accepted', (consentGroup) => {
-                if (consentGroup === '{{ group }}') {
-                    console.log('provided consent')
+        {{ if gtm_consent_types }}
+            <script>
+                window.CookieNotice.on('accepted', (consentGroup) => {
+                    if (consentGroup === '{{ group }}') {
+                        gtag('consent', 'update', {{$ json_encode(array_fill_keys($gtm_consent_types, 'granted')) $}})
+                    }
+                })
 
-                    gtag('consent', 'update', {
-                        ad_user_data: 'granted',
-                        ad_personalization: 'granted',
-                        ad_storage: 'granted',
-                        analytics_storage: 'granted'
-                    })
-                }
-            })
-
-            window.CookieNotice.on('declined', (consentGroup) => {
-                if (consentGroup === '{{ group }}') {
-                    console.log('revoked consent')
-
-                    gtag('consent', 'update', {
-                        ad_user_data: 'denied',
-                        ad_personalization: 'denied',
-                        ad_storage: 'denied',
-                        analytics_storage: 'denied'
-                    })
-                }
-            })
-        </script>
+                window.CookieNotice.on('declined', (consentGroup) => {
+                    if (consentGroup === '{{ group }}') {
+                        gtag('consent', 'update', gtag('consent', 'update', {{$ json_encode(array_fill_keys($gtm_consent_types, 'denied')) $}}))
+                    }
+                })
+            </script>
+        {{ /if }}
     {{ /if }}
 
     {{ if script_type === 'meta-pixel' }}

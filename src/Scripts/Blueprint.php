@@ -61,9 +61,27 @@ class Blueprint
                                                 'instructions' => __('You can find this at the top right of your Google Tag Manager account. Usually starts with `GTM-`.'),
                                                 'if' => ['script_type' => 'equals google-tag-manager'],
                                                 'validate' => [
-                                                    'required_if:script_type,google-tag-manager',
+                                                    'required_if:{this}.script_type,google-tag-manager',
                                                     new ValidGtmContainerID,
                                                 ],
+                                            ],
+                                        ],
+                                        [
+                                            'handle' => 'gtm_consent_types',
+                                            'field' => [
+                                                'type' => 'checkboxes',
+                                                'display' => __('Consent Types'),
+                                                'instructions' => __('Which consent types should be granted when accepting this group?'),
+                                                'options' => [
+                                                    'ad_storage' => 'ad_storage',
+                                                    'ad_user_data' => 'ad_user_data',
+                                                    'ad_personalization' => 'ad_personalization',
+                                                    'analytics_storage' => 'analytics_storage',
+                                                ],
+                                                'inline' => true,
+                                                'default' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                                                'if' => ['script_type' => 'equals google-tag-manager'],
+                                                'validate' => ['array'],
                                             ],
                                         ],
                                         [
@@ -74,7 +92,7 @@ class Blueprint
                                                 'instructions' => __('You can find this in your Meta Events Manager account.'),
                                                 'if' => ['script_type' => 'equals meta-pixel'],
                                                 'validate' => [
-                                                    'required_if:script_type,meta-pixel',
+                                                    'required_if:{this}.script_type,meta-pixel',
                                                     new ValidMetaPixelID,
                                                 ],
                                             ],
@@ -89,7 +107,7 @@ class Blueprint
                                                 'mode_selectable' => false,
                                                 'if' => ['script_type' => 'equals other'],
                                                 'validate' => [
-                                                    'required_if:script_type,other',
+                                                    'required_if:{this}.script_type,other',
                                                     new ValidInlineJavaScript,
                                                 ],
                                             ],

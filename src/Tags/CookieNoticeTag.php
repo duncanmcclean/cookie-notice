@@ -55,8 +55,14 @@ class CookieNoticeTag extends Tags
             'scripts' => collect(Scripts::scripts())
                 ->filter(fn ($value, $key) => in_array($key, collect(config('cookie-notice.consent_groups'))->pluck('handle')->all()))
                 ->flatMap(function (array $scripts, string $consentGroup) {
-                    return collect($scripts)->map(function (array $script) use ($consentGroup) {
-                        return array_merge($script, ['group' => $consentGroup]);
+                    return collect($scripts)->map(function (array $script) use ($consentGroup): array {
+                        return [
+                            ...$script,
+                            'group' => $consentGroup,
+                            'gtm_consent_types' => $script['gtm_consent_types'] ?? [
+                                'ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage',
+                            ],
+                        ];
                     })->all();
                 }),
         ]);
