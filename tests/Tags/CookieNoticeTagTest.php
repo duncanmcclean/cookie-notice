@@ -40,12 +40,17 @@ it('outputs google tag manager scripts', function () {
         'analytics' => [[
             'script_type' => 'google-tag-manager',
             'gtm_container_id' => 'GTM-123456CN',
+            'consent_types' => ['ad_user_data', 'ad_personalization'],
         ]],
     ]);
 
     expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
         ->toContain('<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>')
-        ->toContain("'script','dataLayer','GTM-123456CN'");
+        ->toContain("'script','dataLayer','GTM-123456CN'")
+        ->toContain('"ad_user_data":"granted"')
+        ->toContain('"ad_personalization":"granted"')
+        ->not->toContain('"ad_storage":"granted"')
+        ->not->toContain('"analytics_storage":"granted"');
 });
 
 it('outputs meta pixel scripts', function () {
