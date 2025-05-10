@@ -20,19 +20,21 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
 
-        <script>
-            window.CookieNotice.on('accepted', (consentGroup) => {
-                if (consentGroup === '{{ group }}') {
-                    gtag('consent', 'update', {{$ json_encode(array_fill_keys($consent_types, 'granted')) $}})
-                }
-            })
+        {{ if consent_types }}
+            <script>
+                window.CookieNotice.on('accepted', (consentGroup) => {
+                    if (consentGroup === '{{ group }}') {
+                        gtag('consent', 'update', {{$ json_encode(array_fill_keys($consent_types, 'granted')) $}})
+                    }
+                })
 
-            window.CookieNotice.on('declined', (consentGroup) => {
-                if (consentGroup === '{{ group }}') {
-                    gtag('consent', 'update', gtag('consent', 'update', {{$ json_encode(array_fill_keys($consent_types, 'denied')) $}}))
-                }
-            })
-        </script>
+                window.CookieNotice.on('declined', (consentGroup) => {
+                    if (consentGroup === '{{ group }}') {
+                        gtag('consent', 'update', gtag('consent', 'update', {{$ json_encode(array_fill_keys($consent_types, 'denied')) $}}))
+                    }
+                })
+            </script>
+        {{ /if }}
     {{ /if }}
 
     {{ if script_type === 'meta-pixel' }}
