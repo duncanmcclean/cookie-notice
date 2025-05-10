@@ -33,6 +33,7 @@
         "statamic/cms": "^5.41"
     },
     "require-dev": {
+        "laravel/pint": "dev-main",
         "orchestra/testbench": "^8.28 || ^9.6.1 || ^10.0",
         "pestphp/pest": "^2.2 || ^3.0",
         "pestphp/pest-plugin-laravel": "^2.0 || ^3.0"
