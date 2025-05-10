@@ -67,11 +67,11 @@ class Blueprint
                                             ],
                                         ],
                                         [
-                                            'handle' => 'consent_grants',
+                                            'handle' => 'consent_types',
                                             'field' => [
                                                 'type' => 'checkboxes',
-                                                'display' => __('Default grants consent'),
-                                                'instructions' => __('What consent needs to default be granted when accepting this group.'),
+                                                'display' => __('Consent Types'),
+                                                'instructions' => __('Which consent types should be granted when accepting this group?'),
                                                 'options' => [
                                                     'ad_storage' => 'ad_storage',
                                                     'ad_user_data' => 'ad_user_data',
@@ -81,9 +81,7 @@ class Blueprint
                                                 'inline' => true,
                                                 'default' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
                                                 'if' => ['script_type' => 'equals google-tag-manager'],
-                                                'validate' => [
-                                                    'array',
-                                                ],
+                                                'validate' => ['array'],
                                             ],
                                         ],
                                         [
