@@ -40,7 +40,7 @@ it('outputs google tag manager scripts', function () {
         'analytics' => [[
             'script_type' => 'google-tag-manager',
             'gtm_container_id' => 'GTM-123456CN',
-            'consent_types' => ['ad_user_data', 'ad_personalization'],
+            'gtm_consent_types' => ['ad_user_data', 'ad_personalization'],
         ]],
     ]);
 

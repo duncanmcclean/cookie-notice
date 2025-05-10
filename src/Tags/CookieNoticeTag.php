@@ -59,7 +59,7 @@ class CookieNoticeTag extends Tags
                         return [
                             ...$script,
                             'group' => $consentGroup,
-                            'consent_types' => $script['consent_types'] ?? [
+                            'gtm_consent_types' => $script['gtm_consent_types'] ?? [
                                 'ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage',
                             ],
                         ];

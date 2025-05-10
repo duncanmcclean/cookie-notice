@@ -67,7 +67,7 @@ class Blueprint
                                             ],
                                         ],
                                         [
-                                            'handle' => 'consent_types',
+                                            'handle' => 'gtm_consent_types',
                                             'field' => [
                                                 'type' => 'checkboxes',
                                                 'display' => __('Consent Types'),

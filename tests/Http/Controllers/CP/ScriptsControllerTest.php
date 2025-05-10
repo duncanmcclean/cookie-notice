@@ -33,7 +33,7 @@ it('saves the scripts', function () {
                     'gtm_container_id' => null,
                     'meta_pixel_id' => null,
                     'inline_javascript' => ['code' => 'alert("Hello, world!")', 'mode' => 'javascript'],
-                    'consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
                     'spacer' => null,
                 ],
             ],
@@ -43,7 +43,7 @@ it('saves the scripts', function () {
                     'gtm_container_id' => 'GTM-123456CN',
                     'meta_pixel_id' => null,
                     'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
                     'spacer' => null,
                 ],
                 [
@@ -51,7 +51,7 @@ it('saves the scripts', function () {
                     'gtm_container_id' => null,
                     'meta_pixel_id' => '123456789123456',
                     'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
                     'spacer' => null,
                 ],
             ],
@@ -71,7 +71,7 @@ it('saves the scripts', function () {
             [
                 'script_type' => 'google-tag-manager',
                 'gtm_container_id' => 'GTM-123456CN',
-                'consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
             ],
             [
                 'script_type' => 'meta-pixel',
@@ -81,7 +81,7 @@ it('saves the scripts', function () {
     ]);
 });
 
-it('ensures consent_types key is saved as empty array, to prevent it falling back to default value', function () {
+it('ensures gtm_consent_types key is saved as empty array, to prevent it falling back to default value', function () {
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
@@ -94,7 +94,7 @@ it('ensures consent_types key is saved as empty array, to prevent it falling bac
                     'gtm_container_id' => 'GTM-123456CN',
                     'meta_pixel_id' => null,
                     'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'consent_types' => [],
+                    'gtm_consent_types' => [],
                     'spacer' => null,
                 ],
             ],
@@ -109,7 +109,7 @@ it('ensures consent_types key is saved as empty array, to prevent it falling bac
             [
                 'script_type' => 'google-tag-manager',
                 'gtm_container_id' => 'GTM-123456CN',
-                'consent_types' => [],
+                'gtm_consent_types' => [],
             ],
         ],
     ]);
