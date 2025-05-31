@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.67 3.006a9 9 0 1 0 9.324 9.323"/>
-    <path stroke="#E6A84C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.67 3.006A6.973 6.973 0 0 0 11 6c0 1.071.67 2 2 2.5 0 2.193 2 4.5 4.5 3.5 1.5 1.5 3 1 3.494.33"/>
-    <circle cx="8" cy="8" r="1" fill="#000"/>
-    <circle cx="6" cy="12" r="1" fill="#000"/>
-    <circle cx="12" cy="18" r="1" fill="#000"/>
-    <circle cx="11" cy="13" r="1" fill="#000"/>
-    <circle cx="8" cy="16" r="1" fill="#000"/>
-    <circle cx="16" cy="16" r="1" fill="#000"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13.5c4.42 0 6.5-2.91 6.5-6.5-1.616.753-3.276-.1-3.427-1.808 0 0-1.749.2-2.813-.792C5.7 2.84 7 .5 7 .5 2.58.5.5 3.41.5 7s2.08 6.5 6.5 6.5ZM6.681 10.575l-.155.155M9.739 9.367l-.155.154"/><path d="M4.419 8.367c.998 0 1.56-.561 1.56-1.56s-.562-1.56-1.56-1.56c-.999 0-1.56.562-1.56 1.56s.561 1.56 1.56 1.56Z"/></g></svg>
