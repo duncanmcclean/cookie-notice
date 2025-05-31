@@ -25,34 +25,36 @@ it('saves the scripts', function () {
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
-        ->post('/cp/cookie-notice/scripts', [
-            'revision' => '2',
-            'necessary' => [
-                [
-                    'script_type' => 'other',
-                    'gtm_container_id' => null,
-                    'meta_pixel_id' => null,
-                    'inline_javascript' => ['code' => 'alert("Hello, world!")', 'mode' => 'javascript'],
-                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
-                    'spacer' => null,
+        ->patch('/cp/cookie-notice/scripts', [
+            'values' => [
+                'revision' => '2',
+                'necessary' => [
+                    [
+                        'script_type' => 'other',
+                        'gtm_container_id' => null,
+                        'meta_pixel_id' => null,
+                        'inline_javascript' => ['code' => 'alert("Hello, world!")', 'mode' => 'javascript'],
+                        'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                        'spacer' => null,
+                    ],
                 ],
-            ],
-            'analytics' => [
-                [
-                    'script_type' => 'google-tag-manager',
-                    'gtm_container_id' => 'GTM-123456CN',
-                    'meta_pixel_id' => null,
-                    'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
-                    'spacer' => null,
-                ],
-                [
-                    'script_type' => 'meta-pixel',
-                    'gtm_container_id' => null,
-                    'meta_pixel_id' => '123456789123456',
-                    'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
-                    'spacer' => null,
+                'analytics' => [
+                    [
+                        'script_type' => 'google-tag-manager',
+                        'gtm_container_id' => 'GTM-123456CN',
+                        'meta_pixel_id' => null,
+                        'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
+                        'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                        'spacer' => null,
+                    ],
+                    [
+                        'script_type' => 'meta-pixel',
+                        'gtm_container_id' => null,
+                        'meta_pixel_id' => '123456789123456',
+                        'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
+                        'gtm_consent_types' => ['ad_storage', 'ad_user_data', 'ad_personalization', 'analytics_storage'],
+                        'spacer' => null,
+                    ],
                 ],
             ],
         ])
@@ -85,17 +87,19 @@ it('ensures gtm_consent_types key is saved as empty array, to prevent it falling
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
-        ->post('/cp/cookie-notice/scripts', [
-            'revision' => '2',
-            'necessary' => [],
-            'analytics' => [
-                [
-                    'script_type' => 'google-tag-manager',
-                    'gtm_container_id' => 'GTM-123456CN',
-                    'meta_pixel_id' => null,
-                    'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'gtm_consent_types' => [],
-                    'spacer' => null,
+        ->patch('/cp/cookie-notice/scripts', [
+            'values' => [
+                'revision' => '2',
+                'necessary' => [],
+                'analytics' => [
+                    [
+                        'script_type' => 'google-tag-manager',
+                        'gtm_container_id' => 'GTM-123456CN',
+                        'meta_pixel_id' => null,
+                        'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
+                        'gtm_consent_types' => [],
+                        'spacer' => null,
+                    ],
                 ],
             ],
         ])
@@ -119,15 +123,17 @@ it('does not save the scripts when script has invalid GTM format', function () {
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
-        ->post('/cp/cookie-notice/scripts', [
-            'revision' => '1',
-            'analytics' => [
-                [
-                    'script_type' => 'google-tag-manager',
-                    'gtm_container_id' => 'GMT-12345',
-                    'meta_pixel_id' => null,
-                    'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'spacer' => null,
+        ->patch('/cp/cookie-notice/scripts', [
+            'values' => [
+                'revision' => '1',
+                'analytics' => [
+                    [
+                        'script_type' => 'google-tag-manager',
+                        'gtm_container_id' => 'GMT-12345',
+                        'meta_pixel_id' => null,
+                        'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
+                        'spacer' => null,
+                    ],
                 ],
             ],
         ])
@@ -142,15 +148,17 @@ it('does not save the scripts when script has invalid Meta Pixel ID format', fun
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
-        ->post('/cp/cookie-notice/scripts', [
-            'revision' => '1',
-            'analytics' => [
-                [
-                    'script_type' => 'meta-pixel',
-                    'gtm_container_id' => null,
-                    'meta_pixel_id' => '12345678912FB',
-                    'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
-                    'spacer' => null,
+        ->patch('/cp/cookie-notice/scripts', [
+            'values' => [
+                'revision' => '1',
+                'analytics' => [
+                    [
+                        'script_type' => 'meta-pixel',
+                        'gtm_container_id' => null,
+                        'meta_pixel_id' => '12345678912FB',
+                        'inline_javascript' => ['code' => null, 'mode' => 'javascript'],
+                        'spacer' => null,
+                    ],
                 ],
             ],
         ])
@@ -165,15 +173,17 @@ it('does not save the scripts when script contains script tag', function () {
     expect(Scripts::data())->toBe([]);
 
     actingAs(User::make()->makeSuper()->save())
-        ->post('/cp/cookie-notice/scripts', [
-            'revision' => '1',
-            'necessary' => [
-                [
-                    'script_type' => 'other',
-                    'gtm_container_id' => null,
-                    'meta_pixel_id' => null,
-                    'inline_javascript' => ['code' => '<script>alert("Hello, world!")</script>', 'mode' => 'javascript'],
-                    'spacer' => null,
+        ->patch('/cp/cookie-notice/scripts', [
+            'values' => [
+                'revision' => '1',
+                'necessary' => [
+                    [
+                        'script_type' => 'other',
+                        'gtm_container_id' => null,
+                        'meta_pixel_id' => null,
+                        'inline_javascript' => ['code' => '<script>alert("Hello, world!")</script>', 'mode' => 'javascript'],
+                        'spacer' => null,
+                    ],
                 ],
             ],
         ])
