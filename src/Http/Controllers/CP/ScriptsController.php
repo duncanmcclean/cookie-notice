@@ -6,6 +6,7 @@ use DuncanMcClean\CookieNotice\Scripts\Blueprint;
 use DuncanMcClean\CookieNotice\Scripts\Scripts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Statamic\CP\PublishForm;
 use Statamic\Http\Controllers\CP\CpController;
 
@@ -17,6 +18,7 @@ class ScriptsController extends CpController
 
         return PublishForm::make(Blueprint::blueprint())
             ->title(__('Manage Scripts'))
+            ->icon(File::get(__DIR__.'/../../../../resources/svg/cookie.svg'))
             ->values(Scripts::data())
             ->submittingTo(cp_route('cookie-notice.scripts.update'));
     }
