@@ -50,7 +50,6 @@ class ScriptsController extends CpController
             })->all();
         });
 
-
         Scripts::save($values->all());
 
         return response()->json(['message' => 'Scripts saved']);
