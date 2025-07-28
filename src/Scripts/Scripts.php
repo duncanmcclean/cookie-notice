@@ -2,46 +2,28 @@
 
 namespace DuncanMcClean\CookieNotice\Scripts;
 
-use DuncanMcClean\CookieNotice\Events\ScriptsSaved;
-use Illuminate\Support\Facades\File;
-use Statamic\Facades\YAML;
+use Illuminate\Support\Arr;
+use Statamic\Facades\Addon;
 
 class Scripts
 {
     public static function data(): array
     {
-        if (! File::exists(static::path())) {
-            return [];
-        }
-
-        return YAML::file(static::path())->parse();
+        return Addon::get('duncanmcclean/cookie-notice')
+            ->settings()
+            ->raw();
     }
 
     public static function revision(): int
     {
-        return static::data()['revision'] ?? 1;
+        return Arr::get(static::data(), 'revision', 0);
     }
 
     public static function scripts(): array
     {
         return collect(config('cookie-notice.consent_groups'))
-            ->mapWithKeys(fn (array $consentGroup) => [$consentGroup['handle'] => static::data()[$consentGroup['handle']] ?? []])
+            ->mapWithKeys(fn (array $consentGroup) => [$consentGroup['handle'] => Arr::get(static::data(), $consentGroup['handle'], [])])
             ->filter()
             ->all();
-    }
-
-    public static function save(array $data): void
-    {
-        $yaml = YAML::dump($data);
-
-        File::ensureDirectoryExists(dirname(static::path()));
-        File::put(static::path(), $yaml);
-
-        ScriptsSaved::dispatch();
-    }
-
-    private static function path(): string
-    {
-        return config('cookie-notice.path');
     }
 }

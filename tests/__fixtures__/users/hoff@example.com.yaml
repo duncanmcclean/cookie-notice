@@ -1,0 +1,9 @@
+id: cc15be24-5cf3-4a9d-8946-e5bf649701e0
+preferences:
+  nav:
+    tools:
+      reorder:
+        - 'tools::cookie_notice'
+        - 'tools::forms'
+        - 'tools::updates'
+        - 'tools::addons'
