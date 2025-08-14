@@ -273,3 +273,41 @@ To upgrade to v9.x, you'll need to make some manual changes.
 7. If you were previously loading Google Tag Manager or a Meta Pixel manually, you may now configure them in [the Control Panel](#via-the-control-panel).
 8. If you were previously overriding the `notice` view in `resources/views/vendor/cookie-notice`, you will need to re-implement in a [custom widget](#building-a-custom-widget).
 9. If you were previously listening to Cookie Notice's `consented` or `revoked` events, you should now listen for the `accepted` and `declined` events instead.
+
+## Upgrading from v9.x to v10.x
+
+### Updating
+In your `composer.json`, change the `duncanmcclean/cookie-notice` requirement:
+
+```diff
+- "duncanmcclean/cookie-notice": "^9.0",
++ "duncanmcclean/cookie-notice": "^10.0",
+```
+
+Then run:
+
+```bash
+composer update duncanmcclean/cookie-notice --with-dependencies
+```
+
+### Control Panel Scripts
+
+Cookie Notice v10 is taking advantage of Statamic's new [Addon Settings](https://statamic.dev/extending/addons#settings) feature. This means that scripts previously saved in `content/cookie-notice.yaml` are now saved in `resources/addons/cookie-notice.yaml`. 
+
+Cookie Notice will have attempted to migrate data to the new location automatically, however, if it fails, you can run the update script manually:
+
+```bash
+php please updates:run 10.0 --package=duncanmcclean/cookie-notice
+```
+
+It will also update any permissions or preferences relating to Cookie Notice's custom settings page.
+
+If you were listening to Cookie Notice's `ScriptsSaved` event, you will need to update your code to listen to Statamic's `AddonSettingsSaved` event instead:
+
+```diff
+- use DuncanMcClean\CookieNotice\Events\ScriptsSaved;
++ use Statamic\Events\AddonSettingsSaved;
+
+- public function handle(ScriptsSaved $event)
++ public function handle(AddonSettingsSaved $event)
+```
