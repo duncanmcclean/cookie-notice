@@ -119,6 +119,7 @@ class Blueprint
                                     'hide_display' => true,
                                     'add_row' => 'Add Script',
                                     'fullscreen' => false,
+                                    'actions' => false,
                                 ],
                             ],
                         ];
