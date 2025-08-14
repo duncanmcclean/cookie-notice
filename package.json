@@ -5,9 +5,8 @@
         "build": "vite build"
     },
     "dependencies": {
-        "cross-env": "^7.0.2",
-        "postcss": "^8.4.23",
-        "tailwindcss": "^3.4.0"
+        "@tailwindcss/vite": "^4.1.12",
+        "tailwindcss": "^4.1.12"
     },
     "devDependencies": {
         "laravel-vite-plugin": "^1.0.2"

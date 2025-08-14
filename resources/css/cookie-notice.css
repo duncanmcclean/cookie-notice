@@ -1,1 +1,5 @@
-@tailwind utilities;
+@import "tailwindcss" layer(utilities) prefix(cn) important;
+
+@source "../views/widget.antlers.html";
+
+@safelist cn:h-8 cn:w-8 cn:h-10;
