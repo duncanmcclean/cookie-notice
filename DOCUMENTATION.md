@@ -311,3 +311,21 @@ If you were listening to Cookie Notice's `ScriptsSaved` event, you will need to 
 - public function handle(ScriptsSaved $event)
 + public function handle(AddonSettingsSaved $event)
 ```
+
+### Tailwind CSS
+
+Cookie Notice is now using Tailwind CSS 4 to generate the widget's styles. 
+
+If you've published the widget, but haven't customized it, you should re-publish it to get the latest styles:
+
+```bash
+php artisan vendor:publish --tag=cookie-notice-widget
+```
+
+If you've customized the widget and are still using Cookie Notice's classes (classes are prefixed with `cn-`), you should perform the following search & replace operations in your widget view:
+
+* `cn-` -> `cn:`
+* `hover:cn:` -> `cn:hover:`
+* `focus:cn:` -> `cn:focus:`
+
+If you use Tailwind CSS in your project, you may be able to get rid of the `cn:` prefixes altogether. 
