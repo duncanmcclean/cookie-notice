@@ -9,6 +9,8 @@ use Statamic\Facades\User;
 
 use function PHPUnit\Framework\assertFileDoesNotExist;
 
+beforeEach(fn () => File::ensureDirectoryExists(base_path('content')));
+
 function runUpdateScript($fqcn, $package = 'duncanmcclean/cookie-notice')
 {
     $script = new $fqcn($package);
