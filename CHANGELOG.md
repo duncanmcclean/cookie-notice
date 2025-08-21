@@ -2,7 +2,7 @@
 
 ## v10.0.0-alpha.1 (2025-08-21)
 
-> Please review the [upgrade guide](https://statamic.com/addons/duncanmcclean/cookie-notice/docs#upgrading-from-v9x-to-v10x) before updating. 
+> Please review the [upgrade guide](https://github.com/duncanmcclean/cookie-notice/blob/main/DOCUMENTATION.md#upgrading-from-v9x-to-v10x) before updating. 
 
 ### What's new
 - Statamic 6 support #91 by @duncanmcclean
