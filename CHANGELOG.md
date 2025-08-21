@@ -1,6 +1,6 @@
 # Changelog
 
-## v10.0.0 (2025-08-xx)
+## v10.0.0-alpha.1 (2025-08-21)
 
 > Please review the [upgrade guide](https://statamic.com/addons/duncanmcclean/cookie-notice/docs#upgrading-from-v9x-to-v10x) before updating. 
 
@@ -10,4 +10,4 @@
 
 ### What's changed
 - Dropped support for PHP 8.2 and Laravel 10
-- Dropped custom settings page, in favour of Statamic's new Addon Settings feature
+- Dropped the custom settings page in favour of Statamic's new Addon Settings feature
