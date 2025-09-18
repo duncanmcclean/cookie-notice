@@ -1,10 +1,11 @@
 <!-- Start of Cookie Notice Scripts -->
 <script>{{ inline_js }}</script>
 
-{{ _gtm_initialized_container_ids = [] }}
+{{ _initializedGtmContainerIds = [] }}
+
 {{ scripts }}
     {{ if script_type === 'google-tag-manager' }}
-        {{unless _gtm_initialized_container_ids | in_array:gtm_container_id}}
+        {{ unless _initializedGtmContainerIds | in_array(gtm_container_id) }}
             <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>
             <script>
                 gtag('consent', 'default', {
@@ -22,7 +23,7 @@
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
 
-            {{ _gtm_initialized_container_ids = _gtm_initialized_container_ids merge([gtm_container_id]) }}
+            {{ _initializedGtmContainerIds += gtm_container_id }}
         {{ /unless }}
 
         {{ if gtm_consent_types }}
