@@ -1,5 +1,12 @@
 # Changelog
 
+## v9.4.0 (2025-09-18)
+
+### What's new
+- Improved Google Tag Manager initialization scripts #93 by @el-schneider
+
+
+
 ## v9.3.0 (2025-05-10)
 
 ### What's new
