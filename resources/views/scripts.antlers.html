@@ -1,24 +1,30 @@
 <!-- Start of Cookie Notice Scripts -->
 <script>{{ inline_js }}</script>
 
+{{ _initializedGtmContainerIds = [] }}
+
 {{ scripts }}
     {{ if script_type === 'google-tag-manager' }}
-        <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>
-        <script>
-            gtag('consent', 'default', {
-                'analytics_storage': 'denied',
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'wait_for_update': 1500
-            });
-        </script>
+        {{ unless _initializedGtmContainerIds | in_array(gtm_container_id) }}
+            <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>
+            <script>
+                gtag('consent', 'default', {
+                    'analytics_storage': 'denied',
+                    'ad_storage': 'denied',
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'wait_for_update': 1500
+                });
+            </script>
 
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{ gtm_container_id }}');</script>
+
+            {{ _initializedGtmContainerIds += gtm_container_id }}
+        {{ /unless }}
 
         {{ if gtm_consent_types }}
             <script>
@@ -30,7 +36,7 @@
 
                 window.CookieNotice.on('declined', (consentGroup) => {
                     if (consentGroup === '{{ group }}') {
-                        gtag('consent', 'update', gtag('consent', 'update', {{$ json_encode(array_fill_keys($gtm_consent_types, 'denied')) $}}))
+                        gtag('consent', 'update', {{$ json_encode(array_fill_keys($gtm_consent_types, 'denied')) $}})
                     }
                 })
             </script>
