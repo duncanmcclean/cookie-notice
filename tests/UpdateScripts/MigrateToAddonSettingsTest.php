@@ -1,6 +1,6 @@
 <?php
 
-use DuncanMcClean\CookieNotice\UpdateScripts\MigrateToAddonConfig;
+use DuncanMcClean\CookieNotice\UpdateScripts\MigrateToAddonSettings;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Addon;
 use Statamic\Facades\Preference;
@@ -31,7 +31,7 @@ necessary:
 YAML
     );
 
-    runUpdateScript(MigrateToAddonConfig::class);
+    runUpdateScript(MigrateToAddonSettings::class);
 
     $settings = Addon::get('duncanmcclean/cookie-notice')->settings();
 
@@ -50,7 +50,7 @@ it('updates permissions', function () {
         ->permissions(['access cp', 'manage scripts'])
         ->save();
 
-    runUpdateScript(MigrateToAddonConfig::class);
+    runUpdateScript(MigrateToAddonSettings::class);
 
     expect(Role::find('test')->permissions()->all())->toBe([
         'access cp',
@@ -72,7 +72,7 @@ it('updates default nav preferences', function () {
         ])
         ->save();
 
-    runUpdateScript(MigrateToAddonConfig::class);
+    runUpdateScript(MigrateToAddonSettings::class);
 
     expect(Preference::default()->get('nav'))->toBe([
         'tools' => [
@@ -100,7 +100,7 @@ it('updates role nav preferences', function () {
         ])
         ->save();
 
-    runUpdateScript(MigrateToAddonConfig::class);
+    runUpdateScript(MigrateToAddonSettings::class);
 
     expect(Role::find('test')->getPreference('nav'))->toBe([
         'tools' => [
@@ -129,7 +129,7 @@ it('updates user nav preferences', function () {
         ])
         ->save();
 
-    runUpdateScript(MigrateToAddonConfig::class);
+    runUpdateScript(MigrateToAddonSettings::class);
 
     expect(User::findByEmail('hoff@example.com')->getPreference('nav'))->toBe([
         'tools' => [

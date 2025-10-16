@@ -10,7 +10,7 @@ use Statamic\Facades\User;
 use Statamic\Facades\YAML;
 use Statamic\UpdateScripts\UpdateScript;
 
-class MigrateToAddonConfig extends UpdateScript
+class MigrateToAddonSettings extends UpdateScript
 {
     public function shouldUpdate($newVersion, $oldVersion)
     {
