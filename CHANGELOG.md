@@ -1,5 +1,13 @@
 # Changelog
 
+## v10.0.0-alpha.2 (2025-11-07)
+
+### What's improved
+- Improved layout of settings page
+- Renamed update script
+
+
+
 ## v10.0.0-alpha.1 (2025-08-21)
 
 > Please review the [upgrade guide](https://github.com/duncanmcclean/cookie-notice/blob/main/DOCUMENTATION.md#upgrading-from-v9x-to-v10x) before updating. 
