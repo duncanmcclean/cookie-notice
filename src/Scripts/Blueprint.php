@@ -50,10 +50,6 @@ class Blueprint
                                             ],
                                         ],
                                         [
-                                            'handle' => 'spacer',
-                                            'field' => ['type' => 'spacer', 'width' => 50],
-                                        ],
-                                        [
                                             'handle' => 'gtm_container_id',
                                             'field' => [
                                                 'type' => 'text',
@@ -105,6 +101,7 @@ class Blueprint
                                                 'instructions' => __('Please remove the `<script>` and `</script>` tags.'),
                                                 'mode' => 'javascript',
                                                 'mode_selectable' => false,
+                                                'show_mode_label' => false,
                                                 'if' => ['script_type' => 'equals other'],
                                                 'validate' => [
                                                     'required_if:{this}.script_type,other',
@@ -120,6 +117,7 @@ class Blueprint
                                     'add_row' => 'Add Script',
                                     'fullscreen' => false,
                                     'actions' => false,
+                                    'full_width_setting' => true,
                                 ],
                             ],
                         ];
