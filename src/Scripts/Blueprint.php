@@ -45,7 +45,6 @@ class Blueprint
                                                 ],
                                                 'type' => 'button_group',
                                                 'display' => __('Script Type'),
-                                                'width' => 50,
                                                 'required' => true,
                                             ],
                                         ],
