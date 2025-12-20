@@ -54,15 +54,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Scripts
+    | Multi-Site
     |--------------------------------------------------------------------------
     |
-    | When you configure scripts in the Control Panel, they get saved to a YAML file.
-    | By default, this file is saved to the `content` directory. However, you're free to
-    | change this path if you'd like.
+    | By default, all sites share the same scripts. Disable this option if
+    | you'd rather configure scripts on a per-site basis instead.
     |
     */
 
-    'path' => base_path('content/cookie-notice.yaml'),
+    'configure_scripts_per_site' => false,
 
 ];

@@ -12,3 +12,4 @@ dist
 !dist/.gitkeep
 vite.hot
 .env
+tests/__fixtures__

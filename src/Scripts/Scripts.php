@@ -4,14 +4,23 @@ namespace DuncanMcClean\CookieNotice\Scripts;
 
 use Illuminate\Support\Arr;
 use Statamic\Facades\Addon;
+use Statamic\Facades\Site;
 
 class Scripts
 {
     public static function data(): array
     {
-        return Addon::get('duncanmcclean/cookie-notice')
-            ->settings()
-            ->raw();
+        $site = Site::default()->handle();
+
+        if (Site::hasMultiple() && config('cookie-notice.configure_scripts_per_site', false)) {
+            $site = Site::current()->handle();
+        }
+
+        ray($site, Site::current(), Site::hasMultiple(), config('cookie-notice.configure_scripts_per_site', false));
+
+        $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
+
+        return Arr::get($settings, $site, []);
     }
 
     public static function revision(): int
