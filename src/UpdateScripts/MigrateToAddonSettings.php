@@ -4,10 +4,7 @@ namespace DuncanMcClean\CookieNotice\UpdateScripts;
 
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Addon;
-use Statamic\Facades\Preference;
-use Statamic\Facades\Role;
 use Statamic\Facades\Site;
-use Statamic\Facades\User;
 use Statamic\Facades\YAML;
 use Statamic\UpdateScripts\UpdateScript;
 
