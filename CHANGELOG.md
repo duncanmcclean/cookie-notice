@@ -1,5 +1,15 @@
 # Changelog
 
+## v10.0.0-alpha.3 (2025-12-20)
+
+### What's new
+- Multi-site support #97 by @duncanmcclean
+
+### What's improved
+- Dropped support for Laravel 11 #95 by @duncanmcclean
+
+
+
 ## v10.0.0-alpha.2 (2025-11-07)
 
 ### What's improved
