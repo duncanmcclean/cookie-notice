@@ -64,10 +64,36 @@ class ScriptsController extends CpController
 
         $values = $fields->process()->values()->all();
 
+        $values = $this->processScriptValues($values);
+
         Addon::get('duncanmcclean/cookie-notice')
             ->settings()
             ->set($this->determineSite($request), $values)
             ->save();
+    }
+
+    private function processScriptValues(array $values): array
+    {
+        return collect($values)->map(function ($scripts, string $group) {
+            // We only want to manipulate the consent group fields.
+            if (! collect(config('cookie-notice.consent_groups'))->keyBy('handle')->has($group)) {
+                return $scripts;
+            }
+
+            return collect($scripts)->map(function (array $script) {
+                // When you deselect all consent types, we need to save an empty array to
+                // prevent it falling back to the field's default value (all consent types).
+                if ($script['script_type'] === 'google-tag-manager') {
+                    if (! isset($script['gtm_consent_types'])) {
+                        $script['gtm_consent_types'] = [];
+                    }
+
+                    return $script;
+                }
+
+                return $script;
+            })->all();
+        })->all();
     }
 
     private function determineSite(Request $request): string

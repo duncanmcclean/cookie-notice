@@ -418,3 +418,21 @@ it('can save multiple scripts in one consent group', function () {
 
     expect($settings['default']['necessary'])->toHaveCount(2);
 });
+
+it('ensures gtm_consent_types key is saved as empty array when not provided to prevent it falling back to default value', function () {
+    patch(cp_route('cookie-notice.scripts.update'), [
+        'revision' => '2',
+        'analytics' => [
+            [
+                'script_type' => 'google-tag-manager',
+                'gtm_container_id' => 'GTM-123456CN',
+                // gtm_consent_types is intentionally not provided
+            ],
+        ],
+    ]);
+
+    $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
+
+    expect($settings['default']['analytics'][0])->toHaveKey('gtm_consent_types')
+        ->and($settings['default']['analytics'][0]['gtm_consent_types'])->toBe([]);
+});
