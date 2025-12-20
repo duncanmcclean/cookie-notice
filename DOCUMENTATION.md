@@ -218,6 +218,18 @@ You can place this button wherever you like - you just need to add the `data-sho
 <button data-show-cookie-notice-widget>Update cookie consent</button>
 ```
 
+## Multi-Site
+
+Out of the box, all sites will share the same scripts. 
+
+If you'd rather configure scripts on a per-site basis instead, you may disable the `configure_scripts_per_site` option in your config file. You'll then be able to switch between sites in the Control Panel to manage their scripts.
+
+```php
+// config/cookie-notice.php
+
+'configure_scripts_per_site' => true,
+```
+
 ## Translating
 
 If your site uses a language other than English, you'll probably want to translate the "strings" in the Consent Widget and in the Control Panel. To do this, you'll need to create a JSON translations file:
@@ -299,8 +311,6 @@ Cookie Notice will have attempted to migrate data to the new location automatica
 ```bash
 php please updates:run 10.0 --package=duncanmcclean/cookie-notice
 ```
-
-It will also update any permissions or preferences relating to Cookie Notice's custom settings page.
 
 If you were listening to Cookie Notice's `ScriptsSaved` event, you will need to update your code to listen to Statamic's `AddonSettingsSaved` event instead:
 
