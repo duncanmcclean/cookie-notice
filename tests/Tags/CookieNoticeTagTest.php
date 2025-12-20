@@ -37,11 +37,13 @@ it('returns cookie consent javascript', function () {
 
 it('outputs google tag manager scripts', function () {
     Addon::get('duncanmcclean/cookie-notice')->settings()->set([
-        'analytics' => [[
-            'script_type' => 'google-tag-manager',
-            'gtm_container_id' => 'GTM-123456CN',
-            'gtm_consent_types' => ['ad_user_data', 'ad_personalization'],
-        ]],
+        'default' => [
+            'analytics' => [[
+                'script_type' => 'google-tag-manager',
+                'gtm_container_id' => 'GTM-123456CN',
+                'gtm_consent_types' => ['ad_user_data', 'ad_personalization'],
+            ]],
+        ],
     ])->save();
 
     expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
@@ -55,10 +57,12 @@ it('outputs google tag manager scripts', function () {
 
 it('outputs meta pixel scripts', function () {
     Addon::get('duncanmcclean/cookie-notice')->settings()->set([
-        'analytics' => [[
-            'script_type' => 'meta-pixel',
-            'meta_pixel_id' => '123456789123456',
-        ]],
+        'default' => [
+            'analytics' => [[
+                'script_type' => 'meta-pixel',
+                'meta_pixel_id' => '123456789123456',
+            ]],
+        ],
     ])->save();
 
     expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
@@ -68,10 +72,12 @@ it('outputs meta pixel scripts', function () {
 
 it('outputs inline javascript', function () {
     Addon::get('duncanmcclean/cookie-notice')->settings()->set([
-        'analytics' => [[
-            'script_type' => 'other',
-            'inline_javascript' => 'console.log("Hello, World!")',
-        ]],
+        'default' => [
+            'analytics' => [[
+                'script_type' => 'other',
+                'inline_javascript' => 'console.log("Hello, World!")',
+            ]],
+        ],
     ])->save();
 
     expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
