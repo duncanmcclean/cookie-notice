@@ -1,5 +1,20 @@
 # Changelog
 
+## v10.0.0 (2026-01-28)
+
+> Please review the [upgrade guide](https://github.com/duncanmcclean/cookie-notice/blob/10.x/DOCUMENTATION.md#upgrading-from-v9x-to-v10x) before updating.
+
+### What's new
+- Statamic 6 support #91 by @duncanmcclean
+- Upgraded to Tailwind CSS 4 #92 by @duncanmcclean
+- Multi-site support #97 by @duncanmcclean
+
+### What's changed
+- Dropped support for PHP 8.2 and Laravel 11
+- Dropped the custom settings page in favour of Statamic's new Addon Settings feature
+
+
+
 ## v10.0.0-alpha.3 (2025-12-20)
 
 ### What's new
