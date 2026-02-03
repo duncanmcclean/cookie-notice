@@ -16,8 +16,6 @@ class Scripts
             $site = Site::current()->handle();
         }
 
-        ray($site, Site::current(), Site::hasMultiple(), config('cookie-notice.configure_scripts_per_site', false));
-
         $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
 
         return Arr::get($settings, $site, []);
