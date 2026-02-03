@@ -1,5 +1,12 @@
 # Changelog
 
+## v10.0.1 (2026-02-03)
+
+### What's fixed
+- Removed `ray()` call by @duncanmcclean
+
+
+
 ## v10.0.0 (2026-01-28)
 
 > Please review the [upgrade guide](https://github.com/duncanmcclean/cookie-notice/blob/10.x/DOCUMENTATION.md#upgrading-from-v9x-to-v10x) before updating.
