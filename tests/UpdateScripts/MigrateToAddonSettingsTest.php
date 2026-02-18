@@ -3,19 +3,13 @@
 use DuncanMcClean\CookieNotice\UpdateScripts\MigrateToAddonSettings;
 use Illuminate\Support\Facades\File;
 use Statamic\Facades\Addon;
+use Statamic\Testing\Concerns\RunsUpdateScripts;
 
 use function PHPUnit\Framework\assertFileDoesNotExist;
 
+uses(RunsUpdateScripts::class);
+
 beforeEach(fn () => File::ensureDirectoryExists(base_path('content')));
-
-function runUpdateScript($fqcn, $package = 'duncanmcclean/cookie-notice')
-{
-    $script = new $fqcn($package);
-
-    $script->update();
-
-    return $script;
-}
 
 it('migrates scripts', function () {
     File::put(base_path('content/cookie-notice.yaml'), <<<'YAML'
@@ -28,7 +22,7 @@ necessary:
 YAML
     );
 
-    runUpdateScript(MigrateToAddonSettings::class);
+    $this->runUpdateScript(MigrateToAddonSettings::class);
 
     $settings = Addon::get('duncanmcclean/cookie-notice')->settings();
 
