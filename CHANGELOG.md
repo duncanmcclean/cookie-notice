@@ -1,5 +1,14 @@
 # Changelog
 
+## v10.1.0 (2026-03-07)
+
+### What's new
+- Supports Laravel 13 #99 by @duncanmcclean
+- Use trusted antlers in tests by @duncanmcclean
+- Adopt `RunsUpdateScripts` trait #98 by @duncanmcclean
+
+
+
 ## v10.0.1 (2026-02-03)
 
 ### What's fixed
