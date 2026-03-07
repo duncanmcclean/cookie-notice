@@ -10,7 +10,7 @@ beforeEach(function () {
 });
 
 it('renders the cookie consent widget', function () {
-    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>'))
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>', trusted: true))
         ->toContain('<!-- Start of Cookie Notice Widget -->')
         ->toContain('window.CookieNotice.boot(');
 });
@@ -19,18 +19,18 @@ it('renders the cookie consent widget using a custom view', function () {
     Config::set('cookie-notice.widget_view', 'partials.custom-cookie-notice-widget');
     File::put(resource_path('views/partials/custom-cookie-notice-widget.antlers.html'), '<div>Custom Cookie Notice Widget</div>');
 
-    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>'))
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>', trusted: true))
         ->toContain('<div>Custom Cookie Notice Widget</div>');
 });
 
 it('does not render the cookie consent widget when live previewing', function () {
-    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>', ['live_preview' => true]))
+    expect((string) Parse::template('<body>{{ cookie_notice:widget }}</body>', ['live_preview' => true], trusted: true))
         ->not->toContain('<!-- Start of Cookie Notice Widget -->')
         ->not->toContain('window.CookieNotice.boot(');
 });
 
 it('returns cookie consent javascript', function () {
-    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', trusted: true))
         ->toContain('<!-- Start of Cookie Notice Scripts -->')
         ->toContain('<script>');
 });
@@ -46,7 +46,7 @@ it('outputs google tag manager scripts', function () {
         ],
     ])->save();
 
-    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', trusted: true))
         ->toContain('<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}</script>')
         ->toContain("'script','dataLayer','GTM-123456CN'")
         ->toContain('"ad_user_data":"granted"')
@@ -65,7 +65,7 @@ it('outputs meta pixel scripts', function () {
         ],
     ])->save();
 
-    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', trusted: true))
         ->toContain('<script type="text/plain" data-consent-group="analytics">')
         ->toContain("fbq('init', '123456789123456');");
 });
@@ -80,13 +80,13 @@ it('outputs inline javascript', function () {
         ],
     ])->save();
 
-    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>'))
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', trusted: true))
         ->toContain('<script type="text/plain" data-consent-group="analytics">')
         ->toContain('console.log("Hello, World!")');
 });
 
 it('does not return cookie consent javascript when live previewing', function () {
-    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', ['live_preview' => true]))
+    expect((string) Parse::template('<head>{{ cookie_notice:scripts }}</head>', ['live_preview' => true], trusted: true))
         ->not->toContain('<!-- Start of Cookie Notice Scripts -->')
         ->not->toContain('<script>');
 });
