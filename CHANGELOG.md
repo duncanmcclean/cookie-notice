@@ -1,5 +1,12 @@
 # Changelog
 
+## v10.1.1 (2026-04-13)
+
+### What's fixed
+- Upgrade to Vite 8 [#100](https://github.com/duncanmcclean/cookie-notice/issues/100) by @duncanmcclean
+
+
+
 ## v10.1.0 (2026-03-07)
 
 ### What's new
