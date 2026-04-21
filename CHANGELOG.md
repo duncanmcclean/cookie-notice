@@ -1,5 +1,12 @@
 # Changelog
 
+## v10.1.2 (2026-04-21)
+
+### What's fixed
+- Use `adaptiveWidth` prop in site selector [#101](https://github.com/duncanmcclean/cookie-notice/issues/101) by @duncanmcclean
+
+
+
 ## v10.1.1 (2026-04-13)
 
 ### What's fixed
