@@ -41,6 +41,7 @@ You can customize the consent groups in the `config/cookie-notice.php` config fi
             'name' => 'Necessary',
             'handle' => 'necessary',
             'enable_by_default' => true,
+            'checkbox_disabled' => true,
         ],
         [
             'name' => 'Analytics',
@@ -57,6 +58,7 @@ For each consent group, you can provide the following options:
 * `handle` - The handle will be used as a unique identifier for this consent group.
 * `description` - Optional. The description will be displayed alongside the group's name.
 * `enable_by_default` - Optional. Determines whether the consent group will be enabled by default when users first visit your site. They'll still be able to disable the consent group if they wish.
+* `checkbox_disabled` - Optional. Determines whether the consent group checkbox is disabled.
 
 ## Managing Scripts
 
