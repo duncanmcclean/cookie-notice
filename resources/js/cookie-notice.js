@@ -65,6 +65,7 @@ window.CookieNotice = {
 
                 if (preference) {
                     this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value
+                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).disabled = !!consentGroup.checkbox_disabled
 
                     preference.value
                         ? this.dispatchEvent('accepted', consentGroup.handle)
@@ -75,6 +76,9 @@ window.CookieNotice = {
             this.config.consent_groups
                 .filter((consentGroup) => consentGroup.enable_by_default)
                 .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = true)
+            this.config.consent_groups
+                .filter((consentGroup) => consentGroup.checkbox_disabled)
+                .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).disabled = true)
         }
     },
 
