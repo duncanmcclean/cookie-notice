@@ -15,6 +15,14 @@ it('renders the cookie consent widget', function () {
         ->toContain('window.CookieNotice.boot(');
 });
 
+it('disables checkboxes for consent groups with checkbox_disabled', function () {
+    $html = (string) Parse::template('<body>{{ cookie_notice:widget }}</body>', trusted: true);
+
+    expect($html)
+        ->toMatch('/name="group-necessary"[^>]*disabled/')
+        ->not->toMatch('/name="group-analytics"[^>]*disabled/');
+});
+
 it('renders the cookie consent widget using a custom view', function () {
     Config::set('cookie-notice.widget_view', 'partials.custom-cookie-notice-widget');
     File::put(resource_path('views/partials/custom-cookie-notice-widget.antlers.html'), '<div>Custom Cookie Notice Widget</div>');
