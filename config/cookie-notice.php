@@ -43,6 +43,7 @@ return [
             'name' => 'Necessary',
             'handle' => 'necessary',
             'enable_by_default' => true,
+            'checkbox_disabled' => true,
         ],
         [
             'name' => 'Analytics',

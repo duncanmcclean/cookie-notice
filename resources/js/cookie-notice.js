@@ -57,6 +57,10 @@ window.CookieNotice = {
             ? JSON.parse(this.getCookie(this.config.cookie_name))
             : null
 
+        this.config.consent_groups
+            .filter((consentGroup) => consentGroup.checkbox_disabled)
+            .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).disabled = true)
+
         if (preferences && preferences.revision === this.config.revision) {
             this.hideWidget()
 
@@ -64,16 +68,18 @@ window.CookieNotice = {
                 let preference = preferences.consent.find((preference) => preference.handle === consentGroup.handle)
 
                 if (preference) {
-                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = preference.value
+                    let checked = consentGroup.checkbox_disabled ? true : preference.value
 
-                    preference.value
+                    this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = checked
+
+                    checked
                         ? this.dispatchEvent('accepted', consentGroup.handle)
                         : this.dispatchEvent('declined', consentGroup.handle)
                 }
             });
         } else {
             this.config.consent_groups
-                .filter((consentGroup) => consentGroup.enable_by_default)
+                .filter((consentGroup) => consentGroup.enable_by_default || consentGroup.checkbox_disabled)
                 .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = true)
         }
     },
@@ -96,7 +102,9 @@ window.CookieNotice = {
             consent: this.config.consent_groups.map((consentGroup) => {
                 return {
                     handle: consentGroup.handle,
-                    value: this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked ? true : false
+                    value: consentGroup.checkbox_disabled
+                        ? true
+                        : this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked
                 }
             })
         }

@@ -10,7 +10,7 @@
                 {{ consent_groups }}
                     <li class="cn:flex cn:items-start cn:gap-x-3">
                         <div class="cn:flex cn:mt-2">
-                            <input id="group-{{ handle }}" aria-describedby="group-{{ handle }}-description" name="group-{{ handle }}" type="checkbox" class="cn:h-4 cn:w-4 cn:rounded cn:border-gray-300 cn:text-blue-600 cn:focus:ring-indigo-600">
+                            <input id="group-{{ handle }}" aria-describedby="group-{{ handle }}-description" name="group-{{ handle }}" type="checkbox" class="cn:h-4 cn:w-4 cn:rounded cn:border-gray-300 cn:text-blue-600 cn:focus:ring-indigo-600" {{ checkbox_disabled ?= "disabled" }}>
                         </div>
                         <div class="cn:flex cn:flex-col">
                             <label for="group-{{ handle }}" class="cn:font-semibold cn:select-none">{{ name }}</label>
