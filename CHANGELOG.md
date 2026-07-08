@@ -1,5 +1,22 @@
 # Changelog
 
+## v10.2.0 (2026-07-08)
+
+### What's new
+- Add config option to disable a consent group checkbox [#111](https://github.com/duncanmcclean/cookie-notice/issues/111) by @mefenlon
+
+### What's fixed
+- Add `.npmrc` file [#102](https://github.com/duncanmcclean/cookie-notice/issues/102) by @duncanmcclean
+- Add security policy by @duncanmcclean
+- Bump the github-actions group with 3 updates [#104](https://github.com/duncanmcclean/cookie-notice/issues/104) by @dependabot
+- Bump aglipanci/laravel-pint-action in the github-actions group [#105](https://github.com/duncanmcclean/cookie-notice/issues/105) by @dependabot
+- Bump zizmorcore/zizmor-action from 0.5.3 to 0.5.6 in the github-actions group [#107](https://github.com/duncanmcclean/cookie-notice/issues/107) by @dependabot
+- Bump actions/checkout from 6.0.2 to 6.0.3 in the github-actions group [#108](https://github.com/duncanmcclean/cookie-notice/issues/108) by @dependabot
+- Bump shivammathur/setup-php from 2.37.1 to 2.37.2 in the github-actions group [#109](https://github.com/duncanmcclean/cookie-notice/issues/109) by @dependabot
+- Bump the github-actions group with 2 updates [#110](https://github.com/duncanmcclean/cookie-notice/issues/110) by @dependabot
+
+
+
 ## v10.1.2 (2026-04-21)
 
 ### What's fixed
