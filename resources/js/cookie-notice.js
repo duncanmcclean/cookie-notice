@@ -13,7 +13,13 @@ window.CookieNotice = {
         this.initPreferences()
 
         this.widget.querySelector('[data-save-preferences]').addEventListener('click', this.savePreferences.bind(this))
-        document.querySelector('[data-show-cookie-notice-widget]')?.addEventListener('click', this.showWidget.bind(this))
+        document.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-show-cookie-notice-widget]')
+            if (trigger) {
+                e.preventDefault()
+                this.showWidget()
+            }
+        })
     },
 
     hideWidget() {
