@@ -1,5 +1,12 @@
 # Changelog
 
+## v10.2.1 (2026-07-10)
+
+### What's fixed
+- Add support for multiple `data-show-cookie-notice-widget` buttons on page [#113](https://github.com/duncanmcclean/cookie-notice/issues/113) by @mefenlon
+
+
+
 ## v10.2.0 (2026-07-08)
 
 ### What's new
