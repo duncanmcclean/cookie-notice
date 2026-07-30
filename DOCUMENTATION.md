@@ -174,7 +174,7 @@ If you'd prefer to build your own consent widget, to gain more control over the 
 3. Next, copy this boilerplate into your new view:
     ```antlers
     <!-- Start of Cookie Notice Widget -->
-    <div id="cookie-notice" class="relative z-[999]">
+    <div id="cookie-notice" class="relative z-[999]; display: none">
         <div class="fixed bottom-6 right-6 bg-white p-6 sm:mx-auto sm:max-w-lg">
             <h2>This site uses cookies</h2>
             <ul>
