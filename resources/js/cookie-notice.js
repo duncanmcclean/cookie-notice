@@ -84,6 +84,8 @@ window.CookieNotice = {
                 }
             });
         } else {
+            this.showWidget()
+
             this.config.consent_groups
                 .filter((consentGroup) => consentGroup.enable_by_default || consentGroup.checkbox_disabled)
                 .forEach((consentGroup) => this.widget.querySelector(`[name="group-${consentGroup.handle}"]`).checked = true)
