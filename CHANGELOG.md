@@ -1,5 +1,13 @@
 # Changelog
 
+## v10.2.2 (2026-07-31)
+
+### What's fixed
+- Fix widget from flashing on page load when preferences are already set [#116](https://github.com/duncanmcclean/cookie-notice/issues/116) by @mefenlon
+- Bump the github-actions group with 2 updates [#115](https://github.com/duncanmcclean/cookie-notice/issues/115) by @dependabot
+
+
+
 ## v10.2.1 (2026-07-10)
 
 ### What's fixed
