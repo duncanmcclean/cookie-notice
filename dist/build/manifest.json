@@ -1,0 +1,23 @@
+{
+  "resources/css/cookie-notice.css": {
+    "file": "assets/cookie-notice-CfL25I8F.css",
+    "name": "cookie-notice",
+    "names": [
+      "cookie-notice.css"
+    ],
+    "src": "resources/css/cookie-notice.css",
+    "isEntry": true
+  },
+  "resources/js/cookie-notice.js": {
+    "file": "assets/cookie-notice-DBAaFJhf.js",
+    "name": "cookie-notice",
+    "src": "resources/js/cookie-notice.js",
+    "isEntry": true
+  },
+  "resources/js/cp.js": {
+    "file": "assets/cp-Ct8JLX8p.js",
+    "name": "cp",
+    "src": "resources/js/cp.js",
+    "isEntry": true
+  }
+}
