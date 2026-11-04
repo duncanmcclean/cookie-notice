@@ -37,19 +37,19 @@ window.CookieNotice = {
      */
     initListeners() {
         this.on('accepted', (consentGroup) => {
-            document.querySelectorAll(`[data-consent-group="${consentGroup}"]`).forEach((script) => {
-                let scriptContent = script.innerHTML
+            document.querySelectorAll(`script[type="text/plain"][data-consent-group="${consentGroup}"]`).forEach((script) => {
+                let scriptContent = script.textContent
                 script.remove()
 
                 let newScript = document.createElement('script')
-                newScript.innerHTML = scriptContent
+                newScript.textContent = scriptContent
                 newScript.setAttribute('data-consent-group', consentGroup)
                 document.head.appendChild(newScript)
             })
         })
 
         this.on('declined', (consentGroup) => {
-            document.querySelectorAll(`[data-consent-group="${consentGroup}"]`).forEach((script) => {
+            document.querySelectorAll(`script[data-consent-group="${consentGroup}"]`).forEach((script) => {
                 script.setAttribute('type', 'text/plain')
             })
         })
