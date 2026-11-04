@@ -31,7 +31,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         window.CookieNotice.boot(
             document.getElementById('cookie-notice'),
-            JSON.parse('{{ config | to_json }}')
+            {{ config_json }}
         );
     });
 </script>

@@ -15,6 +15,26 @@ it('renders the cookie consent widget', function () {
         ->toContain('window.CookieNotice.boot(');
 });
 
+it('encodes the widget config so it is safe inside a script tag', function (string $description) {
+    Config::set('cookie-notice.consent_groups', [
+        ['name' => 'Analytics', 'handle' => 'analytics', 'description' => $description],
+    ]);
+
+    $html = (string) Parse::template('<body>{{ cookie_notice:widget }}</body>', trusted: true);
+
+    preg_match('/window\.CookieNotice\.boot\(\s*document\.getElementById\(\'cookie-notice\'\),\s*(\{.*?\})\s*\);/s', $html, $matches);
+
+    expect($matches[1])
+        ->not->toContain('</script>')
+        ->not->toContain('"description":"'.$description.'"')
+        ->and(json_decode($matches[1], true)['consent_groups'][0]['description'])->toBe($description);
+})->with([
+    'double quotes' => 'Say "hi"',
+    'single quotes' => "Don't track me",
+    'newline' => "First line\nSecond line",
+    'script tag' => 'Analytics</script><script>alert(1)</script>',
+]);
+
 it('disables checkboxes for consent groups with checkbox_disabled', function () {
     $html = (string) Parse::template('<body>{{ cookie_notice:widget }}</body>', trusted: true);
 
