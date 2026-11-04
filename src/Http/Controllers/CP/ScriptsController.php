@@ -18,6 +18,8 @@ class ScriptsController extends CpController
 {
     public function edit(Request $request)
     {
+        $this->authorize('manage scripts', [], __('You are not authorized to manage scripts.'));
+
         $site = $this->determineSite($request);
 
         $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
@@ -59,6 +61,8 @@ class ScriptsController extends CpController
 
     public function update(Request $request)
     {
+        $this->authorize('manage scripts', [], __('You are not authorized to manage scripts.'));
+
         $site = $this->determineSite($request);
 
         $blueprint = Scripts\Blueprint::blueprint();
