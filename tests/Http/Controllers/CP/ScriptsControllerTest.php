@@ -1,6 +1,7 @@
 <?php
 
 use Statamic\Facades\Addon;
+use Statamic\Facades\Role;
 use Statamic\Facades\Site;
 use Statamic\Facades\User;
 
@@ -15,6 +16,22 @@ beforeEach(function () {
 
     $user = tap(User::make()->makeSuper())->save();
     actingAs($user);
+});
+
+it('can edit with manage scripts permission', function () {
+    Role::make('editor')->permissions(['access cp', 'manage scripts'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    get(cp_route('cookie-notice.scripts.edit'), ['Accept' => 'application/json'])
+        ->assertOk();
+});
+
+it('cannot edit without manage scripts permission', function () {
+    Role::make('viewer')->permissions(['access cp'])->save();
+    actingAs(tap(User::make()->assignRole('viewer'))->save());
+
+    get(cp_route('cookie-notice.scripts.edit'), ['Accept' => 'application/json'])
+        ->assertForbidden();
 });
 
 it('loads existing settings in edit', function () {
@@ -169,6 +186,40 @@ it('can update settings', function () {
             'gtm_container_id' => 'GTM-NEW123',
             'gtm_consent_types' => ['analytics_storage'],
         ]);
+});
+
+it('can update with manage scripts permission', function () {
+    Role::make('editor')->permissions(['access cp', 'manage scripts'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    patch(cp_route('cookie-notice.scripts.update'), [
+        'revision' => '10',
+        'necessary' => [],
+    ])->assertOk();
+
+    $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
+
+    expect($settings['default']['revision'])->toBe('10');
+});
+
+it('cannot update without manage scripts permission', function () {
+    Role::make('viewer')->permissions(['access cp'])->save();
+    actingAs(tap(User::make()->assignRole('viewer'))->save());
+
+    patch(cp_route('cookie-notice.scripts.update'), [
+        'revision' => '10',
+        'necessary' => [
+            [
+                'script_type' => 'other',
+                'inline_javascript' => [
+                    'code' => 'alert("pwned");',
+                    'mode' => 'javascript',
+                ],
+            ],
+        ],
+    ], ['Accept' => 'application/json'])->assertForbidden();
+
+    expect(Addon::get('duncanmcclean/cookie-notice')->settings()->raw())->toBe([]);
 });
 
 it('can update site-specific settings when multisite is enabled', function () {
