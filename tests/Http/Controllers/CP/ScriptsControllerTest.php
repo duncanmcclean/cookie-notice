@@ -258,20 +258,24 @@ it('validates Meta Pixel ID format', function () {
     ])->assertSessionHasErrors(['necessary.0.meta_pixel_id']);
 });
 
-it('validates inline JavaScript without script tags', function () {
+it('validates inline JavaScript without script tags', function (string $code) {
     patch(cp_route('cookie-notice.scripts.update'), [
         'revision' => '1',
         'necessary' => [
             [
                 'script_type' => 'other',
                 'inline_javascript' => [
-                    'code' => '<script>alert("test")</script>',
+                    'code' => $code,
                     'mode' => 'javascript',
                 ],
             ],
         ],
     ])->assertSessionHasErrors(['necessary.0.inline_javascript']);
-});
+})->with([
+    'opening and closing tags' => '<script>alert("test")</script>',
+    'closing tag only' => '</script><img src=x onerror=alert(1)>',
+    'uppercase tags' => '<SCRIPT>alert(1)</SCRIPT>',
+]);
 
 it('allows valid inline JavaScript without script tags', function () {
     patch(cp_route('cookie-notice.scripts.update'), [
