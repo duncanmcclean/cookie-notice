@@ -4,7 +4,6 @@ namespace DuncanMcClean\CookieNotice\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Str;
 
 class ValidGtmContainerID implements ValidationRule
 {
@@ -14,7 +13,7 @@ class ValidGtmContainerID implements ValidationRule
             return;
         }
 
-        if (! Str::startsWith($value, 'GTM-')) {
+        if (! preg_match('/^GTM-[A-Z0-9]+$/', $value)) {
             $fail('This must be a valid Google Tag Manager Container ID.')->translate();
         }
     }

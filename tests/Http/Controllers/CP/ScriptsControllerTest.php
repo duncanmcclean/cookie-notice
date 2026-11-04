@@ -229,17 +229,22 @@ it('validates required fields on update', function () {
     ])->assertSessionHasErrors(['revision']);
 });
 
-it('validates GTM container ID format', function () {
+it('validates GTM container ID format', function (string $gtmContainerId) {
     patch(cp_route('cookie-notice.scripts.update'), [
         'revision' => '1',
         'necessary' => [
             [
                 'script_type' => 'google-tag-manager',
-                'gtm_container_id' => 'INVALID-ID',
+                'gtm_container_id' => $gtmContainerId,
             ],
         ],
     ])->assertSessionHasErrors(['necessary.0.gtm_container_id']);
-});
+})->with([
+    'missing prefix' => 'INVALID-ID',
+    'javascript injection' => "GTM-X');alert(1);//",
+    'lowercase' => 'gtm-abc123',
+    'empty suffix' => 'GTM-',
+]);
 
 it('validates Meta Pixel ID format', function () {
     patch(cp_route('cookie-notice.scripts.update'), [
