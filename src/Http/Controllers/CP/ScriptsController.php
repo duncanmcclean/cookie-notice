@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
+use Statamic\Exceptions\NotFoundHttpException;
 use Statamic\Facades\Addon;
 use Statamic\Facades\Site;
 use Statamic\Facades\User;
 use Statamic\Http\Controllers\CP\CpController;
+use Statamic\Sites\Site as SiteInstance;
 
 class ScriptsController extends CpController
 {
@@ -21,7 +23,7 @@ class ScriptsController extends CpController
         $site = $this->determineSite($request);
 
         $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
-        $values = Arr::get($settings, $site, []);
+        $values = Arr::get($settings, $site->handle(), []);
 
         $blueprint = Scripts\Blueprint::blueprint();
         $fields = $blueprint->fields()->addValues($values)->preProcess();
@@ -29,7 +31,7 @@ class ScriptsController extends CpController
         $viewData = [
             'icon' => File::get(__DIR__.'/../../../../resources/svg/cookie.svg'),
             'blueprint' => $blueprint->toPublishArray(),
-            'initialSite' => $site,
+            'initialSite' => $site->handle(),
             'initialValues' => $fields->values(),
             'initialMeta' => $fields->meta(),
             'initialLocalizations' => Site::all()
@@ -38,7 +40,7 @@ class ScriptsController extends CpController
                     return [
                         'handle' => $localization->handle(),
                         'name' => $localization->name,
-                        'active' => $localization->locale() === $site,
+                        'active' => $localization->handle() === $site->handle(),
                         'url' => cp_route('cookie-notice.scripts.edit', ['site' => $localization->handle()]),
                     ];
                 })
@@ -61,6 +63,8 @@ class ScriptsController extends CpController
     {
         $this->authorize('manage scripts', [], __('You are not authorized to manage scripts.'));
 
+        $site = $this->determineSite($request);
+
         $blueprint = Scripts\Blueprint::blueprint();
         $fields = $blueprint->fields()->addValues($request->all());
 
@@ -72,7 +76,7 @@ class ScriptsController extends CpController
 
         Addon::get('duncanmcclean/cookie-notice')
             ->settings()
-            ->set($this->determineSite($request), $values)
+            ->set($site->handle(), $values)
             ->save();
     }
 
@@ -100,12 +104,22 @@ class ScriptsController extends CpController
         })->all();
     }
 
-    private function determineSite(Request $request): string
+    private function determineSite(Request $request): SiteInstance
     {
-        if (Site::hasMultiple() && config('cookie-notice.configure_scripts_per_site', false)) {
-            return $request->site ?? Site::selected()->handle();
+        if (! Site::hasMultiple() || ! config('cookie-notice.configure_scripts_per_site', false)) {
+            return Site::default();
         }
 
-        return Site::default()->handle();
+        $handle = $request->input('site');
+
+        if (is_null($handle)) {
+            $site = Site::selected();
+        } elseif (! is_string($handle) || ! $site = Site::get($handle)) {
+            throw new NotFoundHttpException;
+        }
+
+        $this->authorize('view', $site);
+
+        return $site;
     }
 }

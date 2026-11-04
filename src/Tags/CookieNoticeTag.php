@@ -21,18 +21,21 @@ class CookieNoticeTag extends Tags
             return;
         }
 
-        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), [
-            'config' => [
-                'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
-                'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
-                'consent_groups' => config('cookie-notice.consent_groups'),
-                'revision' => Scripts::revision(),
-                'session' => [
-                    'domain' => config('session.domain') ?? request()->getHost(),
-                    'secure' => config('session.secure'),
-                    'same_site' => config('session.same_site'),
-                ],
+        $config = [
+            'cookie_name' => config('cookie-notice.cookie_name', 'COOKIE_NOTICE'),
+            'cookie_expiry' => config('cookie-notice.cookie_expiry', 14),
+            'consent_groups' => config('cookie-notice.consent_groups'),
+            'revision' => Scripts::revision(),
+            'session' => [
+                'domain' => config('session.domain') ?? request()->getHost(),
+                'secure' => config('session.secure'),
+                'same_site' => config('session.same_site'),
             ],
+        ];
+
+        return view(config('cookie-notice.widget_view', 'cookie-notice::widget'), [
+            'config' => $config,
+            'config_json' => json_encode($config, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),
             'consent_groups' => config('cookie-notice.consent_groups'),
             'inline_css' => Vite::useBuildDirectory('vendor/cookie-notice/build')
                 ->useHotFile(__DIR__.'/../../vite.hot')

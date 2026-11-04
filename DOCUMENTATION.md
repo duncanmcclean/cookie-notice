@@ -198,14 +198,14 @@ If you'd prefer to build your own consent widget, to gain more control over the 
         document.addEventListener('DOMContentLoaded', () => {
             window.CookieNotice.boot(
                 document.getElementById('cookie-notice'),
-                JSON.parse('{{ config | to_json }}')
+                {{ config_json }}
             );
         });
     </script>
     <!-- End of Cookie Notice Widget -->
     ```
    * You can loop through each of the consent groups using the `{{ consent_groups }}` tag pair.
-   * You can boot Cookie Notice's JavaScript by calling the `window.CookieNotice.boot()` method after the DOM has loaded. The first argument should be the root element of your widget, and the second argument should be the config object, which you can pass in using `{{ config | to_json }}`.
+   * You can boot Cookie Notice's JavaScript by calling the `window.CookieNotice.boot()` method after the DOM has loaded. The first argument should be the root element of your widget, and the second argument should be the config object, which you can pass in using `{{ config_json }}`. It's encoded so it's safe to output directly inside a `<script>` tag.
    * For each consent group, you need have a `group-{{ handle }}` input.
    * On the button, you need the `data-save-preferences` attribute so Cookie Notice can listen to `click` events.
 4. Start customizing!

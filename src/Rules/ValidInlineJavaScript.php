@@ -16,7 +16,7 @@ class ValidInlineJavaScript implements ValidationRule
             return;
         }
 
-        if (Str::contains($code, '<script')) {
+        if (Str::contains($code, ['<script', '</script'], ignoreCase: true)) {
             $fail('This field must not contain `<script>` tags.')->translate();
         }
     }
