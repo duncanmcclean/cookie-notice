@@ -1,5 +1,23 @@
 # Changelog
 
+## v10.2.3 (2026-11-04)
+
+### What's fixed
+- Validate GTM Container ID format [#128](https://github.com/duncanmcclean/cookie-notice/issues/128) by @duncanmcclean
+- Reject closing and uppercase script tags in inline JavaScript [#129](https://github.com/duncanmcclean/cookie-notice/issues/129) by @duncanmcclean
+- Only execute inert consent scripts when a group is accepted [#130](https://github.com/duncanmcclean/cookie-notice/issues/130) by @duncanmcclean
+- Validate and authorize the requested site when editing scripts [#131](https://github.com/duncanmcclean/cookie-notice/issues/131) by @duncanmcclean
+- Encode the widget config so it is safe inside a script tag [#132](https://github.com/duncanmcclean/cookie-notice/issues/132) by @duncanmcclean
+- Authorize the `manage scripts` permission on the Scripts page [#133](https://github.com/duncanmcclean/cookie-notice/issues/133) by @duncanmcclean
+- Bump zizmorcore/zizmor-action from 0.6.0 to 0.6.1 in the github-actions group [#117](https://github.com/duncanmcclean/cookie-notice/issues/117) by @dependabot
+- Bump zizmorcore/zizmor-action from 0.6.1 to 0.6.2 in the github-actions group [#118](https://github.com/duncanmcclean/cookie-notice/issues/118) by @dependabot
+- Bump zizmorcore/zizmor-action from 0.6.2 to 0.6.3 in the github-actions group [#121](https://github.com/duncanmcclean/cookie-notice/issues/121) by @dependabot
+- Bump zizmorcore/zizmor-action from 0.6.3 to 0.6.4 in the github-actions group [#123](https://github.com/duncanmcclean/cookie-notice/issues/123) by @dependabot
+- Bump actions/setup-node from 7.0.0 to 7.1.0 in the github-actions group [#125](https://github.com/duncanmcclean/cookie-notice/issues/125) by @dependabot
+- Bump the github-actions group with 2 updates [#126](https://github.com/duncanmcclean/cookie-notice/issues/126) by @dependabot
+
+
+
 ## v10.2.2 (2026-07-31)
 
 ### What's fixed
