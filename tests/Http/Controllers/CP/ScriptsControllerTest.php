@@ -1,6 +1,7 @@
 <?php
 
 use Statamic\Facades\Addon;
+use Statamic\Facades\Role;
 use Statamic\Facades\Site;
 use Statamic\Facades\User;
 
@@ -148,6 +149,82 @@ it('loads site-specific settings when multisite is enabled', function () {
         ->assertJsonPath('initialValues.necessary.0.gtm_container_id', 'GTM-DE123');
 });
 
+it('returns 404 when editing a site that does not exist', function (string|array $site) {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    get(cp_route('cookie-notice.scripts.edit', ['site' => $site]), ['Accept' => 'application/json'])
+        ->assertNotFound();
+})->with([
+    'unknown handle' => 'not-a-site',
+    'array handle' => [['not-a-site']],
+]);
+
+it('returns 403 when editing a site the user cannot access', function () {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    Role::make('editor')->permissions(['access cp', 'manage scripts', 'access uk site'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    get(cp_route('cookie-notice.scripts.edit', ['site' => 'de']), ['Accept' => 'application/json'])
+        ->assertForbidden();
+});
+
+it('can edit a site the user can access', function () {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    Role::make('editor')->permissions(['access cp', 'manage scripts', 'access uk site'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    get(cp_route('cookie-notice.scripts.edit', ['site' => 'uk']), ['Accept' => 'application/json'])
+        ->assertOk()
+        ->assertJsonPath('initialSite', 'uk')
+        ->assertJsonCount(1, 'initialLocalizations')
+        ->assertJsonPath('initialLocalizations.0.handle', 'uk')
+        ->assertJsonPath('initialLocalizations.0.active', true);
+});
+
 it('can update settings', function () {
     patch(cp_route('cookie-notice.scripts.update'), [
         'revision' => '10',
@@ -221,6 +298,96 @@ it('can update site-specific settings when multisite is enabled', function () {
             'gtm_container_id' => 'GTM-DE999',
             'gtm_consent_types' => ['ad_storage'],
         ]);
+});
+
+it('returns 404 when updating a site that does not exist', function (string|array $site) {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    patch(cp_route('cookie-notice.scripts.update', ['site' => $site]), [
+        'site' => $site,
+        'revision' => '1',
+        'necessary' => [],
+    ])->assertNotFound();
+
+    expect(Addon::get('duncanmcclean/cookie-notice')->settings()->raw())->toBe([]);
+})->with([
+    'unknown handle' => 'not-a-site',
+    'array handle' => [['not-a-site']],
+]);
+
+it('returns 403 when updating a site the user cannot access', function () {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    Role::make('editor')->permissions(['access cp', 'manage scripts', 'access uk site'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    patch(cp_route('cookie-notice.scripts.update', ['site' => 'de']), [
+        'site' => 'de',
+        'revision' => '1',
+        'necessary' => [],
+    ], ['Accept' => 'application/json'])->assertForbidden();
+
+    expect(Addon::get('duncanmcclean/cookie-notice')->settings()->raw())->toBe([]);
+});
+
+it('can update a site the user can access', function () {
+    config()->set('statamic.system.multisite', true);
+    config()->set('cookie-notice.configure_scripts_per_site', true);
+
+    Site::setSites([
+        'uk' => [
+            'name' => 'United Kingdom',
+            'locale' => 'en_GB',
+            'url' => 'https://example.co.uk',
+        ],
+        'de' => [
+            'name' => 'Germany',
+            'locale' => 'de_DE',
+            'url' => 'https://example.de',
+        ],
+    ]);
+
+    Role::make('editor')->permissions(['access cp', 'manage scripts', 'access uk site'])->save();
+    actingAs(tap(User::make()->assignRole('editor'))->save());
+
+    patch(cp_route('cookie-notice.scripts.update', ['site' => 'uk']), [
+        'site' => 'uk',
+        'revision' => '1',
+        'necessary' => [],
+    ])->assertOk();
+
+    $settings = Addon::get('duncanmcclean/cookie-notice')->settings()->raw();
+
+    expect($settings['uk']['revision'])->toBe('1')
+        ->and($settings)->not->toHaveKey('de');
 });
 
 it('validates required fields on update', function () {
