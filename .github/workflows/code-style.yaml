@@ -11,6 +11,6 @@ concurrency:
 
 jobs:
   pint:
-    uses: duncanmcclean/.github/.github/workflows/code-style.yaml@ff45fc2a5e1eab2b8c83b34efca77040d5e4ced4 # pint-without-docker
+    uses: duncanmcclean/.github/.github/workflows/code-style.yaml@0711e4ce063444dd01bd24d4226cbf866e08d273 # v1.0.2
     permissions:
       contents: read
